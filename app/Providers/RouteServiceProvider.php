@@ -76,4 +76,13 @@ class RouteServiceProvider extends ServiceProvider
             require base_path('routes/api.php');
         });
     }
+
+    /**
+     * 获取路由命名空间
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->namespace;
+    }
 }
