@@ -35,11 +35,27 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
+        $this->mapAdminRoutes();
+
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
 
         //
+    }
+
+    /**
+     * 管理后台路由
+     */
+    public function mapAdminRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => "{$this->namespace}\\Admin",
+            'prefix' => 'admin',
+        ], function ($router) {
+            require base_path('routes/admin.php');
+        });
     }
 
     /**
