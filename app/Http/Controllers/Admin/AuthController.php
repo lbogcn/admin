@@ -12,12 +12,6 @@ class AuthController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login / registration.
-     * @var string
-     */
-    protected $redirectTo = '/admin';
-
-    /**
      * Create a new authentication controller instance.
      */
     public function __construct()
@@ -59,7 +53,7 @@ class AuthController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect('/admin/login');
+        return redirect('/login');
     }
 
     /**
