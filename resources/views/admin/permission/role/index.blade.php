@@ -135,7 +135,7 @@
                     $form = $modal.find('form');
 
                 $modal.find('.btn-submit').click(function() {
-                    $.post('/admin/permission/role', $form.serialize(), function (resp) {
+                    $.post('/permission/role', $form.serialize(), function (resp) {
                         if (resp.code == 0) {
                             alert('提交成功');
                             window.location.reload();
@@ -154,7 +154,7 @@
                 $form.append('<input type="hidden" name="_method" value="PUT">');
 
                 $modal.find('.btn-submit').click(function() {
-                    $.post('/admin/permission/role/' + obj.id, $form.serialize(), function(resp) {
+                    $.post('/permission/role/' + obj.id, $form.serialize(), function(resp) {
                         if (resp.code == 0) {
                             alert('提交成功');
                             window.location.reload();
@@ -168,7 +168,7 @@
             // 删除
             function deleted(id) {
                 if (confirm('确认删除？')) {
-                    $.post('/admin/permission/role/' + id, {_method: 'DELETE'}, function(resp) {
+                    $.post('/permission/role/' + id, {_method: 'DELETE'}, function(resp) {
                         if (resp.code == 0) {
                             alert('成功');
                             window.location.reload();
@@ -181,7 +181,7 @@
 
             // 获取权限
             function permission(id) {
-                $.get('/admin/permission/role/' + id + '/permission', function(resp) {
+                $.get('/permission/role/' + id + '/permission', function(resp) {
                     if (resp.code == 0) {
                         var $modal = $('#modal-permission').clone(),
                             $form = $modal.find('form'),
@@ -218,7 +218,7 @@
                         });
 
                         $modal.find('.btn-submit').click(function() {
-                            $.post('/admin/permission/role/' + id + '/permission', $form.serialize(), function (resp) {
+                            $.post('/permission/role/' + id + '/permission', $form.serialize(), function (resp) {
                                 if (resp.code == 0) {
                                     alert('提交成功');
                                     window.location.reload();

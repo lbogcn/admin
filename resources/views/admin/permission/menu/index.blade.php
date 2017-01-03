@@ -144,7 +144,7 @@
                     $form = $modal.find('form');
 
                 $modal.find('.btn-submit').click(function() {
-                    $.post('/admin/permission/menu', $form.serialize(), function (resp) {
+                    $.post('/permission/menu', $form.serialize(), function (resp) {
                         if (resp.code == 0) {
                             alert('提交成功');
                             window.location.reload();
@@ -163,7 +163,7 @@
                 $form.append('<input type="hidden" name="_method" value="PUT">');
 
                 $modal.find('.btn-submit').click(function() {
-                    $.post('/admin/permission/menu/' + obj.id, $form.serialize(), function(resp) {
+                    $.post('/permission/menu/' + obj.id, $form.serialize(), function(resp) {
                         if (resp.code == 0) {
                             alert('提交成功');
                             window.location.reload();
@@ -177,7 +177,7 @@
             // 删除
             function deleted(id) {
                 if (confirm('确认删除？')) {
-                    $.post('/admin/permission/menu/' + id, {_method: 'DELETE'}, function(resp) {
+                    $.post('/permission/menu/' + id, {_method: 'DELETE'}, function(resp) {
                         if (resp.code == 0) {
                             alert('成功');
                             window.location.reload();
