@@ -21,6 +21,13 @@ Route::group(['middleware' => ['admin']], function() {
     Route::get('/', 'HomeController@getIndex');
     Route::get('home', 'HomeController@getIndex');
 
+    // 文章管理
+    Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');
+    Route::patch('article-manage/article/down/{id}', 'ArticleManage\ArticleController@down');
+    Route::resources(array(
+        'article-manage/article' => 'ArticleManage\ArticleController'
+    ));
+
     // 权限管理
     Route::resources(array(
         'permission/menu' => 'Permission\MenuController',
