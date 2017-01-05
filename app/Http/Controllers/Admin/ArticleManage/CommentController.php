@@ -4,9 +4,9 @@ namespace app\Http\Controllers\Admin\ArticleManage;
 
 use App\Components\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Models\Article;
+use App\Models\ArticleComment;
 
-class ArticleController extends Controller
+class CommentController extends Controller
 {
 
     /**
@@ -16,39 +16,36 @@ class ArticleController extends Controller
     public function index()
     {
         $data = array(
-            'paginate' => Article::paginate(),
+            'paginate' => ArticleComment::withTrashed()->with('user')->paginate(),
         );
 
-        return view('admin.article-manage.article.index', $data);
+        return view('admin.article-manage.comment.index', $data);
     }
 
     /**
-     * 上架
+     * 删除
      * @param $id
      * @return ApiResponse
      */
-    public function up($id)
-    {
-        Article::up($id);
-
-        return ApiResponse::buildFromArray();
-    }
-
-    /**
-     * 下架
-     * @param $id
-     * @return ApiResponse
-     */
-    public function down($id)
-    {
-        Article::down($id);
-
-        return ApiResponse::buildFromArray();
-    }
-
     public function destroy($id)
     {
-        Article::del($id);
+        $model = ArticleComment::findOrFail($id);
+
+        $model->delete();
+
+        return ApiResponse::buildFromArray();
+    }
+
+    /**
+     * 恢复
+     * @param $id
+     * @return ApiResponse
+     */
+    public function restore($id)
+    {
+        $model = ArticleComment::withTrashed()->findOrFail($id);
+
+        $model->restore();
 
         return ApiResponse::buildFromArray();
     }
