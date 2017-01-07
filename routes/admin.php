@@ -29,6 +29,7 @@ Route::group(['middleware' => ['admin']], function() {
     Route::resources(array(
         'article-manage/article' => 'ArticleManage\ArticleController',
         'article-manage/comment' => 'ArticleManage\CommentController',
+        'article-manage/column' => 'ArticleManage\ColumnController',
     ));
 
     // 权限管理

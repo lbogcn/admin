@@ -31,7 +31,7 @@ class ApiResponse extends JsonResponse
      * 通过数组构建
      * @param array $resp
      * [$code, $msg, $data]
-     * @return static
+     * @return ApiResponse|static
      */
     public static function buildFromArray(array $resp = [0, 'ok'])
     {

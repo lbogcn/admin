@@ -142,6 +142,7 @@ return [
         'weight'                => '权重',
         'role'                  => '角色',
         'pid'                   => '父ID',
+        'column_name'           => '栏目名称',
 
     ],
 ];
