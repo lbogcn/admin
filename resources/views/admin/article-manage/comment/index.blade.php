@@ -30,6 +30,7 @@
                     <th>内容</th>
                     <th>状态</th>
                     <th>创建时间</th>
+                    <th>是否删除</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -56,9 +57,9 @@
         $(function() {
 
             // 删除
-            function deleted(id) {
-                if (confirm('确认删除？')) {
-                    $.post('/article-manage/comment/' + id, {_method: 'DELETE'}, function(resp) {
+            function deny(id) {
+                if (confirm('确认禁用？')) {
+                    $.post('/article-manage/comment/deny/' + id, {_method: 'PATCH'}, function(resp) {
                         if (resp.code == 0) {
                             alert('成功');
                             window.location.reload();
@@ -90,22 +91,23 @@
             $.each(data, function(i, obj) {
                 var $tr = $('<tr></tr>'),
                     $option = $('<td>\
-                        <a href="javascript:void(0);" class="btn-delete">删除</a>\
+                        <a href="javascript:void(0);" class="btn-deny">禁用</a>\
                         <a href="javascript:void(0);" class="btn-restore">恢复</a>\
                         </td>'),
-                    $statusLabel = $('<label class="label"></label>');
+                    $statusLabel = $('<label class="label"></label>'),
+                    isDeleted = obj.is_deleted ? '是' : '否' ;
 
                 var title = obj.article ? obj.article.title : '';
                 var username = obj.user ? obj.user.username : '';
 
-                if (obj.is_deleted) {
-                    $statusLabel.html('已删除');
-                    $statusLabel.addClass('label-default');
-                    $option.find('.btn-delete').hide();
-                } else {
+                if (obj.status == 1) {
                     $statusLabel.html('正常');
                     $statusLabel.addClass('label-info');
                     $option.find('.btn-restore').hide();
+                } else {
+                    $statusLabel.html('禁用');
+                    $statusLabel.addClass('label-default');
+                    $option.find('.btn-deny').hide();
                 }
 
                 $tr.append('<td>' + obj.id + '</td>');
@@ -114,9 +116,10 @@
                 $tr.append('<td>' + obj.content + '</td>');
                 $tr.append($('<td></td>').append($statusLabel));
                 $tr.append('<td>' + obj.created_at + '</td>');
+                $tr.append('<td>' + isDeleted + '</td>');
                 $tr.append($option);
 
-                $option.find('.btn-delete').click(function() {deleted(obj.id)});
+                $option.find('.btn-deny').click(function() {deny(obj.id)});
                 $option.find('.btn-restore').click(function() {restore(obj.id)});
                 $tableBody.append($tr);
             });

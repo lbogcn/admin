@@ -25,6 +25,7 @@ Route::group(['middleware' => ['admin']], function() {
     Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');
     Route::patch('article-manage/article/down/{id}', 'ArticleManage\ArticleController@down');
     Route::patch('article-manage/comment/restore/{id}', 'ArticleManage\CommentController@restore');
+    Route::patch('article-manage/comment/deny/{id}', 'ArticleManage\CommentController@deny');
     Route::resources(array(
         'article-manage/article' => 'ArticleManage\ArticleController',
         'article-manage/comment' => 'ArticleManage\CommentController',

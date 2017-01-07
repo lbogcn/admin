@@ -23,15 +23,18 @@ class CommentController extends Controller
     }
 
     /**
-     * 删除
+     * 恢复
      * @param $id
      * @return ApiResponse
      */
-    public function destroy($id)
+    public function restore($id)
     {
-        $model = ArticleComment::findOrFail($id);
+        /** @var ArticleComment $model */
+        $model = ArticleComment::withTrashed()->findOrFail($id);
 
-        $model->delete();
+        $model->status = ArticleComment::STATUS_NORMAL;
+
+        $model->saveOrFail();
 
         return ApiResponse::buildFromArray();
     }
@@ -41,11 +44,14 @@ class CommentController extends Controller
      * @param $id
      * @return ApiResponse
      */
-    public function restore($id)
+    public function deny($id)
     {
+        /** @var ArticleComment $model */
         $model = ArticleComment::withTrashed()->findOrFail($id);
 
-        $model->restore();
+        $model->status = ArticleComment::STATUS_DENY;
+
+        $model->saveOrFail();
 
         return ApiResponse::buildFromArray();
     }
