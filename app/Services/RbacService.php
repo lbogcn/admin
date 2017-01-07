@@ -113,7 +113,11 @@ class RbacService
         static $menus = array();
 
         if (empty($menus)) {
-            $menus = $this->loadPermissions()->load('permissions.menus');
+            $menus = $this->loadPermissions()->load(array(
+                'permissions.menus' => function($query) {
+                    $query->orWhere('node_id', 0);
+                }
+            ));
         }
 
         return $menus;
@@ -149,7 +153,6 @@ class RbacService
                 return $a['weight'] != $b['weight'] ? $a['weight'] < $b['weight'] : $a['id'] > $b['id'];
             });
         }
-
 
         $result = array();
 
