@@ -65,17 +65,8 @@
     </div>
 </div>
 
-<script src="{{url('/plugins/jquery/jquery.min.js')}}"></script>
-<script src="{{url('/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
-<script src="{{url('/plugins/metisMenu/metisMenu.min.js')}}"></script>
-<script src="{{url('/js/sb-admin-2.min.js')}}"></script>
-<script>
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-</script>
+<script data-main="{{url('/js/admin/sb-admin-2.js')}}" src="{{url('/plugins/requirejs/require.js')}}"></script>
+<script src="{{url('/js/require-config.js')}}"></script>
 @yield('body-extend')
 </body>
 </html>

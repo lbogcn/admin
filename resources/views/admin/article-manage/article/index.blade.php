@@ -52,97 +52,52 @@
 @endsection
 
 @section('body-extend')
-    <div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
-    <script>
-        $(function() {
+<div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
+<script>
+require(['jquery', 'restful'], function($, restful) {
+    function detail(id) {
 
-            // 删除
-            function deleted(id) {
-                if (confirm('确认删除？')) {
-                    $.post('/article-manage/article/' + id, {_method: 'DELETE'}, function(resp) {
-                        if (resp.code == 0) {
-                            alert('成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                }
-            }
+    }
 
-            // 上架
-            function up(id) {
-                modifyStatus(id, 'up');
-            }
+    // 加载数据
+    var data = JSON.parse($('#paginate').html()).data,
+        $tableBody = $('#table-body');
+    $tableBody.html('');
+    $.each(data, function(i, obj) {
+        var $tr = $('<tr></tr>'),
+            $option = $('<td>\
+                <a href="javascript:void(0);" class="btn-detail">详情</a>\
+                <a href="javascript:void(0);" class="btn-up">上架</a>\
+                <a href="javascript:void(0);" class="btn-down">下架</a>\
+                <a href="javascript:void(0);" class="btn-delete">删除</a>\
+                </td>'),
+            $statusLabel = $('<label class="label"></label>');
 
-            // 下架
-            function down(id) {
-                modifyStatus(id, 'down');
-            }
+        // 上下架按钮只显示一个
+        if (obj.status == 1) {
+            $option.find('.btn-up').hide();
+            $statusLabel.addClass('label-info');
+        } else {
+            $option.find('.btn-down').hide();
+            $statusLabel.addClass('label-default');
+        }
 
-            // 修改状态
-            function modifyStatus(id, opt) {
-                if (confirm('确认继续？')) {
-                    var url = '/article-manage/article/down/' + id;
-                    if (opt == 'up') {
-                        url = '/article-manage/article/up/' + id;
-                    }
+        $statusLabel.html(obj.status_text);
 
-                    $.post(url, {_method: 'PATCH'}, function(resp) {
-                        if (resp.code == 0) {
-                            alert('成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                }
-            }
+        $tr.append('<td>' + obj.id + '</td>');
+        $tr.append('<td>' + obj.user_id + '</td>');
+        $tr.append('<td>' + obj.title + '</td>');
+        $tr.append('<td>' + obj.author + '</td>');
+        $tr.append($('<td></td>').append($statusLabel));
+        $tr.append('<td>' + obj.created_at + '</td>');
+        $tr.append($option);
 
-            // 详情
-            function detail(id) {
-
-            }
-
-            // 加载数据
-            var data = JSON.parse($('#paginate').html()).data,
-                $tableBody = $('#table-body');
-            $tableBody.html('');
-            $.each(data, function(i, obj) {
-                var $tr = $('<tr></tr>'),
-                    $option = $('<td>\
-                        <a href="javascript:void(0);" class="btn-detail">详情</a>\
-                        <a href="javascript:void(0);" class="btn-up">上架</a>\
-                        <a href="javascript:void(0);" class="btn-down">下架</a>\
-                        <a href="javascript:void(0);" class="btn-delete">删除</a>\
-                        </td>'),
-                    $statusLabel = $('<label class="label"></label>');
-
-                // 上下架按钮只显示一个
-                if (obj.status == 1) {
-                    $option.find('.btn-up').hide();
-                    $statusLabel.addClass('label-info');
-                } else {
-                    $option.find('.btn-down').hide();
-                    $statusLabel.addClass('label-default');
-                }
-
-                $statusLabel.html(obj.status_text);
-
-                $tr.append('<td>' + obj.id + '</td>');
-                $tr.append('<td>' + obj.user_id + '</td>');
-                $tr.append('<td>' + obj.title + '</td>');
-                $tr.append('<td>' + obj.author + '</td>');
-                $tr.append($('<td></td>').append($statusLabel));
-                $tr.append('<td>' + obj.created_at + '</td>');
-                $tr.append($option);
-
-                $option.find('.btn-detail').click(function() {detail(obj.id)});
-                $option.find('.btn-up').click(function() {up(obj.id)});
-                $option.find('.btn-down').click(function() {down(obj.id)});
-                $option.find('.btn-delete').click(function() {deleted(obj.id)});
-                $tableBody.append($tr);
-            });
-        });
-    </script>
+        $option.find('.btn-detail').click(function() {detail(obj.id)});
+        $option.find('.btn-up').click(function() {restful.patch('/article-manage/article/up/' + obj.id)});
+        $option.find('.btn-down').click(function() {restful.patch('/article-manage/article/down/' + obj.id)});
+        $option.find('.btn-delete').click(function() {restful.del('/article-manage/article/' + obj.id)});
+        $tableBody.append($tr);
+    });
+});
+</script>
 @endsection
