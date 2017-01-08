@@ -10,6 +10,9 @@ define(['ajax'], function(ajax) {
                 ajax.apiPatch(url);
             }
         },
+        get: function (url, params) {
+            return ajax.apiGet(url, params);
+        },
         post: function (url, params) {
             ajax.apiPost(url, params);
         },

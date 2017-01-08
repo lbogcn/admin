@@ -106,161 +106,120 @@
 @endsection
 
 @section('body-extend')
-    <div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
-    <script>
-        $(function() {
+<div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
+<script>
+require(['jquery', 'restful'], function($, restful) {
+    // 显示modal
+    function showModal(defObj, title) {
+        defObj = defObj || {};
+        var $modal = $('#modal').clone();
 
-            // 显示modal
-            function showModal(defObj, title) {
-                defObj = defObj || {};
-                var $modal = $('#modal').clone();
-
-                $modal.on('hidden.bs.modal', function() {
-                    $modal.remove();
-                });
-
-                $modal.find('.modal-title').html(title);
-                $modal.find('[name=username]').val(defObj.username || '');
-                $modal.find('[name=name]').val(defObj.name || '');
-                $modal.find('[name=password]').val('');
-
-                $modal.modal();
-
-                return $modal;
-            }
-
-            // 新增事件
-            $('#btn-add').click(function() {
-                add();
-            });
-
-            // 新增
-            function add(defObj) {
-                var $modal = showModal(defObj, '新增'),
-                    $form = $modal.find('form');
-
-                $modal.find('.btn-submit').click(function() {
-                    $.post('/permission/user', $form.serialize(), function (resp) {
-                        if (resp.code == 0) {
-                            alert('提交成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                });
-            }
-
-            // 编辑
-            function edit(obj) {
-                var $modal = showModal(obj, '编辑'),
-                    $form = $modal.find('form');
-
-                $modal.find('[name=password]').attr('placeholder', '留空表示不修改');
-
-                $form.append('<input type="hidden" name="_method" value="PUT">');
-
-                $modal.find('.btn-submit').click(function() {
-                    $.post('/permission/user/' + obj.id, $form.serialize(), function(resp) {
-                        if (resp.code == 0) {
-                            alert('提交成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                });
-            }
-
-            // 删除
-            function deleted(id) {
-                if (confirm('确认删除？')) {
-                    $.post('/permission/user/' + id, {_method: 'DELETE'}, function(resp) {
-                        if (resp.code == 0) {
-                            alert('成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                }
-            }
-
-            function role(id) {
-                $.get('/permission/user/' + id + '/role', function(resp) {
-                    if (resp.code == 0) {
-                        var $modal = $('#modal-role').clone(),
-                            $form = $modal.find('form'),
-                            roles = resp.data.all,
-                            checkeds = resp.data.checked;
-
-                        $.each(roles, function(i, role) {
-                            var $formGroup;
-
-                            if (i % 2 == 0) {
-                                $formGroup = $('<div class="form-group"></div>');
-                                $form.append($formGroup);
-                            } else {
-                                $formGroup = $form.find('div.form-group:last');
-                            }
-
-                            var checked = '';
-                            if ($.inArray(role.id, checkeds) >= 0) {
-                                checked = 'checked';
-                            }
-
-                            var $cbox = $('<div class="col-xs-6"><label>\
-                                <input type="checkbox" name="role_id[]" value="' + role.id + '" ' + checked + '> ' + role.role + ' - ' + role.name + '\
-                                </label></div>');
-
-                            $formGroup.append($cbox);
-                        });
-
-                        $modal.on('hidden.bs.modal', function() {
-                            $modal.remove();
-                        });
-
-                        $modal.find('.btn-submit').click(function() {
-                            $.post('/permission/user/' + id + '/role', $form.serialize(), function (resp) {
-                                if (resp.code == 0) {
-                                    alert('提交成功');
-                                    window.location.reload();
-                                } else {
-                                    alert(resp.msg);
-                                }
-                            });
-                        });
-
-                        $modal.modal();
-                    } else {
-                        alert(resp.msg);
-                    }
-                });
-            }
-
-            // 加载数据
-            var data = JSON.parse($('#paginate').html()).data,
-                $tableBody = $('#table-body');
-            $tableBody.html('');
-            $.each(data, function(i, obj) {
-                var $tr = $('<tr></tr>');
-                var $option = $('<td>\
-                        <a href="javascript:void(0);" class="btn-role">角色</a>\
-                        <a href="javascript:void(0);" class="btn-edit">编辑</a>\
-                        <a href="javascript:void(0);" class="btn-delete">删除</a>\
-                        </td>');
-
-                $tr.append('<td>' + obj.id + '</td>');
-                $tr.append('<td>' + obj.username + '</td>');
-                $tr.append('<td>' + obj.name + '</td>');
-                $tr.append('<td>' + obj.created_at + '</td>');
-                $tr.append($option);
-
-                $option.find('.btn-edit').click(function() {edit(obj)});
-                $option.find('.btn-role').click(function() {role(obj.id)});
-                $option.find('.btn-delete').click(function() {deleted(obj.id)});
-                $tableBody.append($tr);
-            });
+        $modal.on('hidden.bs.modal', function() {
+            $modal.remove();
         });
-    </script>
+
+        $modal.find('.modal-title').html(title);
+        $modal.find('[name=username]').val(defObj.username || '');
+        $modal.find('[name=name]').val(defObj.name || '');
+        $modal.find('[name=password]').val('');
+
+        $modal.modal();
+
+        return $modal;
+    }
+
+    // 新增事件
+    $('#btn-add').click(function() {
+        add();
+    });
+
+    // 新增
+    function add(defObj) {
+        var $modal = showModal(defObj, '新增'),
+            $form = $modal.find('form');
+
+        $modal.find('.btn-submit').click(function() {
+            restful.post('/permission/user', $form.serialize());
+        });
+    }
+
+    // 编辑
+    function edit(obj) {
+        var $modal = showModal(obj, '编辑'),
+            $form = $modal.find('form');
+
+        $modal.find('[name=password]').attr('placeholder', '留空表示不修改');
+
+        $modal.find('.btn-submit').click(function() {
+            restful.put('/permission/user/' + obj.id, $form.serialize());
+        });
+    }
+
+    function role(id) {
+        restful.get('/permission/user/' + id + '/role').done(function(data) {
+
+            var $modal = $('#modal-role').clone(),
+                $form = $modal.find('form'),
+                roles = data.all,
+                checkeds = data.checked;
+
+            $.each(roles, function(i, role) {
+                var $formGroup;
+
+                if (i % 2 == 0) {
+                    $formGroup = $('<div class="form-group"></div>');
+                    $form.append($formGroup);
+                } else {
+                    $formGroup = $form.find('div.form-group:last');
+                }
+
+                var checked = '';
+                if ($.inArray(role.id, checkeds) >= 0) {
+                    checked = 'checked';
+                }
+
+                var $cbox = $('<div class="col-xs-6"><label>\
+                        <input type="checkbox" name="role_id[]" value="' + role.id + '" ' + checked + '> ' + role.role + ' - ' + role.name + '\
+                        </label></div>');
+
+                $formGroup.append($cbox);
+            });
+
+            $modal.on('hidden.bs.modal', function() {
+                $modal.remove();
+            });
+
+            $modal.find('.btn-submit').click(function() {
+                restful.post('/permission/user/' + id + '/role', $form.serialize());
+            });
+
+            $modal.modal();
+        });
+    }
+
+    // 加载数据
+    var data = JSON.parse($('#paginate').html()).data,
+        $tableBody = $('#table-body');
+    $tableBody.html('');
+    $.each(data, function(i, obj) {
+        var $tr = $('<tr></tr>');
+        var $option = $('<td>\
+                <a href="javascript:void(0);" class="btn-role">角色</a>\
+                <a href="javascript:void(0);" class="btn-edit">编辑</a>\
+                <a href="javascript:void(0);" class="btn-delete">删除</a>\
+                </td>');
+
+        $tr.append('<td>' + obj.id + '</td>');
+        $tr.append('<td>' + obj.username + '</td>');
+        $tr.append('<td>' + obj.name + '</td>');
+        $tr.append('<td>' + obj.created_at + '</td>');
+        $tr.append($option);
+
+        $option.find('.btn-edit').click(function() {edit(obj)});
+        $option.find('.btn-role').click(function() {role(obj.id)});
+        $option.find('.btn-delete').click(function() {restful.del('/permission/user/' + obj.id)});
+        $tableBody.append($tr);
+    });
+});
+</script>
 @endsection

@@ -103,161 +103,120 @@
 @endsection
 
 @section('body-extend')
-    <div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
-    <script>
-        $(function() {
-            // 显示modal
-            function showModal(defObj, title) {
-                defObj = defObj || {};
-                var $modal = $('#modal').clone();
+<div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
+<script>
+require(['jquery', 'restful'], function($, restful) {
+    // 显示modal
+    function showModal(defObj, title) {
+        defObj = defObj || {};
+        var $modal = $('#modal').clone();
 
-                $modal.on('hidden.bs.modal', function() {
-                    $modal.remove();
-                });
-
-                $modal.find('.modal-title').html(title);
-                $modal.find('[name=role]').val(defObj.role || '');
-                $modal.find('[name=name]').val(defObj.name || '');
-
-                $modal.modal();
-
-                return $modal;
-            }
-
-            // 新增事件
-            $('#btn-add').click(function() {
-                add();
-            });
-
-            // 新增
-            function add(defObj) {
-                var $modal = showModal(defObj, '新增'),
-                    $form = $modal.find('form');
-
-                $modal.find('.btn-submit').click(function() {
-                    $.post('/permission/role', $form.serialize(), function (resp) {
-                        if (resp.code == 0) {
-                            alert('提交成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                });
-            }
-
-            // 编辑
-            function edit(obj) {
-                var $modal = showModal(obj, '编辑'),
-                    $form = $modal.find('form');
-
-                $form.append('<input type="hidden" name="_method" value="PUT">');
-
-                $modal.find('.btn-submit').click(function() {
-                    $.post('/permission/role/' + obj.id, $form.serialize(), function(resp) {
-                        if (resp.code == 0) {
-                            alert('提交成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                });
-            }
-
-            // 删除
-            function deleted(id) {
-                if (confirm('确认删除？')) {
-                    $.post('/permission/role/' + id, {_method: 'DELETE'}, function(resp) {
-                        if (resp.code == 0) {
-                            alert('成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                }
-            }
-
-            // 获取权限
-            function permission(id) {
-                $.get('/permission/role/' + id + '/permission', function(resp) {
-                    if (resp.code == 0) {
-                        var $modal = $('#modal-permission').clone(),
-                            $form = $modal.find('form'),
-                            permissions = resp.data.all,
-                            checkeds = resp.data.checked;
-
-                        $.each(permissions, function(ctl, arr) {
-                            var $formGroup = $('<div class="form-group"></div>'),
-                                $label = $('<label class="col-xs-3 control-label" style="word-break:break-all;"></label>'),
-                                $container = $('<div class="col-xs-9"></div>');
-
-                            $label.html(ctl);
-
-                            $.each(arr, function(i, obj) {
-                                var checked = '';
-
-                                if ($.inArray(obj.id, checkeds) >= 0) {
-                                    checked = 'checked';
-                                }
-
-                                var $cbox = $('<label class="checkbox-inline">\
-                                        <input type="checkbox" name="node_id[]" value="' + obj.id + '" ' + checked + '> ' + obj.node + '\
-                                    </label>');
-
-                                $container.append($cbox);
-                            });
-
-                            $formGroup.append($label, $container);
-                            $form.append($formGroup);
-                        });
-
-                        $modal.on('hidden.bs.modal', function() {
-                            $modal.remove();
-                        });
-
-                        $modal.find('.btn-submit').click(function() {
-                            $.post('/permission/role/' + id + '/permission', $form.serialize(), function (resp) {
-                                if (resp.code == 0) {
-                                    alert('提交成功');
-                                    window.location.reload();
-                                } else {
-                                    alert(resp.msg);
-                                }
-                            });
-                        });
-
-                        $modal.modal();
-                    } else {
-                        alert(resp.msg);
-                    }
-                });
-            }
-
-            // 加载数据
-            var data = JSON.parse($('#paginate').html()).data,
-                $tableBody = $('#table-body');
-            $tableBody.html('');
-            $.each(data, function(i, obj) {
-                var $tr = $('<tr></tr>');
-                var $option = $('<td>\
-                        <a href="javascript:void(0);" class="btn-permission">权限</a>\
-                        <a href="javascript:void(0);" class="btn-edit">编辑</a>\
-                        <a href="javascript:void(0);" class="btn-delete">删除</a>\
-                        </td>');
-
-                $tr.append('<td>' + obj.id + '</td>');
-                $tr.append('<td>' + obj.role + '</td>');
-                $tr.append('<td>' + obj.name + '</td>');
-                $tr.append('<td>' + obj.created_at + '</td>');
-                $tr.append($option);
-
-                $option.find('.btn-edit').click(function() {edit(obj)});
-                $option.find('.btn-permission').click(function() {permission(obj.id)});
-                $option.find('.btn-delete').click(function() {deleted(obj.id)});
-                $tableBody.append($tr);
-            });
+        $modal.on('hidden.bs.modal', function() {
+            $modal.remove();
         });
-    </script>
+
+        $modal.find('.modal-title').html(title);
+        $modal.find('[name=role]').val(defObj.role || '');
+        $modal.find('[name=name]').val(defObj.name || '');
+
+        $modal.modal();
+
+        return $modal;
+    }
+
+    // 新增事件
+    $('#btn-add').click(function() {
+        add();
+    });
+
+    // 新增
+    function add(defObj) {
+        var $modal = showModal(defObj, '新增'),
+            $form = $modal.find('form');
+
+        $modal.find('.btn-submit').click(function() {
+            restful.post('/permission/role', $form.serialize());
+        });
+    }
+
+    // 编辑
+    function edit(obj) {
+        var $modal = showModal(obj, '编辑'),
+            $form = $modal.find('form');
+
+        $modal.find('.btn-submit').click(function() {
+            restful.put('/permission/role/' + obj.id, $form.serialize());
+        });
+    }
+
+    // 获取权限
+    function permission(id) {
+        restful.get('/permission/role/' + id + '/permission').done(function(data) {
+            var $modal = $('#modal-permission').clone(),
+                $form = $modal.find('form'),
+                permissions = data.all,
+                checkeds = data.checked;
+
+            $.each(permissions, function(ctl, arr) {
+                var $formGroup = $('<div class="form-group"></div>'),
+                    $label = $('<label class="col-xs-3 control-label" style="word-break:break-all;"></label>'),
+                    $container = $('<div class="col-xs-9"></div>');
+
+                $label.html(ctl);
+
+                $.each(arr, function(i, obj) {
+                    var checked = '';
+
+                    if ($.inArray(obj.id, checkeds) >= 0) {
+                        checked = 'checked';
+                    }
+
+                    var $cbox = $('<label class="checkbox-inline">\
+                                <input type="checkbox" name="node_id[]" value="' + obj.id + '" ' + checked + '> ' + obj.node + '\
+                            </label>');
+
+                    $container.append($cbox);
+                });
+
+                $formGroup.append($label, $container);
+                $form.append($formGroup);
+            });
+
+            $modal.on('hidden.bs.modal', function() {
+                $modal.remove();
+            });
+
+            $modal.find('.btn-submit').click(function() {
+                restful.post('/permission/role/' + id + '/permission', $form.serialize());
+            });
+
+            $modal.modal();
+        })
+    }
+
+    // 加载数据
+    var data = JSON.parse($('#paginate').html()).data,
+        $tableBody = $('#table-body');
+    $tableBody.html('');
+    $.each(data, function(i, obj) {
+        var $tr = $('<tr></tr>');
+        var $option = $('<td>\
+                <a href="javascript:void(0);" class="btn-permission">权限</a>\
+                <a href="javascript:void(0);" class="btn-edit">编辑</a>\
+                <a href="javascript:void(0);" class="btn-delete">删除</a>\
+                </td>');
+
+        $tr.append('<td>' + obj.id + '</td>');
+        $tr.append('<td>' + obj.role + '</td>');
+        $tr.append('<td>' + obj.name + '</td>');
+        $tr.append('<td>' + obj.created_at + '</td>');
+        $tr.append($option);
+
+        $option.find('.btn-edit').click(function() {edit(obj)});
+        $option.find('.btn-permission').click(function() {permission(obj.id)});
+        $option.find('.btn-delete').click(function() {restful.del('/permission/role/' + obj.id)});
+        $tableBody.append($tr);
+    });
+});
+</script>
 @endsection

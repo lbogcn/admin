@@ -108,112 +108,83 @@
 @endsection
 
 @section('body-extend')
-    <div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
-    <script>
-        $(function() {
+<div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
+<script>
+require(['jquery', 'restful'], function($, restful) {
+    // 显示modal
+    function showModal(defObj, title) {
+        defObj = defObj || {};
+        var $modal = $('#modal').clone();
 
-            // 显示modal
-            function showModal(defObj, title) {
-                defObj = defObj || {};
-                var $modal = $('#modal').clone();
-
-                $modal.on('hidden.bs.modal', function() {
-                    $modal.remove();
-                });
-
-                $modal.find('.modal-title').html(title);
-                $modal.find('[name=pid]').val(defObj.pid || '0');
-                $modal.find('[name=name]').val(defObj.name || '');
-                $modal.find('[name=weight]').val(defObj.weight || '');
-                $modal.find('[name=route]').val(defObj.route || '');
-                $modal.find('option[value=' + defObj.node_id + ']', '[name=node_id]').attr('selected', true);
-
-                $modal.modal();
-
-                return $modal;
-            }
-
-            // 新增事件
-            $('#btn-add').click(function() {
-                add();
-            });
-
-            // 新增
-            function add(defObj) {
-                var $modal = showModal(defObj, '新增'),
-                    $form = $modal.find('form');
-
-                $modal.find('.btn-submit').click(function() {
-                    $.post('/permission/menu', $form.serialize(), function (resp) {
-                        if (resp.code == 0) {
-                            alert('提交成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                });
-            }
-
-            // 编辑
-            function edit(obj) {
-                var $modal = showModal(obj, '编辑'),
-                    $form = $modal.find('form');
-
-                $form.append('<input type="hidden" name="_method" value="PUT">');
-
-                $modal.find('.btn-submit').click(function() {
-                    $.post('/permission/menu/' + obj.id, $form.serialize(), function(resp) {
-                        if (resp.code == 0) {
-                            alert('提交成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                });
-            }
-
-            // 删除
-            function deleted(id) {
-                if (confirm('确认删除？')) {
-                    $.post('/permission/menu/' + id, {_method: 'DELETE'}, function(resp) {
-                        if (resp.code == 0) {
-                            alert('成功');
-                            window.location.reload();
-                        } else {
-                            alert(resp.msg);
-                        }
-                    });
-                }
-            }
-
-            // 加载数据
-            var data = JSON.parse($('#paginate').html()).data,
-                $tableBody = $('#table-body');
-            $tableBody.html('');
-            $.each(data, function(i, obj) {
-                var $tr = $('<tr></tr>');
-                var $option = $('<td>\
-                        <a href="javascript:void(0);" class="btn-edit">编辑</a>\
-                        <a href="javascript:void(0);" class="btn-copy">复制</a>\
-                        <a href="javascript:void(0);" class="btn-delete">删除</a>\
-                        </td>');
-
-                $tr.append('<td>' + obj.id + '</td>');
-                $tr.append('<td>' + obj.pid + '</td>');
-                $tr.append('<td>' + obj.name + '</td>');
-                $tr.append('<td>' + obj.weight + '</td>');
-                $tr.append('<td>' + obj.route + '</td>');
-                $tr.append('<td>' + (obj.node ? obj.node.node : '') + '</td>');
-                $tr.append('<td>' + obj.created_at + '</td>');
-                $tr.append($option);
-
-                $option.find('.btn-edit').click(function() {edit(obj)});
-                $option.find('.btn-copy').click(function() {add(obj)});
-                $option.find('.btn-delete').click(function() {deleted(obj.id)});
-                $tableBody.append($tr);
-            });
+        $modal.on('hidden.bs.modal', function() {
+            $modal.remove();
         });
-    </script>
+
+        $modal.find('.modal-title').html(title);
+        $modal.find('[name=pid]').val(defObj.pid || '0');
+        $modal.find('[name=name]').val(defObj.name || '');
+        $modal.find('[name=weight]').val(defObj.weight || '');
+        $modal.find('[name=route]').val(defObj.route || '');
+        $modal.find('option[value=' + defObj.node_id + ']', '[name=node_id]').attr('selected', true);
+
+        $modal.modal();
+
+        return $modal;
+    }
+
+    // 新增事件
+    $('#btn-add').click(function() {
+        add();
+    });
+
+    // 新增
+    function add(defObj) {
+        var $modal = showModal(defObj, '新增'),
+            $form = $modal.find('form');
+
+        $modal.find('.btn-submit').click(function() {
+            restful.post('/permission/menu', $form.serialize());
+        });
+    }
+
+    // 编辑
+    function edit(obj) {
+        var $modal = showModal(obj, '编辑'),
+            $form = $modal.find('form');
+
+        $form.append('<input type="hidden" name="_method" value="PUT">');
+
+        $modal.find('.btn-submit').click(function() {
+            restful.put('/permission/menu/' + obj.id, $form.serialize());
+        });
+    }
+
+    // 加载数据
+    var data = JSON.parse($('#paginate').html()).data,
+        $tableBody = $('#table-body');
+    $tableBody.html('');
+    $.each(data, function(i, obj) {
+        var $tr = $('<tr></tr>');
+        var $option = $('<td>\
+                <a href="javascript:void(0);" class="btn-edit">编辑</a>\
+                <a href="javascript:void(0);" class="btn-copy">复制</a>\
+                <a href="javascript:void(0);" class="btn-delete">删除</a>\
+                </td>');
+
+        $tr.append('<td>' + obj.id + '</td>');
+        $tr.append('<td>' + obj.pid + '</td>');
+        $tr.append('<td>' + obj.name + '</td>');
+        $tr.append('<td>' + obj.weight + '</td>');
+        $tr.append('<td>' + obj.route + '</td>');
+        $tr.append('<td>' + (obj.node ? obj.node.node : '') + '</td>');
+        $tr.append('<td>' + obj.created_at + '</td>');
+        $tr.append($option);
+
+        $option.find('.btn-edit').click(function() {edit(obj)});
+        $option.find('.btn-copy').click(function() {add(obj)});
+        $option.find('.btn-delete').click(function() {restful.del('/permission/menu/' + obj.id)});
+        $tableBody.append($tr);
+    });
+});
+</script>
 @endsection
