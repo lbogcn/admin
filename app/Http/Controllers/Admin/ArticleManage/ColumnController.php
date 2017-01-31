@@ -36,15 +36,19 @@ class ColumnController extends Controller
             'is_show' => ['required', 'in:1,2'],
         ));
 
-        ArticleColumn::create($request->only(['column_name', 'weight', 'is_show']));
+        ArticleColumn::store($request->only(['column_name', 'weight', 'is_show']));
 
         return ApiResponse::buildFromArray();
     }
 
+    /**
+     * 更新
+     * @param Request $request
+     * @param $id
+     * @return ApiResponse
+     */
     public function update(Request $request, $id)
     {
-        $model = ArticleColumn::findOrFail($id);
-
         $this->validate($request, array(
             'column_name' => ['required', "unique:article_columns,column_name,{$id}", 'max:8'],
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
@@ -52,7 +56,8 @@ class ColumnController extends Controller
         ));
 
         $data = $request->only(['column_name', 'weight', 'is_show']);
-        $model->update($data);
+
+        ArticleColumn::updateById($id, $data);
 
         return ApiResponse::buildFromArray();
     }
@@ -64,9 +69,7 @@ class ColumnController extends Controller
      */
     public function destroy($id)
     {
-        $model = ArticleColumn::findOrFail($id);
-
-        $model->delete();
+        ArticleColumn::deleteById($id);
 
         return ApiResponse::buildFromArray();
     }

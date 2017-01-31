@@ -11,7 +11,7 @@ require('laravel-elixir-vue-2');
  | for your Laravel application. By default, we are compiling the Sass
  | file for your application as well as publishing vendor resources.
  |
- */
+*/
 
 elixir(function(mix) {
     mix.scripts('require-config.js');
@@ -20,4 +20,8 @@ elixir(function(mix) {
 
     mix.scripts('admin/sb-admin-2.js', 'public/js/admin');
     mix.scripts('admin/restful.js', 'public/js/admin');
+
+
+    mix.less('www/home.less', 'public/css/home.css');
+    mix.less('www/blog.less', 'public/css/blog.css');
 });

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * @property int status
@@ -84,6 +85,23 @@ class Article extends \Eloquent
         \DB::commit();
 
         return self::destroy($id);
+    }
+
+    /**
+     * 获取首页文章
+     * @param $page
+     * @param $pageSize
+     * @return \Illuminate\Contracts\Pagination\Paginator
+     */
+    public static function getHomeArticles($page, $pageSize)
+    {
+        LengthAwarePaginator::currentPageResolver(function() use ($page) {
+            return $page;
+        });
+
+        return self::where('status', self::STATUS_UP)
+            ->orderBy('id', 'desc')
+            ->simplePaginate($pageSize);
     }
 
     /**
