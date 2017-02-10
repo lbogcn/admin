@@ -11,7 +11,7 @@
 |
 */
 
-Route::group(['middleware' => ['www']], function() {
+Route::group(['middleware' => ['blog']], function() {
     Route::get('/', 'HomeController@index');
     Route::get('blog/{id}', 'BlogController@index');
 });

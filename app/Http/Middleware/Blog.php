@@ -6,7 +6,7 @@ use App\Models\ArticleColumn;
 use Closure;
 use View;
 
-class Home
+class Blog
 {
     /**
      * Handle an incoming request.

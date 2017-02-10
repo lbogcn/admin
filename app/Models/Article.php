@@ -93,7 +93,7 @@ class Article extends \Eloquent
      * @param $pageSize
      * @return \Illuminate\Contracts\Pagination\Paginator
      */
-    public static function getHomeArticles($page, $pageSize)
+    public static function getHomeArticles($page = 1, $pageSize = 5)
     {
         LengthAwarePaginator::currentPageResolver(function() use ($page) {
             return $page;

@@ -16,13 +16,9 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $page = $request->input('page', 1);
-        $pageSize = 20;
         $data = array(
-            'paginate' => Article::getHomeArticles($page, $pageSize)
+            'paginate' => Article::getHomeArticles()
         );
-
-//        dd($data);
 
         return view('blog.home', $data);
     }
