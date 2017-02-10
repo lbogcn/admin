@@ -32,6 +32,9 @@ Route::group(['middleware' => ['admin']], function() {
         'article-manage/column' => 'ArticleManage\ColumnController',
     ));
 
+    // 配置选项
+    Route::resource('option', 'OptionController');
+
     // 权限管理
     Route::resources(array(
         'permission/menu' => 'Permission\MenuController',
