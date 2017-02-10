@@ -20,7 +20,7 @@
 
 <div class="container" id="footer">
     <div id="copyright">
-        <p>@Lenbo 粤ICP备17008394号</p>
+        <p>&copy; {{date('Y')}} Lenbo 粤ICP备17008394号</p>
     </div>
 </div>
 

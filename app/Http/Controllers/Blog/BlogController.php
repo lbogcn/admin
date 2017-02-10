@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Controllers\Www;
+namespace app\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
@@ -14,7 +14,7 @@ class BlogController extends Controller
             'article' => Article::with('contents')->findOrFail($id)
         );
 
-        return view('www.blog', $data);
+        return view('blog.blog', $data);
     }
 
 }

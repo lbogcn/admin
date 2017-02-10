@@ -56,7 +56,7 @@
 <script>
 require(['jquery', 'restful'], function($, restful) {
     function detail(id) {
-        window.open('//www.lbog.cn/blog/' + id);
+        window.open('//{{env('DOMAIN_BLOG')}}/blog/' + id);
     }
 
     // 加载数据

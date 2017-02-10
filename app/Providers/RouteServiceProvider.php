@@ -39,7 +39,7 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapApiRoutes();
 
-        $this->mapWwwRoutes();
+        $this->mapBlogRoutes();
 
         //
     }
@@ -65,13 +65,13 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    protected function mapWwwRoutes()
+    protected function mapBlogRoutes()
     {
         Route::group([
             'middleware' => 'web',
-            'namespace' => "{$this->namespace}\\Www",
+            'namespace' => "{$this->namespace}\\Blog",
         ], function ($router) {
-            require base_path('routes/www.php');
+            require base_path('routes/blog.php');
         });
     }
 

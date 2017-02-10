@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Controllers\Www;
+namespace app\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Models\Article;
@@ -24,7 +24,7 @@ class HomeController extends Controller
 
 //        dd($data);
 
-        return view('www.home', $data);
+        return view('blog.home', $data);
     }
 
 }
