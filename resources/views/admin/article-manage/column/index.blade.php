@@ -26,6 +26,7 @@
                 <thead>
                 <tr>
                     <th>ID</th>
+                    <th>别名</th>
                     <th>栏目名称</th>
                     <th>权重</th>
                     <th>是否是示</th>
@@ -57,6 +58,13 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">别名</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="alias">
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-xs-3 control-label">栏目名称</label>
                             <div class="col-sm-9">
@@ -106,6 +114,7 @@ require(['jquery', 'restful'], function($, restful) {
 
         $modal.find('.modal-title').html(title);
         $modal.find('[name=column_name]').val(defObj.column_name || '');
+        $modal.find('[name=alias]').val(defObj.alias || '');
         $modal.find('[name=weight]').val(defObj.weight || '50');
         $modal.find('option[value=' + defObj.is_show + ']', '[name=is_show]').attr('selected', true);
 
@@ -152,6 +161,7 @@ require(['jquery', 'restful'], function($, restful) {
 
         $tr.append('<td>' + obj.id + '</td>');
         $tr.append('<td>' + obj.column_name + '</td>');
+        $tr.append('<td>' + obj.alias + '</td>');
         $tr.append('<td>' + obj.weight + '</td>');
         $tr.append('<td>' + obj.is_show_text + '</td>');
         $tr.append('<td>' + obj.created_at + '</td>');

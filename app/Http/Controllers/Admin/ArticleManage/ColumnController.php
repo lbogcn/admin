@@ -31,12 +31,13 @@ class ColumnController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'column_name' => ['required', 'unique:article_columns', 'max:8'],
+            'alias' => ['required', 'unique:article_columns', 'max:10'],
+            'column_name' => ['required', 'max:8'],
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
             'is_show' => ['required', 'in:1,2'],
         ));
 
-        ArticleColumn::store($request->only(['column_name', 'weight', 'is_show']));
+        ArticleColumn::store($request->only(['column_name', 'alias', 'weight', 'is_show']));
 
         return ApiResponse::buildFromArray();
     }
@@ -50,12 +51,13 @@ class ColumnController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, array(
-            'column_name' => ['required', "unique:article_columns,column_name,{$id}", 'max:8'],
+            'alias' => ['required', "unique:article_columns,alias,{$id}", 'max:10'],
+            'column_name' => ['required', 'max:8'],
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
             'is_show' => ['required', 'in:1,2'],
         ));
 
-        $data = $request->only(['column_name', 'weight', 'is_show']);
+        $data = $request->only(['column_name', 'alias', 'weight', 'is_show']);
 
         ArticleColumn::updateById($id, $data);
 

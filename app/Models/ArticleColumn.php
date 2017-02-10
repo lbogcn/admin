@@ -17,7 +17,7 @@ class ArticleColumn extends \Eloquent
     const IS_SHOW_FALSE = 2;
 
     protected $fillable = [
-        'column_name', 'weight', 'is_show'
+        'column_name', 'alias', 'weight', 'is_show'
     ];
 
     protected $appends = [
