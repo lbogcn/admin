@@ -33,6 +33,15 @@ class Article extends \Eloquent
     }
 
     /**
+     * 关联标签
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function tags()
+    {
+        return $this->hasMany(ArticleTag::class);
+    }
+
+    /**
      * 上架
      * @param $id
      * @return bool

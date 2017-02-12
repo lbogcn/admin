@@ -1,4 +1,4 @@
-@extends('blog.nav')
+@extends('blog.basic')
 
 @section('container')
     <div id="index" class="bs">

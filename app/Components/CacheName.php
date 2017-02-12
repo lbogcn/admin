@@ -10,4 +10,7 @@ class CacheName
     // 选项配置
     const OPTIONS = 'options:';
 
+    // 文章详情页面
+    const PAGE_ARTICLE = 'page_article:';
+
 }
