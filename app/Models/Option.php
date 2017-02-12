@@ -4,7 +4,11 @@ namespace App\Models;
 
 use App\Components\CacheName;
 use Cache;
+use RedisClient;
 
+/**
+ * @property string option_name
+ */
 class Option extends \Eloquent
 {
 
@@ -24,8 +28,42 @@ class Option extends \Eloquent
 
         $result = $model->update($data);
 
-        Cache::forget(CacheName::OPTIONS . md5($data['option_name']));
+        Cache::forget(self::cacheKey($data['option_name']));
 
         return $result;
+    }
+
+    /**
+     * 获取选项
+     * @param $optionName
+     * @param null $default
+     * @return null|string
+     */
+    public static function getOption($optionName, $default = null)
+    {
+        $key = self::cacheKey($optionName);
+
+        if (!Cache::has($key)) {
+            $options = self::all()->toArray();
+            $values = array();
+
+            foreach ($options as $option) {
+                $values[self::cacheKey($option['option_name'])] = $option['option_value'];
+            }
+
+            Cache::putMany($values, 365 * 24 * 60);
+        }
+
+        return Cache::get($key, $default);
+    }
+
+    /**
+     * 获取缓存Key
+     * @param $optionName
+     * @return string
+     */
+    private static function cacheKey($optionName)
+    {
+        return CacheName::OPTIONS . $optionName;
     }
 }

@@ -17,4 +17,9 @@ class BlogController extends Controller
         return view('blog.blog', $data);
     }
 
+    public function column($alias)
+    {
+        dd($alias);
+    }
+
 }

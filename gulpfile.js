@@ -22,6 +22,6 @@ elixir(function(mix) {
     mix.scripts('admin/restful.js', 'public/js/admin');
 
 
-    mix.less('www/home.less', 'public/css/home.css');
-    mix.less('www/blog.less', 'public/css/blog.css');
+    mix.styles('style.css', 'public/css/style.css');
+    mix.scripts('blog.js', 'public/js');
 });

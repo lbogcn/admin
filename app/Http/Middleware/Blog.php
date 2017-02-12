@@ -18,20 +18,47 @@ class Blog
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $this->shareViewData();
+        $this->shareNav($request);
 
         return $next($request);
     }
 
     /**
-     * 视图数据共享
+     * 栏目导航
+     * @param  \Illuminate\Http\Request $request
      */
-    private function shareViewData()
+    private function shareNav($request)
     {
-        $share = array(
-            'columns' => ArticleColumn::homeColumns()
+        $columns = ArticleColumn::homeColumns();
+        $home = array(
+            'column_name' => '首页',
+            'url' => '/'
+        );
+        $about = array(
+            'column_name' => '关于',
+            'url' => '/about'
         );
 
-        View::share('share', $share);
+        foreach ($columns as $column) {
+            $nav = array(
+                'column_name' => $column['column_name'],
+                'url' => '/column/' . $column['alias'],
+            );
+
+            $navs[] = $nav;
+        }
+
+        array_unshift($navs, $home);
+        array_push($navs, $about);
+
+        foreach ($navs as &$column) {
+            if ($column['url'] == $request->getPathInfo()) {
+                $column['active'] = true;
+            } else {
+                $column['active'] = false;
+            }
+        }
+
+        View::share('navs', $navs);
     }
 }

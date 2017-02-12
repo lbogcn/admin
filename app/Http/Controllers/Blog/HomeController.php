@@ -17,7 +17,7 @@ class HomeController extends Controller
     public function index(Request $request)
     {
         $data = array(
-            'paginate' => Article::getHomeArticles()
+            'articles' => Article::getHomeArticles()
         );
 
         return view('blog.home', $data);

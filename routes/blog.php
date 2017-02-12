@@ -13,5 +13,8 @@
 
 Route::group(['middleware' => ['blog']], function() {
     Route::get('/', 'HomeController@index');
+
+
     Route::get('blog/{id}', 'BlogController@index');
+    Route::get('column/{alias}', 'BlogController@column');
 });
