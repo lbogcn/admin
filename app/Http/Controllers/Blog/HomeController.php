@@ -2,6 +2,7 @@
 
 namespace app\Http\Controllers\Blog;
 
+use App\Components\CacheName;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use Illuminate\Http\Request;
@@ -16,11 +17,19 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = array(
-            'articles' => Article::getHomeArticles()
-        );
+        $key = CacheName::PAGE_HOME;
 
-        return view('blog.home', $data);
+        if (!\Cache::has($key)) {
+            $data = array(
+                'articles' => Article::getHomeArticles()
+            );
+
+            $page = view('blog.home', $data)->render();
+
+            \Cache::forever($key, $page);
+        }
+
+        return \Cache::get($key);
     }
 
 }

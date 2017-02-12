@@ -13,4 +13,7 @@ class CacheName
     // 文章详情页面
     const PAGE_ARTICLE = 'page_article';
 
+    // 首页页面
+    const PAGE_HOME = 'page_home';
+
 }
