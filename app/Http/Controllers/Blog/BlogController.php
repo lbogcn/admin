@@ -16,17 +16,20 @@ class BlogController extends Controller
      */
     public function index($id)
     {
-        $key = CacheName::PAGE_ARTICLE . $id;
-        if (!\Cache::has($key)) {
+        $key = \Cache::getPrefix() . CacheName::PAGE_ARTICLE;
+        $redis = \RedisClient::connection();
+
+        if (!$redis->hexists($key, $id)) {
             $data = array(
                 'article' => Article::with('contents', 'tags')->findOrFail($id)
             );
 
             $page = view('blog.blog', $data)->render();
-            \Cache::forever($key, $page);
+
+            $redis->hset($key, $id, $page);
         }
 
-        return \Cache::get($key);
+        return $redis->hget($key, $id);
     }
 
     public function column($alias)

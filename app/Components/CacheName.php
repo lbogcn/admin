@@ -11,6 +11,6 @@ class CacheName
     const OPTIONS = 'options:';
 
     // 文章详情页面
-    const PAGE_ARTICLE = 'page_article:';
+    const PAGE_ARTICLE = 'page_article';
 
 }
