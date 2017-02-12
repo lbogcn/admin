@@ -45,7 +45,7 @@ class BlogController extends Controller
     {
         $column = ArticleColumn::findByAliasOrFail($alias);
         $page = $request->input('page');
-        $pageSize = 3;
+        $pageSize = 15;
 
         $paginate = ArticleColumnsRelation::getColumnArticles($column['id'], $page, $pageSize);
         $articles = array();
