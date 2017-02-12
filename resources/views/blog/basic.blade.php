@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{{get_option('blog_name')}} - {{get_option('blog_description')}}</title>
+    <title>{{$pageName}} - {{get_option('blog_description')}}</title>
     <meta name="keywords" content="妞妞溜溜,lenbo,林博"/>
     <meta name="description" content="Lenbo(林博)的博客，主要分享关于妞妞以及溜溜的相关日常。"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -21,9 +21,9 @@
                 <span> {{get_option('blog_description')}}</span>
                 <div class="my uk-grid-collapse uk-grid uk-grid-width-1-3">
                     <div>
-                        <span>1</span>
+                        <span>{{$stat['articleTotal']}}</span>
                         <span><i class="uk-icon-file-text"></i></span>
-                        <a href="http://www.lbog.cn/archives" title="文章" data-uk-tooltip="{pos:'bottom'}"></a>
+                        <a href="{{url('blog')}}" title="文章" data-uk-tooltip="{pos:'bottom'}"></a>
                     </div>
                     <div>
                         <span>3</span>
@@ -74,6 +74,8 @@
 
 <script src="//libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
 <script src="{{url('js/blog.js')}}"></script>
+
+@yield('footer')
 
 <script>
     var _hmt = _hmt || [];

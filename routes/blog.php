@@ -15,7 +15,9 @@ Route::group(['middleware' => ['blog']], function() {
     Route::get('/', 'HomeController@index');
 
 
-    Route::get('blog/{id}', 'BlogController@index');
+    Route::get('blog', 'BlogController@index');
+    Route::get('blog/{id}', 'BlogController@detail');
+
     Route::get('column/{alias}', 'BlogController@column');
     Route::get('tag/{tag}', 'BlogController@tag');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Components\CacheName;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -106,6 +107,35 @@ class Article extends \Eloquent
             ->orderBy('id', 'desc')
             ->limit($pageSize)
             ->get();
+    }
+
+    /**
+     * 获取所有文章
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     */
+    public static function getAllArticles()
+    {
+        return self::where('status', self::STATUS_UP)
+            ->orderBy('id', 'desc')
+            ->get();
+    }
+
+    /**
+     * 获取文章总数
+     * @return int
+     */
+    public static function getTotal()
+    {
+        $key = CacheName::ARTICLE_TOTAL;
+
+        if (!\Cache::has($key)) {
+            $total = self::where('status', self::STATUS_UP)
+                ->count();
+
+            \Cache::forever($key, $total);
+        }
+
+        return (int)\Cache::get($key);
     }
 
     /**

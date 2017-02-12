@@ -16,4 +16,10 @@ class CacheName
     // 页面-首页
     const PAGE_HOME = 'page_home';
 
+    // 页面-博客列表
+    const PAGE_BLOG_LIST = 'page_blog_list';
+
+    // 文章总数
+    const ARTICLE_TOTAL = 'article_total';
+
 }
