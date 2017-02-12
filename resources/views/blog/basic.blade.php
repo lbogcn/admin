@@ -26,14 +26,14 @@
                         <a href="{{url('blog')}}" title="文章" data-uk-tooltip="{pos:'bottom'}"></a>
                     </div>
                     <div>
-                        <span>3</span>
+                        <span>{{$stat['columnTotal']}}</span>
                         <span><i class="uk-icon-folder"></i></span>
-                        <a href="http://www.lbog.cn/category" title="分类" data-uk-tooltip="{pos:'bottom'}"></a>
+                        <a href="{{url('column')}}" title="分类" data-uk-tooltip="{pos:'bottom'}"></a>
                     </div>
                     <div>
-                        <span>3</span>
+                        <span>{{$stat['tagTotal']}}</span>
                         <span><i class="uk-icon-tags"></i></span>
-                        <a href="http://www.lbog.cn/tag" title="标签" data-uk-tooltip="{pos:'bottom'}"></a>
+                        <a href="{{url('tag')}}" title="标签" data-uk-tooltip="{pos:'bottom'}"></a>
                     </div>
                 </div>
                 <ul id="nav-top" class="uk-nav">

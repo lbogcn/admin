@@ -14,10 +14,15 @@
 Route::group(['middleware' => ['blog']], function() {
     Route::get('/', 'HomeController@index');
 
-
+    // 博客
     Route::get('blog', 'BlogController@index');
     Route::get('blog/{id}', 'BlogController@detail');
 
-    Route::get('column/{alias}', 'BlogController@column');
-    Route::get('tag/{tag}', 'BlogController@tag');
+    // 栏目
+    Route::get('column', 'ColumnController@index');
+    Route::get('column/{alias}', 'ColumnController@detail');
+
+    // 标签
+    Route::get('tag', 'TagController@index');
+    Route::get('tag/{tag}', 'TagController@detail');
 });

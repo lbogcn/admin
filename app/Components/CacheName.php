@@ -22,4 +22,7 @@ class CacheName
     // 文章总数
     const ARTICLE_TOTAL = 'article_total';
 
+    // 文章标签总数
+    const ARTICLE_TAG_TOTAL = 'article_tag_total';
+
 }

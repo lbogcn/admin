@@ -4,6 +4,7 @@ namespace app\Http\Middleware;
 
 use App\Models\Article;
 use App\Models\ArticleColumn;
+use App\Models\ArticleTag;
 use Closure;
 use Illuminate\Pagination\LengthAwarePaginator;
 use View;
@@ -74,9 +75,13 @@ class Blog
     private function shareStat()
     {
         $articleTotal = Article::getTotal();
+        $columnTotal = ArticleColumn::getTotal();
+        $tagTotal = ArticleTag::getTotal();
 
         $stat = array(
-            'articleTotal' => $articleTotal
+            'articleTotal' => $articleTotal,
+            'columnTotal' => $columnTotal,
+            'tagTotal' => $tagTotal,
         );
 
         View::share('stat', $stat);

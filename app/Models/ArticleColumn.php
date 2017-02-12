@@ -44,6 +44,15 @@ class ArticleColumn extends \Eloquent
     }
 
     /**
+     * 获取栏目总数
+     * @return int
+     */
+    public static function getTotal()
+    {
+        return count(self::homeColumns());
+    }
+
+    /**
      * 通过别名获取
      * @param $alias
      * @return \Illuminate\Database\Eloquent\Model|static
