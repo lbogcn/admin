@@ -27,7 +27,7 @@ class BlogController extends Controller
                 'article' => Article::with('contents', 'tags')->findOrFail($id)
             );
 
-            $page = view('blog.blog', $data)->render();
+            $page = view('blog.detail', $data)->render();
 
             $redis->hset($key, $id, $page);
         }
