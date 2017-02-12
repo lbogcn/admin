@@ -21,10 +21,11 @@ class HomeController extends Controller
 
         if (!\Cache::has($key)) {
             $data = array(
-                'articles' => Article::getHomeArticles()
+                'articles' => Article::getHomeArticles(),
+                'title' => '最新文章'
             );
 
-            $page = view('blog.home', $data)->render();
+            $page = view('blog.list', $data)->render();
 
             \Cache::forever($key, $page);
         }

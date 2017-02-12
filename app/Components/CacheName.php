@@ -10,10 +10,10 @@ class CacheName
     // 选项配置
     const OPTIONS = 'options:';
 
-    // 文章详情页面
+    // 页面-文章详情
     const PAGE_ARTICLE = 'page_article';
 
-    // 首页页面
+    // 页面-首页
     const PAGE_HOME = 'page_home';
 
 }

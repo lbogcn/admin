@@ -2,9 +2,9 @@
 
 @section('container')
     <div id="index" class="bs">
-        <h4>最新文章</h4>
+        <h4>{{$title}}</h4>
         <div id="list">
-            @foreach($articles as $article)
+            @forelse($articles as $article)
                 <article class="article">
                     <h1><a href="{{url('blog/' . $article['id'])}}">{{$article['title']}}</a></h1>
                     <p>
@@ -12,9 +12,13 @@
                         <time><br>{{mb_substr($article['created_at'], 0, 10)}}</time>
                     </p>
                 </article>
-            @endforeach
+            @empty
+                <p class="_404">没发现什么...</p>
+            @endforelse
         </div>
     </div>
-    <ul class="uk-pagination">
-    </ul>
+
+    @if(isset($paginate))
+        {!! $paginate !!}
+    @endif
 @endsection

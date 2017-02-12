@@ -44,6 +44,17 @@ class ArticleColumn extends \Eloquent
     }
 
     /**
+     * 通过别名获取
+     * @param $alias
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
+    public static function findByAliasOrFail($alias)
+    {
+        return self::where('alias', $alias)
+            ->firstOrFail();
+    }
+
+    /**
      * 创建
      * @param $data
      * @return static

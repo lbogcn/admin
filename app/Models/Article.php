@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * @property int status
@@ -98,9 +97,8 @@ class Article extends \Eloquent
 
     /**
      * 获取首页文章
-     * @param $page
      * @param $pageSize
-     * @return \Illuminate\Contracts\Pagination\Paginator
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
     public static function getHomeArticles($pageSize = 30)
     {

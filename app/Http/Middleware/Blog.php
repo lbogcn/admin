@@ -4,6 +4,7 @@ namespace app\Http\Middleware;
 
 use App\Models\ArticleColumn;
 use Closure;
+use Illuminate\Pagination\LengthAwarePaginator;
 use View;
 
 class Blog
@@ -19,6 +20,9 @@ class Blog
     public function handle($request, Closure $next, $guard = null)
     {
         $this->shareNav($request);
+
+        // 修改博客默认分页样式
+        LengthAwarePaginator::defaultView('paginator.qzhai-no7');
 
         return $next($request);
     }
