@@ -14,7 +14,7 @@
     <div class="row">
         <div class="col-xs-2 col-xs-offset-10">
             <div class="btn-group pull-right">
-                <button class="btn btn-success" id="btn-add">新增</button>
+                <a class="btn btn-success" href="{{url('/article-manage/article/create')}}">写文章</a>
             </div>
 
         </div>

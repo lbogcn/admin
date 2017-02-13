@@ -21,6 +21,7 @@ elixir(function(mix) {
     mix.scripts('admin/sb-admin-2.js', 'public/js/admin');
     mix.scripts('admin/restful.js', 'public/js/admin');
 
+    mix.styles('sb-admin-2.css', 'public/css/sb-admin-2.css');
 
     mix.styles('style.css', 'public/css/style.css');
     mix.scripts('blog.js', 'public/js');

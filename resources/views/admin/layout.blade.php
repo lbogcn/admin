@@ -67,6 +67,7 @@
 
 <script data-main="{{url('/js/admin/sb-admin-2.js')}}" src="{{url('/plugins/requirejs/require.js')}}"></script>
 <script src="{{url('/js/require-config.js')}}"></script>
+@if(isset($navLocation))<div class="hide" id="nav-location">{{$navLocation}}</div>@endif
 @yield('body-extend')
 </body>
 </html>

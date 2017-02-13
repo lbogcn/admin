@@ -30,7 +30,10 @@ require(['jquery', 'metisMenu'], function($) {
             }
         });
 
-        var url = window.location.toString().split('?')[0];
+        var url = window.location.toString().split('?')[0],
+            location = $('#nav-location').html();
+        url = location ? location : url;
+
         // var element = $('ul.nav a').filter(function() {
         //     return this.href == url;
         // }).addClass('active').parent().parent().addClass('in').parent();

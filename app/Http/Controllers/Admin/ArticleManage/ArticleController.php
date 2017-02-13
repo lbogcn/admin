@@ -1,6 +1,6 @@
 <?php
 
-namespace app\Http\Controllers\Admin\ArticleManage;
+namespace App\Http\Controllers\Admin\ArticleManage;
 
 use App\Components\ApiResponse;
 use App\Http\Controllers\Controller;
@@ -20,6 +20,24 @@ class ArticleController extends Controller
         );
 
         return view('admin.article-manage.article.index', $data);
+    }
+
+    /**
+     * 写文章
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        $data = array(
+            'navLocation' => action('\\' . self::class . '@index')
+        );
+
+        return view('admin.article-manage.article.create', $data);
+    }
+
+    public function store()
+    {
+        return __FUNCTION__;
     }
 
     /**
@@ -46,6 +64,11 @@ class ArticleController extends Controller
         return ApiResponse::buildFromArray();
     }
 
+    /**
+     * 删除
+     * @param $id
+     * @return ApiResponse
+     */
     public function destroy($id)
     {
         Article::del($id);
