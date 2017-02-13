@@ -45,9 +45,9 @@
                         @endif
                     @endforeach
                 </ul>
-                <form class="uk-form" id="searchform" method="get" action="http://www.lbog.cn">
-                    <input class="uk-width-1-1 " type="text" value="" name="s" id="s" placeholder="搜索" />
-                </form>
+                {{--<form class="uk-form" id="searchform" method="get" action="http://www.lbog.cn">--}}
+                    {{--<input class="uk-width-1-1 " type="text" value="" name="s" id="s" placeholder="搜索" />--}}
+                {{--</form>--}}
             </div>
             <div class="ft uk-hidden-small">
                 <p>
