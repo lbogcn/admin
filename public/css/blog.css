@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+.container:before,
+.container:after {
+  display: table;
+  content: " ";
+  clear: both;
+}
+.container {
+  width: 960px;
+  margin: 0 auto;
+  clear: both;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #333;
+}
+p {
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #333;
+}
+a {
+  text-decoration: none;
+}
+#footer {
+  margin-top: 15px;
+}
+#article .title {
+  font-size: 22px;
+  font-weight: bold;
+}
+#article .time {
+  color: #777;
+}
+#article .content {
+  margin-top: 30px;
+}
+
+/*# sourceMappingURL=blog.css.map */
