@@ -25,4 +25,6 @@ class CacheName
     // 文章标签总数
     const ARTICLE_TAG_TOTAL = 'article_tag_total';
 
+    // 文章标签列表
+    const ARTICLE_TAGS = 'article_tags';
 }

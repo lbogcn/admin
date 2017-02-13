@@ -16,11 +16,10 @@ class ColumnController extends Controller
      */
     public function index()
     {
-        return __FUNCTION__;
     }
 
     /**
-     * 栏目详情
+     * 栏目详情（显示栏目下的文章列表）
      * @param Request $request
      * @param $alias
      * @return mixed
