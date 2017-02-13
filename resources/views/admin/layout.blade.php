@@ -5,10 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title') - {{env('APP_NAME')}}</title>
-    <link href="{{url('/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{url('/css/sb-admin-2.css')}}" rel="stylesheet">
-    <link href="{{url('/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{url('/plugins/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
+    <link href="{{cdn('/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{cdn('/css/sb-admin-2.css')}}" rel="stylesheet">
+    <link href="{{cdn('/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{cdn('/plugins/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!--[if lt IE 9]>
@@ -65,8 +65,8 @@
     </div>
 </div>
 
-<script data-main="{{url('/js/admin/sb-admin-2.js')}}" src="{{url('/plugins/requirejs/require.js')}}"></script>
-<script src="{{url('/js/require-config.js')}}"></script>
+<script data-main="{{cdn('/js/admin/sb-admin-2.js')}}" src="{{cdn('/plugins/requirejs/require.js')}}"></script>
+<script src="{{cdn('/js/require-config.js')}}"></script>
 @if(isset($navLocation))<div class="hide" id="nav-location">{{$navLocation}}</div>@endif
 @yield('body-extend')
 </body>

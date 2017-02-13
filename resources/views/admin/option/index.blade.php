@@ -3,7 +3,7 @@
 @section('title', '选项配置')
 
 @section('head-extend')
-    <link href="{{url('/plugins/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{cdn('/plugins/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
 @endsection
 
 @section('page-wrapper')

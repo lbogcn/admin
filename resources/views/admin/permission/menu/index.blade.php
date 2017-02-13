@@ -3,7 +3,7 @@
 @section('title', '菜单列表')
 
 @section('head-extend')
-    <link href="{{url('/plugins/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{cdn('/plugins/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
 @endsection
 
 @section('page-wrapper')

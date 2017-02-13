@@ -3,9 +3,9 @@
 @section('title', '写文章')
 
 @section('head-extend')
-    <script type="text/javascript" charset="utf-8" src="{{url('plugins/ueditor/ueditor.config.js')}}"></script>
-    <script type="text/javascript" charset="utf-8" src="{{url('plugins/ueditor/ueditor.all.min.js')}}"> </script>
-    <script type="text/javascript" charset="utf-8" src="{{url('plugins/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{cdn('plugins/ueditor/ueditor.config.js')}}"></script>
+    <script type="text/javascript" charset="utf-8" src="{{cdn('plugins/ueditor/ueditor.all.min.js')}}"> </script>
+    <script type="text/javascript" charset="utf-8" src="{{cdn('plugins/ueditor/lang/zh-cn/zh-cn.js')}}"></script>
 @endsection
 
 @section('page-wrapper')
