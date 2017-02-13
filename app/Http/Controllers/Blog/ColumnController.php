@@ -16,6 +16,13 @@ class ColumnController extends Controller
      */
     public function index()
     {
+        $columns = ArticleColumn::homeColumns();
+        $data = array(
+            'pageName' => '栏目',
+            'columns' => $columns,
+        );
+
+        return view('blog.columns', $data);
     }
 
     /**
