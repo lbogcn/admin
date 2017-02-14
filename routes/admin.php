@@ -18,8 +18,11 @@ Route::get('logout', 'AuthController@logout')->name('logout');
 Route::group(['middleware' => ['admin']], function() {
 
     // 首页
-    Route::get('/', 'HomeController@getIndex');
-    Route::get('home', 'HomeController@getIndex');
+    Route::get('/', 'HomeController@index');
+    Route::get('home', 'HomeController@index');
+
+    // UEditor
+    Route::get('ueditor', 'HomeController@ueditor');
 
     // 文章管理
     Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');

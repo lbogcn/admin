@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use app\Components\UEditor\UEditor;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -10,30 +12,17 @@ class HomeController extends Controller
     /**
      * 后台入口
      */
-    public function getIndex()
+    public function index()
     {
         return view('admin.home');
     }
 
-    public function getGoods()
+    public function ueditor(Request $request)
     {
-        return __FUNCTION__;
-    }
+        $action = $request->input('action');
+        $callback = $request->input('callback');
 
-    public function getArticle()
-    {
-        return __FUNCTION__;
-    }
-
-
-    public function getApi()
-    {
-        return __FUNCTION__;
-    }
-
-    public function getSubject()
-    {
-        return __FUNCTION__;
+        return (new UEditor())->callAction($action, $callback);
     }
 
 
