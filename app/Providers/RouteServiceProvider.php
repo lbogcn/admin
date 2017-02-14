@@ -37,10 +37,11 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapAdminRoutes();
 
-        $this->mapApiRoutes();
-
         $this->mapBlogRoutes();
 
+        $this->mapCallbackRoutes();
+
+        $this->mapApiRoutes();
         //
     }
 
@@ -59,11 +60,21 @@ class RouteServiceProvider extends ServiceProvider
     }
 
     /**
-     * Define the "web" routes for the application.
-     *
-     * These routes all receive session state, CSRF protection, etc.
-     *
-     * @return void
+     * 回调地址
+     */
+    public function mapCallbackRoutes()
+    {
+        Route::group([
+            'middleware' => 'web',
+            'namespace' => "{$this->namespace}\\Callback",
+            'domain' => env('DOMAIN_ADMIN'),
+        ], function ($router) {
+            require base_path('routes/callback.php');
+        });
+    }
+
+    /**
+     * 博客地址
      */
     protected function mapBlogRoutes()
     {
