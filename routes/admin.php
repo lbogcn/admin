@@ -1,50 +1,42 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| 管理后台路由
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::group(['namespace' => 'Admin'], function() {
+    Route::get('login', 'AuthController@showLoginForm')->name('login');
+    Route::post('login', 'AuthController@login');
+    Route::get('logout', 'AuthController@logout')->name('logout');
 
-Route::get('login', 'AuthController@showLoginForm')->name('login');
-Route::post('login', 'AuthController@login');
-Route::get('logout', 'AuthController@logout')->name('logout');
+    Route::group(['middleware' => ['admin']], function() {
 
-Route::group(['middleware' => ['admin']], function() {
+        // 首页
+        Route::get('/', 'HomeController@index');
+        Route::get('home', 'HomeController@index');
 
-    // 首页
-    Route::get('/', 'HomeController@index');
-    Route::get('home', 'HomeController@index');
+        // UEditor
+        Route::get('ueditor', 'HomeController@ueditor');
 
-    // UEditor
-    Route::get('ueditor', 'HomeController@ueditor');
+        // 文章管理
+        Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');
+        Route::patch('article-manage/article/down/{id}', 'ArticleManage\ArticleController@down');
+        Route::patch('article-manage/comment/restore/{id}', 'ArticleManage\CommentController@restore');
+        Route::patch('article-manage/comment/deny/{id}', 'ArticleManage\CommentController@deny');
+        Route::resources(array(
+            'article-manage/article' => 'ArticleManage\ArticleController',
+            'article-manage/comment' => 'ArticleManage\CommentController',
+            'article-manage/column' => 'ArticleManage\ColumnController',
+        ));
 
-    // 文章管理
-    Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');
-    Route::patch('article-manage/article/down/{id}', 'ArticleManage\ArticleController@down');
-    Route::patch('article-manage/comment/restore/{id}', 'ArticleManage\CommentController@restore');
-    Route::patch('article-manage/comment/deny/{id}', 'ArticleManage\CommentController@deny');
-    Route::resources(array(
-        'article-manage/article' => 'ArticleManage\ArticleController',
-        'article-manage/comment' => 'ArticleManage\CommentController',
-        'article-manage/column' => 'ArticleManage\ColumnController',
-    ));
+        // 配置选项
+        Route::resource('option', 'OptionController');
 
-    // 配置选项
-    Route::resource('option', 'OptionController');
+        // 权限管理
+        Route::resources(array(
+            'permission/menu' => 'Permission\MenuController',
+            'permission/user' => 'Permission\UserController',
+            'permission/user.role' => 'Permission\UserRoleController',
+            'permission/role' => 'Permission\RoleController',
+            'permission/role.permission' => 'Permission\RolePermissionController',
+            'permission/node' => 'Permission\NodeController',
+        ));
+    });
 
-    // 权限管理
-    Route::resources(array(
-        'permission/menu' => 'Permission\MenuController',
-        'permission/user' => 'Permission\UserController',
-        'permission/user.role' => 'Permission\UserRoleController',
-        'permission/role' => 'Permission\RoleController',
-        'permission/role.permission' => 'Permission\RolePermissionController',
-        'permission/node' => 'Permission\NodeController',
-    ));
 });

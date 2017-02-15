@@ -34,4 +34,9 @@ class HomeController extends Controller
         return \Cache::get($key);
     }
 
+    public function about()
+    {
+        return 'about';
+    }
+
 }

@@ -11,8 +11,12 @@
 |
 */
 
-Route::group(['middleware' => ['blog']], function() {
+Route::group(['middleware' => ['blog'], 'namespace' => 'Blog'], function() {
+    // 首页
     Route::get('/', 'HomeController@index');
+
+    // 关于
+    Route::get('about', 'HomeController@about');
 
     // 博客
     Route::get('blog', 'BlogController@index');

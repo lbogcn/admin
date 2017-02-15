@@ -52,7 +52,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'web',
-            'namespace' => "{$this->namespace}\\Admin",
+            'namespace' => $this->namespace,
             'domain' => env('DOMAIN_ADMIN'),
         ], function ($router) {
             require base_path('routes/admin.php');
@@ -65,7 +65,7 @@ class RouteServiceProvider extends ServiceProvider
     public function mapCallbackRoutes()
     {
         Route::group([
-            'namespace' => "{$this->namespace}\\Callback",
+            'namespace' => $this->namespace,
             'domain' => env('DOMAIN_CALLBACK'),
         ], function ($router) {
             require base_path('routes/callback.php');
@@ -79,7 +79,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'middleware' => 'web',
-            'namespace' => "{$this->namespace}\\Blog",
+            'namespace' => $this->namespace,
         ], function ($router) {
             require base_path('routes/blog.php');
         });
