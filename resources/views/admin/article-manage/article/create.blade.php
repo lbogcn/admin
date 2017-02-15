@@ -15,11 +15,14 @@
 @endsection
 
 @section('body-extend')
-    <script>
-        require(['jquery', 'restful', 'ueditor', 'zeroclipboard', 'ueditor-lang'], function($, restful, UE, zcl) {
-            window.uploadToken = '{{$uploadToken}}';
-            window.ZeroClipboard = zcl;
-            var ue = UE.getEditor('editor');
-        });
-    </script>
+<script type="text/plain" id="uploadToken">{{$uploadToken}}</script>
+<script>
+    window.uploadToken = '{{$uploadToken}}';
+
+
+    require(['jquery', 'restful', 'ueditor', 'zeroclipboard', 'ueditor-lang'], function($, restful, UE, zcl) {
+        window.ZeroClipboard = zcl;
+        var ue = UE.getEditor('editor');
+    });
+</script>
 @endsection

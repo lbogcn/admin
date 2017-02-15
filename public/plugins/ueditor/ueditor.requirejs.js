@@ -24461,6 +24461,63 @@ define(function(require){
                     me.focus();
                     me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src="' + me.options.themePath + me.options.theme +'/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
 
+
+                    /* 判断后端配置是否没有加载成功 */
+                    if (!me.getOpt('imageActionName')) {
+                        errorHandler(me.getLang('autoupload.errorLoadConfig'));
+                        return;
+                    }
+                    // 判断文件格式是否错误
+                    var filename = input.value,
+                        fileext = filename ? filename.substr(filename.lastIndexOf('.')):'';
+                    if (!fileext || (allowFiles && (allowFiles.join('') + '.').indexOf(fileext.toLowerCase() + '.') == -1)) {
+                        showErrorLoader(me.getLang('simpleupload.exceedTypeError'));
+                        return;
+                    }
+
+                    function showErrorLoader(title){
+                        if(loadingId) {
+                            var loader = me.document.getElementById(loadingId);
+                            loader && domUtils.remove(loader);
+                            me.fireEvent('showmessage', {
+                                'id': loadingId,
+                                'content': title,
+                                'type': 'error',
+                                'timeout': 4000
+                            });
+                        }
+                    }
+
+                    $.ajax({
+                        url: me.getOpt('imageUrl'),
+                        type: 'POST',
+                        data: new FormData(form),
+                        async: false,
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        complete: function() {
+                            form.reset();
+                        },
+                        success: function(resp) {
+                            if(resp.state == 'SUCCESS' && resp.url) {
+                                loader = me.document.getElementById(loadingId);
+                                loader.setAttribute('src', resp.url);
+                                loader.setAttribute('_src', resp.url);
+                                loader.setAttribute('title', resp.title || '');
+                                loader.setAttribute('alt', resp.original || '');
+                                loader.removeAttribute('id');
+                                domUtils.removeClasses(loader, 'loadingclass');
+                            } else {
+                                showErrorLoader && showErrorLoader(resp.state);
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log(xhr);
+                        }
+                    });
+
+/*
                     function callback(){
                         try{
                             var link, json, loader,
@@ -24498,22 +24555,10 @@ define(function(require){
                         }
                     }
 
-                    /* 判断后端配置是否没有加载成功 */
-                    if (!me.getOpt('imageActionName')) {
-                        errorHandler(me.getLang('autoupload.errorLoadConfig'));
-                        return;
-                    }
-                    // 判断文件格式是否错误
-                    var filename = input.value,
-                        fileext = filename ? filename.substr(filename.lastIndexOf('.')):'';
-                    if (!fileext || (allowFiles && (allowFiles.join('') + '.').indexOf(fileext.toLowerCase() + '.') == -1)) {
-                        showErrorLoader(me.getLang('simpleupload.exceedTypeError'));
-                        return;
-                    }
-
                     domUtils.on(iframe, 'load', callback);
                     form.action = me.getOpt('imageUrl');
                     form.submit();
+*/
                 });
 
                 var stateTimer;
