@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Admin\ArticleManage;
 
 use App\Components\ApiResponse;
+use App\Components\Qiniu;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
-use Qiniu\Auth;
 
 class ArticleController extends Controller
 {
@@ -25,21 +25,13 @@ class ArticleController extends Controller
 
     /**
      * 写文章
+     * @param Qiniu $qiniu
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function create(Qiniu $qiniu)
     {
-        $auth = new Auth(config('qiniu.access_key'), config('qiniu.secret_key'));
-        $bucket = 'lbog-buff';
-        $policy = array(
-            'callbackUrl' => 'http://callback.lbog.cn/qiniu',
-            'callbackBody' => json_encode(array(
-                'key' => '$(key)',
-                'etag' => '$(etag)',
-                'ext' => '$(ext)',
-            ))
-        );
-        $uploadToken = $auth->uploadToken($bucket, null, 3600, $policy);
+        $callbackUrl = config('qiniu.callback_ueditor');
+        $uploadToken = $qiniu->uploadToken($callbackUrl);
 
         $data = array(
             'navLocation' => action('\\' . self::class . '@index'),

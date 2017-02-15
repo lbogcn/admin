@@ -1,3 +1,3 @@
 <?php
 
-Route::post('qiniu', 'QiniuController@index');
+Route::post('qiniu/ueditor', 'QiniuController@ueditor');
