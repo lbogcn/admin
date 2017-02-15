@@ -65,9 +65,8 @@ class RouteServiceProvider extends ServiceProvider
     public function mapCallbackRoutes()
     {
         Route::group([
-            'middleware' => 'web',
             'namespace' => "{$this->namespace}\\Callback",
-            'domain' => env('DOMAIN_ADMIN'),
+            'domain' => env('DOMAIN_CALLBACK'),
         ], function ($router) {
             require base_path('routes/callback.php');
         });
