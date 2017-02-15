@@ -48,6 +48,9 @@ class Qiniu
                 'etag' => '$(etag)',
                 'ext' => '$(ext)',
                 'bucket' => '$(bucket)',
+                'mimeType' => '$(mimeType)',// 资源类型，例如JPG图片的资源类型为image/jpg
+                'fname' => '$(fname)',// 上传的原始文件名
+                'fsize' => '$(fsize)',// 资源尺寸，单位为字节
             ))
         );
 
@@ -69,7 +72,7 @@ class Qiniu
             $callbackBodyHash = json_decode($callbackBody, true);
             $requireParams = array('key', 'etag', 'ext', 'bucket');
             foreach ($requireParams as $requireParam) {
-                if (!empty($callbackBodyHash[$requireParam])) {
+                if (empty($callbackBodyHash[$requireParam])) {
                     return false;
                 }
             }

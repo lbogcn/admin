@@ -24424,10 +24424,11 @@ define(function(require){
                 btnIframeBody = btnIframeDoc.body;
                 wrapper = btnIframeDoc.createElement('div');
 
-                wrapper.innerHTML = '<form id="edui_form_' + timestrap + '" target="edui_iframe_' + timestrap + '" method="POST" enctype="multipart/form-data" action="' + me.getOpt('serverUrl') + '" ' +
+                wrapper.innerHTML = '<form id="edui_form_' + timestrap + '" target="edui_iframe_' + timestrap + '" method="POST" enctype="multipart/form-data" ' +
                 'style="' + btnStyle + '">' +
                 '<input id="edui_input_' + timestrap + '" type="file" accept="image/*" name="' + me.options.imageFieldName + '" ' +
                 'style="' + btnStyle + '">' +
+                '<input name="token" id="edui_token_' + timestrap + '" value="" type="text">' +
                 '</form>' +
                 '<iframe id="edui_iframe_' + timestrap + '" name="edui_iframe_' + timestrap + '" style="display:none;width:0;height:0;border:0;margin:0;padding:0;position:absolute;"></iframe>';
 
@@ -24454,6 +24455,8 @@ define(function(require){
 
                     var imageActionUrl = me.getActionUrl(me.getOpt('imageActionName'));
                     var allowFiles = me.getOpt('imageAllowFiles');
+
+                    $(form).find('#edui_token_' + timestrap).val(window.uploadToken);
 
                     me.focus();
                     me.execCommand('inserthtml', '<img class="loadingclass" id="' + loadingId + '" src="' + me.options.themePath + me.options.theme +'/images/spacer.gif" title="' + (me.getLang('simpleupload.loading') || '') + '" >');
@@ -24509,7 +24512,7 @@ define(function(require){
                     }
 
                     domUtils.on(iframe, 'load', callback);
-                    form.action = utils.formatUrl(imageActionUrl + (imageActionUrl.indexOf('?') == -1 ? '?':'&') + params);
+                    form.action = me.getOpt('imageUrl');
                     form.submit();
                 });
 

@@ -23,12 +23,19 @@ class QiniuController extends Controller
         $authorization = $request->server('HTTP_AUTHORIZATION');
         $url = config('qiniu.callback_ueditor');
 
-        if ($qiniu->verifyCallback($contentType, $authorization, $url, $callbackBody)) {
-            $callbackBodyHash = json_decode($callbackBody, true);
+        $callbackBodyHash = json_decode($callbackBody, true);
 
+        if (is_array($callbackBodyHash) && $qiniu->verifyCallback($contentType, $authorization, $url, $callbackBody)) {
             $url = $qiniu->moveToPublic($callbackBodyHash);
 
-            return array('state' => 'SUCCESS', 'url' => $url);
+            return array(
+                'state' => 'SUCCESS',
+                'url' => $url,
+                'title' => $url,
+                'original' => data_get($callbackBodyHash, 'fname'),
+                'type' => data_get($callbackBodyHash, 'mimeType'),
+                'size' => data_get($callbackBodyHash, 'fsize'),
+            );
         } else {
             return array('state' => 'FAILURE');
         }

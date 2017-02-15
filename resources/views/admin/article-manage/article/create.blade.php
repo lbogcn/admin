@@ -10,18 +10,16 @@
         <h1 class="page-header">写文章</h1>
     </div>
 
-
-    <form method="post" action="http://up-z2.qiniu.com" enctype="multipart/form-data">
-        <input name="token" type="hidden" value="{{$uploadToken}}">
-        <input name="file" type="file" />
-        <input type="submit" value="submit">
-    </form>
+    <script id="editor" type="text/plain" style="width:100%;height:300px;"></script>
 
 @endsection
 
 @section('body-extend')
-<script>
-require(['jquery', 'restful'], function($, restful) {
-});
-</script>
+    <script>
+        require(['jquery', 'restful', 'ueditor', 'zeroclipboard', 'ueditor-lang'], function($, restful, UE, zcl) {
+            window.uploadToken = '{{$uploadToken}}';
+            window.ZeroClipboard = zcl;
+            var ue = UE.getEditor('editor');
+        });
+    </script>
 @endsection

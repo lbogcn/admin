@@ -6,7 +6,7 @@ requirejs.config({
         'utils': '/js/utils',
         'ajax': '/js/ajax',
 
-        'ueditor': '/plugins/ueditor/ueditor.requirejs.min',
+        'ueditor': '/plugins/ueditor/ueditor.requirejs',
         'ueditor-lang': '/plugins/ueditor/lang/zh-cn/zh-cn',
         'zeroclipboard': '/plugins/ueditor/third-party/zeroclipboard/ZeroClipboard.min'
     },
