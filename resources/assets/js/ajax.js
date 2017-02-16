@@ -1,6 +1,7 @@
 define(['jquery'], function($) {
-    // 生成ajax对象
-    function build(url, params, type) {
+    function handle(url, params, type, showError) {
+        showError = showError || true;
+
         return $.ajax({
             url: url,
             data: params || {},
@@ -9,29 +10,28 @@ define(['jquery'], function($) {
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
-        });
-    }
-
-    // 处理
-    function handle(url, params, type) {
-        return build(url, params, type).then(function (resp) {
+        }).then(function (resp, status, xhr) {
             // 成功回调
             if (resp.code == 0) {
-                return resp.data; // 直接返回要处理的数据，作为默认参数传入之后done()方法的回调
+                // 直接返回要处理的数据，作为默认参数传入之后done()方法的回调
+                return resp.data;
             } else {
-                return $.Deferred().reject(resp); // 返回一个失败状态的deferred对象，把错误代码作为默认参数传入之后fail()方法的回调
+                // 返回一个失败状态的deferred对象，把错误代码作为默认参数传入之后fail()方法的回调
+                return $.Deferred().reject(xhr, resp.msg);
             }
         }, function (xhr) {
-            console.log(xhr);
-            alert(url + "\n" + '网络请求失败！');
+            return $.Deferred().reject(xhr);
+        }).fail(function(xhr, msg) {
+            if (!msg) {
+                msg = 'URL：' + url + "\n" + '网络请求失败！' + "\n" + xhr.status + '：' + xhr.statusText;
+                console.log(xhr);
+            }
+
+            if (showError) {
+                alert(msg);
+            }
         });
     }
-
-    // handle('/').done(function (resp) {
-    //     // 当result为true的回调
-    // }).fail(function (err) {
-    //     console.log(err);
-    // });
 
     return {
         apiGet: function(url, params) {
@@ -48,6 +48,7 @@ define(['jquery'], function($) {
         },
         apiDelete: function(url, params) {
             return handle(url, params, 'DELETE');
-        }
+        },
+        handle: handle
     };
 });

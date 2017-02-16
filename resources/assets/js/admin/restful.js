@@ -23,8 +23,6 @@ define(['ajax', 'jquery'], function(ajax, $) {
                 ajax.apiPatch(url).done(function() {
                     alert('操作成功');
                     window.location.reload();
-                }).fail(function (resp) {
-                    alert(resp.msg);
                 }).always(function () {
                     removeLoading();
                 });
@@ -37,8 +35,6 @@ define(['ajax', 'jquery'], function(ajax, $) {
                 ajax.apiPatch(url).done(function() {
                     alert('操作成功');
                     window.location.reload();
-                }).fail(function (resp) {
-                    alert(resp.msg);
                 }).always(function () {
                     removeLoading();
                 });
@@ -47,9 +43,7 @@ define(['ajax', 'jquery'], function(ajax, $) {
         get: function (url, params) {
             loading();
 
-            return ajax.apiGet(url, params).fail(function (resp) {
-                alert(resp.msg);
-            }).always(function () {
+            return ajax.apiGet(url, params).always(function () {
                 removeLoading();
             });
         },
@@ -59,8 +53,6 @@ define(['ajax', 'jquery'], function(ajax, $) {
             ajax.apiPost(url, params).done(function() {
                 alert('操作成功');
                 window.location.reload();
-            }).fail(function (resp) {
-                alert(resp.msg);
             }).always(function () {
                 removeLoading();
             });
@@ -71,35 +63,29 @@ define(['ajax', 'jquery'], function(ajax, $) {
             ajax.apiPut(url, params).done(function() {
                 alert('操作成功');
                 window.location.reload();
-            }).fail(function (resp) {
-                alert(resp.msg);
             }).always(function () {
                 removeLoading();
             });
         },
         patch: function(url, params) {
-            loading();
-
             if (confirm('是否继续？')) {
+                loading();
+
                 ajax.apiPatch(url, params).done(function() {
                     alert('操作成功');
                     window.location.reload();
-                }).fail(function (resp) {
-                    alert(resp.msg);
                 }).always(function () {
                     removeLoading();
                 });
             }
         },
         del: function(url) {
-            loading();
-
             if (confirm('确认删除？')) {
+                loading();
+
                 ajax.apiDelete(url).done(function() {
                     alert('操作成功');
                     window.location.reload();
-                }).fail(function (resp) {
-                    alert(resp.msg);
                 }).always(function () {
                     removeLoading();
                 });
