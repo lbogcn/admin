@@ -56,14 +56,12 @@ class Article extends \Eloquent
      * @param $content
      * @return static
      */
-    public static function add(array $data, array $column, array $tag, $content)
+    public function add(array $data, $column, $tag, $content)
     {
         return \DB::transaction(function() use ($data, $column, $tag, $content) {
             $model = self::create($data);
 
-            $contents = ArticleContent::cut($model->id, $content);
-            $columns = ArticleColumn::whereIn('id', $column)->get();
-            $tags = ArticleTag::getNewTags($model->id, $tag);
+            list($contents, $columns, $tags) = $this->getRelationsData($model->id, $content, $column, $tag);
 
             $model->contents()->saveMany($contents);
             $model->columns()->saveMany($columns);
@@ -71,6 +69,61 @@ class Article extends \Eloquent
 
             return $model;
         });
+    }
+
+    /**
+     * 更新文章
+     * @param $data
+     * @param $column
+     * @param $tag
+     * @param $content
+     * @return static
+     */
+    public function put(array $data, $column, $tag, $content)
+    {
+        return \DB::transaction(function () use ($data, $column, $tag, $content) {
+            $this->update($data);
+
+            list($contents, $columns, $tags) = $this->getRelationsData($this->id, $content, $column, $tag);
+
+            $this->tags()->delete();
+            $this->contents()->delete();
+            $this->columns()->detach();
+
+            $this->contents()->saveMany($contents);
+            $this->columns()->saveMany($columns);
+            $this->tags()->saveMany($tags);
+
+            return $this;
+        });
+    }
+
+    /**
+     * 获取关联数据
+     * @param $id
+     * @param $content
+     * @param $column
+     * @param $tag
+     * @return array
+     */
+    private function getRelationsData($id, $content, $column, $tag)
+    {
+        $contents = array();
+        if (!empty($content)) {
+            $contents = ArticleContent::cut($id, $content);
+        }
+
+        $columns = array();
+        if (!empty($column)) {
+            $columns = ArticleColumn::whereIn('id', $column)->get();
+        }
+
+        $tags = array();
+        if (!empty($tag)) {
+            $tags = ArticleTag::getNewTags($id, $tag);
+        }
+
+        return [$contents, $columns, $tags];
     }
 
     /**
@@ -224,35 +277,6 @@ class Article extends \Eloquent
         \Cache::forget(CacheName::ARTICLE_TAGS);
         \Cache::forget(CacheName::PAGE_ARTICLE);
 
-    }
-
-    /**
-     * 更新文章
-     * @param $data
-     * @param $column
-     * @param $tag
-     * @param $content
-     * @return static
-     */
-    public function put($data, $column, $tag, $content)
-    {
-        return \DB::transaction(function () use ($data, $column, $tag, $content) {
-            $this->update($data);
-
-            $contents = ArticleContent::cut($this->id, $content);
-            $columns = ArticleColumn::whereIn('id', $column)->get();
-            $tags = ArticleTag::getNewTags($this->id, $tag);
-
-            $this->tags()->delete();
-            $this->contents()->delete();
-            $this->columns()->detach();
-
-            $this->contents()->saveMany($contents);
-            $this->columns()->saveMany($columns);
-            $this->tags()->saveMany($tags);
-
-            return $this;
-        });
     }
 
 }

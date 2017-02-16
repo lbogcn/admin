@@ -8,6 +8,9 @@ define(['ajax', 'jquery'], function(ajax, $) {
         </div>\
         ');
 
+        // 使当前激活的元素失去焦点，防止按住空格后，多次点击
+        document.activeElement.blur();
+
         $('body').append($backDrop);
     }
 
@@ -21,7 +24,7 @@ define(['ajax', 'jquery'], function(ajax, $) {
                 loading();
 
                 ajax.apiPatch(url).done(function() {
-                    alert('操作成功');
+                    alert('操作成功，点击确定刷新页面！');
                     window.location.reload();
                 }).always(function () {
                     removeLoading();
@@ -33,7 +36,7 @@ define(['ajax', 'jquery'], function(ajax, $) {
                 loading();
 
                 ajax.apiPatch(url).done(function() {
-                    alert('操作成功');
+                    alert('操作成功，点击确定刷新页面！');
                     window.location.reload();
                 }).always(function () {
                     removeLoading();
@@ -51,7 +54,7 @@ define(['ajax', 'jquery'], function(ajax, $) {
             loading();
 
             ajax.apiPost(url, params).done(function() {
-                alert('操作成功');
+                alert('操作成功，点击确定刷新页面！');
                 window.location.reload();
             }).always(function () {
                 removeLoading();
@@ -61,7 +64,7 @@ define(['ajax', 'jquery'], function(ajax, $) {
             loading();
 
             ajax.apiPut(url, params).done(function() {
-                alert('操作成功');
+                alert('操作成功，点击确定刷新页面！');
                 window.location.reload();
             }).always(function () {
                 removeLoading();
@@ -72,7 +75,7 @@ define(['ajax', 'jquery'], function(ajax, $) {
                 loading();
 
                 ajax.apiPatch(url, params).done(function() {
-                    alert('操作成功');
+                    alert('操作成功，点击确定刷新页面！');
                     window.location.reload();
                 }).always(function () {
                     removeLoading();
@@ -84,7 +87,7 @@ define(['ajax', 'jquery'], function(ajax, $) {
                 loading();
 
                 ajax.apiDelete(url).done(function() {
-                    alert('操作成功');
+                    alert('操作成功，点击确定刷新页面！');
                     window.location.reload();
                 }).always(function () {
                     removeLoading();

@@ -76,7 +76,7 @@ class ArticleController extends Controller
         $tag = $request->input('tag');
         $content = $request->input('content');
 
-        Article::add($data, $column, $tag, $content);
+        (new Article())->add($data, $column, $tag, $content);
         Article::clearCache();
 
         return ApiResponse::buildFromArray();
