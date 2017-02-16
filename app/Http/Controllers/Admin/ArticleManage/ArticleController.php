@@ -77,12 +77,7 @@ class ArticleController extends Controller
         $content = $request->input('content');
 
         Article::add($data, $column, $tag, $content);
-
-        \Cache::forget(CacheName::PAGE_HOME);
-        \Cache::forget(CacheName::PAGE_BLOG_LIST);
-        \Cache::forget(CacheName::ARTICLE_TOTAL);
-        \Cache::forget(CacheName::ARTICLE_TAG_TOTAL);
-        \Cache::forget(CacheName::ARTICLE_TAGS);
+        Article::clearCache();
 
         return ApiResponse::buildFromArray();
     }
@@ -95,6 +90,7 @@ class ArticleController extends Controller
     public function up($id)
     {
         Article::up($id);
+        Article::clearCache();
 
         return ApiResponse::buildFromArray();
     }
@@ -107,6 +103,7 @@ class ArticleController extends Controller
     public function down($id)
     {
         Article::down($id);
+        Article::clearCache();
 
         return ApiResponse::buildFromArray();
     }
@@ -119,6 +116,7 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         Article::del($id);
+        Article::clearCache();
 
         return ApiResponse::buildFromArray();
     }

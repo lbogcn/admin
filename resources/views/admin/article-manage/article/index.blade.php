@@ -31,6 +31,7 @@
                     <th>用户</th>
                     <th>标题</th>
                     <th>作者</th>
+                    <th>类型</th>
                     <th>状态</th>
                     <th>创建时间</th>
                     <th>操作</th>
@@ -90,6 +91,7 @@ require(['jquery', 'restful'], function($, restful) {
         $tr.append('<td>' + obj.user_id + '</td>');
         $tr.append('<td>' + obj.title + '</td>');
         $tr.append('<td>' + obj.author + '</td>');
+        $tr.append('<td>' + obj.type_text + '</td>');
         $tr.append($('<td></td>').append($statusLabel));
         $tr.append('<td>' + obj.created_at + '</td>');
         $tr.append($option);

@@ -29,7 +29,7 @@ class Article extends \Eloquent
     ];
 
     /** 需要额外显示的字段 @var array */
-    protected $appends = ['status_text'];
+    protected $appends = ['status_text', 'type_text'];
 
     /**
      * 关联内容
@@ -145,6 +145,7 @@ class Article extends \Eloquent
     public static function getHomeArticles($pageSize = 30)
     {
         return self::where('status', self::STATUS_RELEASE)
+            ->where('type', self::TYPE_ARTICLE)
             ->orderBy('id', 'desc')
             ->limit($pageSize)
             ->get();
@@ -157,6 +158,7 @@ class Article extends \Eloquent
     public static function getAllArticles()
     {
         return self::where('status', self::STATUS_RELEASE)
+            ->where('type', self::TYPE_ARTICLE)
             ->orderBy('id', 'desc')
             ->get();
     }
@@ -171,6 +173,7 @@ class Article extends \Eloquent
 
         if (!\Cache::has($key)) {
             $total = self::where('status', self::STATUS_RELEASE)
+                ->where('type', self::TYPE_ARTICLE)
                 ->count();
 
             \Cache::forever($key, $total);
@@ -191,4 +194,35 @@ class Article extends \Eloquent
             return '下架';
         }
     }
+
+
+    /**
+     * 类型文本
+     * @return string
+     */
+    public function getTypeTextAttribute()
+    {
+        switch ($this->attributes['type']) {
+            case self::TYPE_ARTICLE:
+                return '文章';
+            case self::TYPE_PAGE:
+                return '页面';
+            default:
+                return '未知';
+        }
+    }
+
+    /**
+     * 清除文章相关缓存
+     */
+    public static function clearCache()
+    {
+        \Cache::forget(CacheName::PAGE_HOME);
+        \Cache::forget(CacheName::PAGE_BLOG_LIST);
+        \Cache::forget(CacheName::ARTICLE_TOTAL);
+        \Cache::forget(CacheName::ARTICLE_TAG_TOTAL);
+        \Cache::forget(CacheName::ARTICLE_TAGS);
+
+    }
+
 }
