@@ -6,7 +6,7 @@
     <style>
         .tag .glyphicon{top: 2px; color: #337ab7; cursor: pointer}
         .tag .glyphicon:hover,
-        .tag .glyphicon:focus{color: #ff2020;}
+        .tag .glyphicon:focus{color: #ff3d36;}
         .tag a:hover,
         .tag a:focus{text-decoration: none;}
     </style>
@@ -21,24 +21,24 @@
 
     <div class="row">
         <div class="col-xs-12">
-            <form class="form-horizontal">
+            <form class="form-horizontal" id="dataForm">
                 <div class="row">
 
                     <div class="col-xs-8">
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <input type="text" class="form-control" placeholder="标题">
+                                <input type="text" class="form-control" name="title" placeholder="标题">
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-xs-12">
-                                <script id="editor" type="text/plain" style="width:100%;height:300px;"></script>
+                                <script id="editor" name="content" type="text/plain" style="width:100%;height:500px;"></script>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-xs-2">
-                                <button class="btn btn-primary" type="button">提交</button>
+                                <button class="btn btn-primary" id="btnSubmit" type="button">提交</button>
                             </div>
                         </div>
                     </div>
@@ -81,7 +81,7 @@
                                 <div class="col-xs-12">
                                     <div class="form-group">
                                         @foreach($columns as $column)
-                                            <div class="checkbox"><label><input type="checkbox" name="column" value="{{$column['id']}}">{{$column['column_name']}}</label></div>
+                                            <div class="checkbox"><label><input type="checkbox" name="column[]" value="{{$column['id']}}">{{$column['column_name']}}</label></div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -93,10 +93,10 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <div class="col-xs-8">
-                                        <input type="text" class="form-control" name="tag">
+                                        <input type="text" class="form-control" id="iptTags">
                                     </div>
                                     <div class="col-xs-4">
-                                        <button class="btn btn-default btn-block">添加</button>
+                                        <button class="btn btn-default btn-block" id="btnAddTag" type="button">添加</button>
                                     </div>
 
                                     <br>
@@ -105,12 +105,8 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group" id="tagBox">
-                                    <div class="col-xs-12">
-                                        <span class="tag">
-                                            <span class="glyphicon glyphicon-remove-sign"></span>
-                                            <a href="javascript:void(0);">test</a>
-                                        </span>
+                                <div class="form-group">
+                                    <div class="col-xs-12" id="tagBox">
                                     </div>
                                 </div>
 
@@ -123,7 +119,7 @@
                                 <div class="form-group hide" id="allTagBox">
                                     <div class="col-xs-12">
                                         @foreach($tags as $tag)
-                                            <a href="javascript:void(0);"><u>{{$tag['tag']}}</u></a>
+                                            <a href="javascript:void(0);"><u class="tag">{{$tag['tag']}}</u></a>
                                         @endforeach
                                     </div>
                                 </div>
@@ -146,10 +142,47 @@
         window.uploadToken = '{{$uploadToken}}';
         var ue = UE.getEditor('editor');
 
+        // 添加标签
         function addTag(tag) {
-            console.log(tag);
+            if (!tag) {
+                return;
+            }
+
+            var exists = false;
+            $('.tag', '#tagBox').each(function() {
+                if ($(this).data('tag') == tag) {
+                    exists = true;
+                    return false;
+                }
+            });
+
+            if (!exists) {
+                var $tag = $('<div class="tag pull-left" style="margin-right: 5px;">\
+                    <span class="glyphicon glyphicon-remove-sign"></span>\
+                    <a href="javascript:void(0);"></a>\
+                    <input type="hidden" name="tag[]" role="tag">\
+                    </div>');
+
+                $tag.attr('data-tag', tag).data('tag', tag);
+                $tag.find('a').html(tag);
+                $tag.find('[role=tag]').val(tag);
+                $('#tagBox').append($tag);
+                $tag.find('.glyphicon-remove-sign').click(function() {
+                    $tag.remove();
+                });
+            }
         }
 
+        // 添加标签按钮
+        $('#btnAddTag').click(function() {
+            var tags = $('#iptTags').val().split(',');
+            $('#iptTags').val('');
+            for (var i in tags) {
+                addTag(tags[i]);
+            }
+        });
+
+        // 显示隐藏常用标签
         $('#btnAllTagBox').click(function() {
             if ($('#allTagBox').hasClass('hide')) {
                 $('#allTagBox').removeClass('hide');
@@ -158,8 +191,14 @@
             }
         });
 
-        $('a', '#allTagBox').click(function() {
+        // 选择常用标签
+        $('.tag', '#allTagBox').click(function() {
             addTag($(this).html());
+        });
+
+        // 提交
+        $('#btnSubmit').click(function() {
+            restful.post('/article-manage/article', $('#dataForm').serialize());
         });
     });
 </script>

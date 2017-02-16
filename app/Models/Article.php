@@ -18,8 +18,14 @@ class Article extends \Eloquent
     /** 状态-草稿 */
     const STATUS_DRAFT = 2;
 
+    /** 类型-文章 */
+    const TYPE_ARTICLE = 1;
+
+    /** 类型-页面 */
+    const TYPE_PAGE = 2;
+
     protected $fillable = [
-        'status',
+        'title', 'user_id', 'author', 'status', 'type', 'excerpt'
     ];
 
     /** 需要额外显示的字段 @var array */
@@ -32,6 +38,39 @@ class Article extends \Eloquent
     public function contents()
     {
         return $this->hasMany(ArticleContent::class);
+    }
+
+    /**
+     * 关联栏目
+     */
+    public function columns()
+    {
+        return $this->belongsToMany(ArticleColumn::class, 'article_columns_relations', 'article_id', 'column_id');
+    }
+
+    /**
+     * 添加文章
+     * @param array $data
+     * @param $column
+     * @param $tag
+     * @param $content
+     * @return static
+     */
+    public static function add(array $data, array $column, array $tag, $content)
+    {
+        return \DB::transaction(function() use ($data, $column, $tag, $content) {
+            $model = self::create($data);
+
+            $contents = ArticleContent::cut($model->id, $content);
+            $columns = ArticleColumn::whereIn('id', $column)->get();
+            $tags = ArticleTag::getNewTags($model->id, $tag);
+
+            $model->contents()->saveMany($contents);
+            $model->columns()->saveMany($columns);
+            $model->tags()->saveMany($tags);
+
+            return $model;
+        });
     }
 
     /**

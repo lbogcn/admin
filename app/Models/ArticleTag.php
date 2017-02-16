@@ -7,6 +7,35 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 class ArticleTag extends \Eloquent
 {
+
+    public $timestamps = false;
+
+    protected $fillable = [
+        'tag', 'article_id'
+    ];
+
+    /**
+     * 生成新模型
+     * @param $articleId
+     * @param array $tag
+     * @return array
+     */
+    public static function getNewTags($articleId, array $tag)
+    {
+        $tags = array();
+
+        foreach ($tag as $t) {
+            $attr = array(
+                'tag' => $t,
+                'article_id' => $articleId
+            );
+
+            $tags[] = new self($attr);
+        }
+
+        return $tags;
+    }
+
     /**
      * 关联文章
      * @return \Illuminate\Database\Eloquent\Relations\HasOne

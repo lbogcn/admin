@@ -3,11 +3,13 @@
 namespace App\Http\Controllers\Admin\ArticleManage;
 
 use App\Components\ApiResponse;
+use App\Components\CacheName;
 use App\Components\Qiniu;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\ArticleColumn;
 use App\Models\ArticleTag;
+use Illuminate\Http\Request;
 
 class ArticleController extends Controller
 {
@@ -47,9 +49,42 @@ class ArticleController extends Controller
         return view('admin.article-manage.article.create', $data);
     }
 
-    public function store()
+    /**
+     * 保存文章
+     * @param Request $request
+     * @return string
+     * @return ApiResponse
+     */
+    public function store(Request $request)
     {
-        return __FUNCTION__;
+        $status = implode(',', [Article::STATUS_RELEASE, Article::STATUS_DRAFT]);
+        $type = implode(',', [Article::TYPE_ARTICLE, Article::TYPE_PAGE]);
+        $this->validate($request, array(
+            'title' => ['required', 'max:30'],
+            'content' => ['required'],
+            'status' => ['required', "in:{$status}"],
+            'type' => ['required', "in:{$type}"],
+            'tag' => ['array'],
+            'column' => ['array']
+        ));
+
+        $data = $request->only(['title', 'status', 'type']);
+        $data['author'] = \Auth::guard()->user()->username;
+        $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
+        $data['excerpt'] = str_excerpt($request->input('content'), 250);
+        $column = $request->input('column');
+        $tag = $request->input('tag');
+        $content = $request->input('content');
+
+        Article::add($data, $column, $tag, $content);
+
+        \Cache::forget(CacheName::PAGE_HOME);
+        \Cache::forget(CacheName::PAGE_BLOG_LIST);
+        \Cache::forget(CacheName::ARTICLE_TOTAL);
+        \Cache::forget(CacheName::ARTICLE_TAG_TOTAL);
+        \Cache::forget(CacheName::ARTICLE_TAGS);
+
+        return ApiResponse::buildFromArray();
     }
 
     /**
