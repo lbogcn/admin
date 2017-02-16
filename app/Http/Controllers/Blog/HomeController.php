@@ -34,9 +34,15 @@ class HomeController extends Controller
         return \Cache::get($key);
     }
 
+    /**
+     * 关于页面
+     * @return string
+     */
     public function about()
     {
-        return 'about';
+        $aboutArtileId = get_option('about_artile_id');
+
+        return (new BlogController())->detail($aboutArtileId);
     }
 
 }
