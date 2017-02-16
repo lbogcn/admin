@@ -15,7 +15,7 @@ class Article extends \Eloquent
     /** 状态-发布 */
     const STATUS_RELEASE = 1;
 
-    /** 状态-草稿 */
+    /** 状态-下线 */
     const STATUS_DRAFT = 2;
 
     /** 类型-文章 */
@@ -83,7 +83,7 @@ class Article extends \Eloquent
     }
 
     /**
-     * 上架
+     * 发布
      * @param $id
      * @return bool
      */
@@ -93,7 +93,7 @@ class Article extends \Eloquent
     }
 
     /**
-     * 下架
+     * 下线
      * @param $id
      * @return bool
      */
@@ -189,9 +189,9 @@ class Article extends \Eloquent
     public function getStatusTextAttribute()
     {
         if (isset($this->attributes['status']) && $this->attributes['status'] == self::STATUS_RELEASE) {
-            return '上架';
+            return '发布';
         } else {
-            return '下架';
+            return '下线';
         }
     }
 

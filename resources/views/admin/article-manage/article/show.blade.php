@@ -52,7 +52,7 @@
                                         <div class="pull-left"><label class="control-label">状态</label></div>
                                         <div class="col-xs-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="status" value="2" @if($model->status == 2) checked @endif>草稿
+                                                <input type="radio" name="status" value="2" @if($model->status == 2) checked @endif>下线
                                             </label>
                                             <label class="radio-inline">
                                                 <input type="radio" name="status" value="1" @if($model->status == 1) checked @endif>发布

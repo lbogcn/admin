@@ -143,7 +143,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * 上架
+     * 发布
      * @param $id
      * @return ApiResponse
      */
@@ -156,7 +156,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * 下架
+     * 下线
      * @param $id
      * @return ApiResponse
      */

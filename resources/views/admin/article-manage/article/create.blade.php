@@ -52,7 +52,7 @@
                                         <div class="pull-left"><label class="control-label">状态</label></div>
                                         <div class="col-xs-8">
                                             <label class="radio-inline">
-                                                <input type="radio" name="status" value="2" checked>草稿
+                                                <input type="radio" name="status" value="2" checked>下线
                                             </label>
                                             <label class="radio-inline">
                                                 <input type="radio" name="status" value="1">发布
