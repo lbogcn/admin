@@ -72,6 +72,7 @@ require(['jquery', 'restful'], function($, restful) {
                 <a href="javascript:void(0);" class="btn-detail">详情</a>\
                 <a href="javascript:void(0);" class="btn-up">上架</a>\
                 <a href="javascript:void(0);" class="btn-down">下架</a>\
+                <a href="/article-manage/article/' + obj.id + '" class="btn-edit">编辑</a>\
                 <a href="javascript:void(0);" class="btn-delete">删除</a>\
                 </td>'),
             $statusLabel = $('<label class="label"></label>');

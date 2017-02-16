@@ -2,12 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-
 class ArticleContent extends \Eloquent
 {
-    use SoftDeletes;
-
     /** Mysql-text长度 */
     const TEXT_LEN = 65535;
 

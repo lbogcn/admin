@@ -20,8 +20,12 @@ class ArticleTag extends \Eloquent
      * @param array $tag
      * @return array
      */
-    public static function getNewTags($articleId, array $tag)
+    public static function getNewTags($articleId, $tag)
     {
+        if (empty($tag) || !is_array($tag)) {
+            return [];
+        }
+
         $tags = array();
 
         foreach ($tag as $t) {

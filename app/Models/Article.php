@@ -222,7 +222,37 @@ class Article extends \Eloquent
         \Cache::forget(CacheName::ARTICLE_TOTAL);
         \Cache::forget(CacheName::ARTICLE_TAG_TOTAL);
         \Cache::forget(CacheName::ARTICLE_TAGS);
+        \Cache::forget(CacheName::PAGE_ARTICLE);
 
+    }
+
+    /**
+     * 更新文章
+     * @param $data
+     * @param $column
+     * @param $tag
+     * @param $content
+     * @return static
+     */
+    public function put($data, $column, $tag, $content)
+    {
+        return \DB::transaction(function () use ($data, $column, $tag, $content) {
+            $this->update($data);
+
+            $contents = ArticleContent::cut($this->id, $content);
+            $columns = ArticleColumn::whereIn('id', $column)->get();
+            $tags = ArticleTag::getNewTags($this->id, $tag);
+
+            $this->tags()->delete();
+            $this->contents()->delete();
+            $this->columns()->detach();
+
+            $this->contents()->saveMany($contents);
+            $this->columns()->saveMany($columns);
+            $this->tags()->saveMany($tags);
+
+            return $this;
+        });
     }
 
 }

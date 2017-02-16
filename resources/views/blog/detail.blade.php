@@ -12,12 +12,14 @@
             @endforeach
 
             <div class="tags uk-clearfix">
+                @if(count($article['tags']) > 0)
                 <div class="tags uk-float-left">
                     <i class="uk-icon-tags"></i>
                     @foreach($article['tags'] as $tag)
                         <a href="{{url('tag/' . urlencode($tag['tag']))}}" rel="tag">{{$tag['tag']}}</a>
                     @endforeach
                 </div>
+                @endif
                 <div class="uk-float-right"></div>
             </div>
         </article>

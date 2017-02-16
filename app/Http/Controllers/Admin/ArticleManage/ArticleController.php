@@ -83,6 +83,66 @@ class ArticleController extends Controller
     }
 
     /**
+     * 详情、编辑
+     * @param Qiniu $qiniu
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function show(Qiniu $qiniu, $id)
+    {
+        $callbackUrl = config('qiniu.callback_ueditor');
+        $uploadToken = $qiniu->uploadToken($callbackUrl);
+        $columns = ArticleColumn::homeColumns();
+        $tags = ArticleTag::getAllTag();
+        $model = Article::with('tags', 'columns', 'contents')->findOrFail($id);
+        $data = array(
+            'navLocation' => action('\\' . self::class . '@index'),
+            'model' => $model,
+            'columnIds' => array_column($model->columns->toArray(), 'id'),
+            'uploadToken' => $uploadToken,
+            'columns' => $columns,
+            'tags' => $tags
+        );
+
+        return view('admin.article-manage.article.show', $data);
+    }
+
+    /**
+     * 更新
+     * @param Request $request
+     * @param $id
+     * @return ApiResponse
+     */
+    public function update(Request $request, $id)
+    {
+        /** @var Article $model */
+        $model = Article::findOrFail($id);
+        $status = implode(',', [Article::STATUS_RELEASE, Article::STATUS_DRAFT]);
+        $type = implode(',', [Article::TYPE_ARTICLE, Article::TYPE_PAGE]);
+        $this->validate($request, array(
+            'title' => ['required', 'max:30'],
+            'content' => ['required'],
+            'status' => ['required', "in:{$status}"],
+            'type' => ['required', "in:{$type}"],
+            'tag' => ['array'],
+            'column' => ['array']
+        ));
+
+        $data = $request->only(['title', 'status', 'type']);
+        $data['author'] = \Auth::guard()->user()->username;
+        $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
+        $data['excerpt'] = str_excerpt($request->input('content'), 250);
+        $column = $request->input('column');
+        $tag = $request->input('tag');
+        $content = $request->input('content');
+
+        $model->put($data, $column, $tag, $content);
+        Article::clearCache();
+
+        return ApiResponse::buildFromArray();
+    }
+
+    /**
      * 上架
      * @param $id
      * @return ApiResponse
