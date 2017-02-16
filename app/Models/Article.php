@@ -12,9 +12,11 @@ class Article extends \Eloquent
 {
     use SoftDeletes;
 
-    const STATUS_UP = 1;
+    /** 状态-发布 */
+    const STATUS_RELEASE = 1;
 
-    const STATUS_DOWN = 2;
+    /** 状态-草稿 */
+    const STATUS_DRAFT = 2;
 
     protected $fillable = [
         'status',
@@ -48,7 +50,7 @@ class Article extends \Eloquent
      */
     public static function up($id)
     {
-        return self::patch($id, array('status' => self::STATUS_UP));
+        return self::patch($id, array('status' => self::STATUS_RELEASE));
     }
 
     /**
@@ -58,7 +60,7 @@ class Article extends \Eloquent
      */
     public static function down($id)
     {
-        return self::patch($id, array('status' => self::STATUS_DOWN));
+        return self::patch($id, array('status' => self::STATUS_DRAFT));
     }
 
     /**
@@ -103,7 +105,7 @@ class Article extends \Eloquent
      */
     public static function getHomeArticles($pageSize = 30)
     {
-        return self::where('status', self::STATUS_UP)
+        return self::where('status', self::STATUS_RELEASE)
             ->orderBy('id', 'desc')
             ->limit($pageSize)
             ->get();
@@ -115,7 +117,7 @@ class Article extends \Eloquent
      */
     public static function getAllArticles()
     {
-        return self::where('status', self::STATUS_UP)
+        return self::where('status', self::STATUS_RELEASE)
             ->orderBy('id', 'desc')
             ->get();
     }
@@ -129,7 +131,7 @@ class Article extends \Eloquent
         $key = CacheName::ARTICLE_TOTAL;
 
         if (!\Cache::has($key)) {
-            $total = self::where('status', self::STATUS_UP)
+            $total = self::where('status', self::STATUS_RELEASE)
                 ->count();
 
             \Cache::forever($key, $total);
@@ -144,7 +146,7 @@ class Article extends \Eloquent
      */
     public function getStatusTextAttribute()
     {
-        if (isset($this->attributes['status']) && $this->attributes['status'] == self::STATUS_UP) {
+        if (isset($this->attributes['status']) && $this->attributes['status'] == self::STATUS_RELEASE) {
             return '上架';
         } else {
             return '下架';

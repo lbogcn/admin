@@ -42,7 +42,6 @@
                 'bold', //加粗
                 'italic', //斜体
                 'underline', //下划线
-                'subscript', //下标
                 'forecolor', //字体颜色
                 'backcolor', //背景色
                 'insertorderedlist', //有序列表
@@ -69,6 +68,7 @@
 
                 'help', //帮助
 /*
+                'subscript', //下标
                 'anchor', //锚点
                 'snapscreen', //截图
                 'fontborder', //字符边框
@@ -336,7 +336,7 @@
 
         //wordCount
         //,wordCount:true          //是否开启字数统计
-        //,maximumWords:10000       //允许的最大字符数
+        ,maximumWords:100000       //允许的最大字符数
         //字数统计提示，{#count}代表当前字数，{#leave}代表还可以输入多少字符数,留空支持多语言自动切换，否则按此配置显示
         //,wordCountMsg:''   //当前已输入 {#count} 个字符，您还可以输入{#leave} 个字符
         //超出字数限制提示  留空支持多语言自动切换，否则按此配置显示

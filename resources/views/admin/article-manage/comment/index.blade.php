@@ -7,8 +7,10 @@
 @endsection
 
 @section('page-wrapper')
-<div class="col-lg-12">
-    <h1 class="page-header">评论列表</h1>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">评论列表</h1>
+    </div>
 </div>
 
 <div class="row">

@@ -6,6 +6,8 @@ use App\Components\ApiResponse;
 use App\Components\Qiniu;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
+use App\Models\ArticleColumn;
+use App\Models\ArticleTag;
 
 class ArticleController extends Controller
 {
@@ -32,10 +34,14 @@ class ArticleController extends Controller
     {
         $callbackUrl = config('qiniu.callback_ueditor');
         $uploadToken = $qiniu->uploadToken($callbackUrl);
+        $columns = ArticleColumn::homeColumns();
+        $tags = ArticleTag::getAllTag();
 
         $data = array(
             'navLocation' => action('\\' . self::class . '@index'),
-            'uploadToken' => $uploadToken
+            'uploadToken' => $uploadToken,
+            'columns' => $columns,
+            'tags' => $tags
         );
 
         return view('admin.article-manage.article.create', $data);
