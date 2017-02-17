@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>登录 - {{env('APP_NAME')}}</title>
+    <title>登录 - {{config('app.name')}}</title>
     <link href="{{cdn('plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
     <link href="{{cdn('css/sb-admin-2.css')}}" rel="stylesheet">
     <link href="{{cdn('plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">

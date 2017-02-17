@@ -59,7 +59,7 @@
 <script>
 require(['jquery', 'restful'], function($, restful) {
     function detail(id) {
-        window.open('//{{env('DOMAIN_BLOG')}}/blog/' + id);
+        window.open('//{{config('domain.blog')}}/blog/' + id);
     }
 
     // 加载数据
