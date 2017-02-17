@@ -14,15 +14,23 @@ require('laravel-elixir-vue-2');
 */
 
 elixir(function(mix) {
-    mix.scripts('require-config.js');
-    mix.scripts('utils.js');
-    mix.scripts('ajax.js');
+    var javascripts = [
+        {scripts: 'require-config.js'},
+        {scripts: 'utils.js'},
+        {scripts: 'ajax.js'},
+        {scripts: 'admin/sb-admin-2.js'},
+        {scripts: 'admin/restful.js'},
+        {scripts: 'blog.js'}
+    ];
 
-    mix.scripts('admin/sb-admin-2.js', 'public/js/admin');
-    mix.scripts('admin/restful.js', 'public/js/admin');
+    for (var i in javascripts) {
+        var javascript = javascripts[i];
+        var version = 'js/' + javascript.scripts;
+
+        mix.scripts(javascript.scripts, javascript.output).version(version);
+    }
 
     mix.styles('sb-admin-2.css', 'public/css/sb-admin-2.css');
 
     mix.styles('style.css', 'public/css/style.css');
-    mix.scripts('blog.js', 'public/js');
 });
