@@ -82,11 +82,11 @@ define(['ajax', 'jquery'], function(ajax, $) {
                 });
             }
         },
-        del: function(url) {
+        del: function(url, params) {
             if (confirm('确认删除？')) {
                 loading();
 
-                ajax.apiDelete(url).done(function() {
+                ajax.apiDelete(url, params).done(function() {
                     alert('操作成功，点击确定刷新页面！');
                     window.location.reload();
                 }).always(function () {

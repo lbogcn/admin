@@ -28,6 +28,10 @@ Route::group(['namespace' => 'Admin'], function() {
         // 配置选项
         Route::resource('option', 'OptionController');
 
+        // 缓存管理
+        Route::delete('cache', 'CacheController@destroy');
+        Route::get('cache', 'CacheController@index');
+
         // 权限管理
         Route::resources(array(
             'permission/menu' => 'Permission\MenuController',

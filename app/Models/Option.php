@@ -64,6 +64,6 @@ class Option extends \Eloquent
      */
     private static function cacheKey($optionName)
     {
-        return CacheName::OPTIONS . $optionName;
+        return CacheName::OPTIONS[0] . $optionName;
     }
 }

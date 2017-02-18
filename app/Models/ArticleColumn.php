@@ -30,7 +30,7 @@ class ArticleColumn extends \Eloquent
      */
     public static function homeColumns()
     {
-        $key = CacheName::HOME_ARTICLE_COLUMN;
+        $key = CacheName::HOME_ARTICLE_COLUMN[0];
 
         if (!Cache::has($key)) {
             $rows = self::where('is_show', self::IS_SHOW_TRUE)
@@ -128,7 +128,7 @@ class ArticleColumn extends \Eloquent
      */
     private static function clearCache()
     {
-        $key = CacheName::HOME_ARTICLE_COLUMN;
+        $key = CacheName::HOME_ARTICLE_COLUMN[0];
 
         Cache::forget($key);
     }

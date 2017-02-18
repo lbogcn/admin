@@ -15,7 +15,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        $key = CacheName::PAGE_BLOG_LIST;
+        $key = CacheName::PAGE_BLOG_LIST[0];
 
         if (!\Cache::has($key)) {
             $articles = Article::getAllArticles();
@@ -51,7 +51,7 @@ class BlogController extends Controller
      */
     public function detail($id)
     {
-        $key = \Cache::getPrefix() . CacheName::PAGE_ARTICLE;
+        $key = \Cache::getPrefix() . CacheName::PAGE_ARTICLE[0];
         $redis = \RedisClient::connection();
 
         if (!$redis->hexists($key, $id)) {

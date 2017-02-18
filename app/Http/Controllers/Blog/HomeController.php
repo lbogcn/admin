@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $key = CacheName::PAGE_HOME;
+        $key = CacheName::PAGE_HOME[0];
 
         if (!\Cache::has($key)) {
             $data = array(

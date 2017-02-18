@@ -222,7 +222,7 @@ class Article extends \Eloquent
      */
     public static function getTotal()
     {
-        $key = CacheName::ARTICLE_TOTAL;
+        $key = CacheName::ARTICLE_TOTAL[0];
 
         if (!\Cache::has($key)) {
             $total = self::where('status', self::STATUS_RELEASE)
@@ -270,12 +270,12 @@ class Article extends \Eloquent
      */
     public static function clearCache()
     {
-        \Cache::forget(CacheName::PAGE_HOME);
-        \Cache::forget(CacheName::PAGE_BLOG_LIST);
-        \Cache::forget(CacheName::ARTICLE_TOTAL);
-        \Cache::forget(CacheName::ARTICLE_TAG_TOTAL);
-        \Cache::forget(CacheName::ARTICLE_TAGS);
-        \Cache::forget(CacheName::PAGE_ARTICLE);
+        \Cache::forget(CacheName::PAGE_HOME[0]);
+        \Cache::forget(CacheName::PAGE_BLOG_LIST[0]);
+        \Cache::forget(CacheName::ARTICLE_TOTAL[0]);
+        \Cache::forget(CacheName::ARTICLE_TAG_TOTAL[0]);
+        \Cache::forget(CacheName::ARTICLE_TAGS[0]);
+        \Cache::forget(CacheName::PAGE_ARTICLE[0]);
 
     }
 

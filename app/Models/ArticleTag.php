@@ -55,7 +55,7 @@ class ArticleTag extends \Eloquent
      */
     public static function getTotal()
     {
-        $key = CacheName::ARTICLE_TAG_TOTAL;
+        $key = CacheName::ARTICLE_TAG_TOTAL[0];
 
         if (!\Cache::has($key)) {
             $total = self::count(\DB::raw('distinct tag'));
@@ -72,7 +72,7 @@ class ArticleTag extends \Eloquent
      */
     public static function getAllTag()
     {
-        $key = CacheName::ARTICLE_TAGS;
+        $key = CacheName::ARTICLE_TAGS[0];
 
         if (!\Cache::has($key)) {
             $tags = self::groupBy('tag')->get()->toArray();
