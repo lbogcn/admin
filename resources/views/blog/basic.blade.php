@@ -6,7 +6,7 @@
     <meta name="keywords" content="妞妞溜溜,lenbo,林博"/>
     <meta name="description" content="Lenbo(林博)的博客，主要分享关于妞妞以及溜溜的相关日常。"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="stylesheet" href="{{cdn('/css/style.css')}}" type="text/css" media="all" />
+    <link rel="stylesheet" href="{{cdn('css/style.css')}}" type="text/css" media="all" />
 </head>
 <body>
 

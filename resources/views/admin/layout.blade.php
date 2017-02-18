@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title') - {{env('APP_NAME')}}</title>
-    <link href="{{cdn('/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
-    <link href="{{cdn('/css/sb-admin-2.css')}}" rel="stylesheet">
-    <link href="{{cdn('/plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
-    <link href="{{cdn('/plugins/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
+    <title>@yield('title') - {{config('app.name')}}</title>
+    <link href="{{cdn('plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{cdn('css/sb-admin-2.css')}}" rel="stylesheet">
+    <link href="{{cdn('plugins/font-awesome/css/font-awesome.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{cdn('plugins/metisMenu/metisMenu.min.css')}}" rel="stylesheet">
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 
     <!--[if lt IE 9]>
@@ -29,7 +29,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="javascript:void(0);">{{env('APP_NAME')}}</a>
+            <a class="navbar-brand" href="javascript:void(0);">{{config('app.name')}}</a>
         </div>
 
         <!-- 导航右部 -->
@@ -65,8 +65,8 @@
     </div>
 </div>
 
-<script data-main="{{cdn('/js/admin/sb-admin-2.js')}}" src="{{cdn('/plugins/requirejs/require.js')}}"></script>
-<script src="{{cdn('/js/require-config.js')}}"></script>
+<script data-main="{{cdn('js/admin/sb-admin-2.js')}}" src="{{cdn('plugins/requirejs/require.js')}}"></script>
+<script src="{{cdn('js/require-config.js')}}"></script>
 @if(isset($navLocation))<div class="hide" id="nav-location">{{$navLocation}}</div>@endif
 @yield('body-extend')
 </body>

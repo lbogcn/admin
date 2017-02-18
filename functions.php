@@ -21,7 +21,7 @@ function cdn($path) {
         $separator = '/';
     }
 
-    return '//' . env('DOMAIN_CDN') . $separator . $path;
+    return '//' . config('domain.cdn') . $separator . $path;
 }
 
 /**

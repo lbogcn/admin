@@ -53,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::group([
             'middleware' => 'web',
             'namespace' => $this->namespace,
-            'domain' => env('DOMAIN_ADMIN'),
+            'domain' => config('domain.admin'),
         ], function ($router) {
             require base_path('routes/admin.php');
         });
@@ -66,7 +66,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         Route::group([
             'namespace' => $this->namespace,
-            'domain' => env('DOMAIN_CALLBACK'),
+            'domain' => config('domain.callback'),
         ], function ($router) {
             require base_path('routes/callback.php');
         });

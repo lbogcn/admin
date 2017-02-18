@@ -3,7 +3,7 @@
 @section('title', '文章列表')
 
 @section('head-extend')
-    <link href="{{cdn('/plugins/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{cdn('plugins/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
 @endsection
 
 @section('page-wrapper')
@@ -59,7 +59,7 @@
 <script>
 require(['jquery', 'restful'], function($, restful) {
     function detail(id) {
-        window.open('//{{env('DOMAIN_BLOG')}}/blog/' + id);
+        window.open('//{{config('domain.blog')}}/blog/' + id);
     }
 
     // 加载数据
