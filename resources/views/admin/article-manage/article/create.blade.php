@@ -37,8 +37,9 @@
                         </div>
 
                         <div class="form-group">
-                            <div class="col-xs-2">
+                            <div class="col-xs-6">
                                 <button class="btn btn-primary" id="btnSubmit" type="button">提交</button>
+                                <button class="btn btn-default" id="btnPreview" type="button">预览</button>
                             </div>
                         </div>
                     </div>
@@ -199,6 +200,24 @@
         // 提交
         $('#btnSubmit').click(function() {
             restful.post('/article-manage/article', $('#dataForm').serialize());
+        });
+
+        // 预览
+        $('#btnPreview').click(function() {
+            var $form = $('<form class="hide" action="/article-manage/article/preview" target="_blank" method="post">\
+                    <input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">\
+                </form>');
+
+            $.each($('#dataForm').serializeArray(), function(i, obj) {
+                var $input = $('<input type="text">');
+                $input.val(obj.value);
+                $input.attr('name', obj.name);
+                $form.append($input);
+            });
+
+            $('body').append($form);
+            $form.submit();
+            $form.remove();
         });
     });
 </script>

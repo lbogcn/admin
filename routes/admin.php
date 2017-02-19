@@ -17,6 +17,7 @@ Route::group(['namespace' => 'Admin'], function() {
         // 文章管理
         Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');
         Route::patch('article-manage/article/down/{id}', 'ArticleManage\ArticleController@down');
+        Route::post('article-manage/article/preview', 'ArticleManage\ArticleController@preview');
         Route::patch('article-manage/comment/restore/{id}', 'ArticleManage\CommentController@restore');
         Route::patch('article-manage/comment/deny/{id}', 'ArticleManage\CommentController@deny');
         Route::resources(array(

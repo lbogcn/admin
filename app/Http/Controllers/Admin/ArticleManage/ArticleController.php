@@ -108,6 +108,27 @@ class ArticleController extends Controller
     }
 
     /**
+     * 预览
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function preview(Request $request)
+    {
+        $data = array(
+            'article' => $request->all(),
+            'pageName' => $request->input('title'),
+            'navs' => array(),
+            'stat' => array(
+                'articleTotal' => '-',
+                'columnTotal' => '-',
+                'tagTotal' => '-',
+            )
+        );
+
+        return view('blog.preview', $data);
+    }
+
+    /**
      * 更新
      * @param Request $request
      * @param $id
