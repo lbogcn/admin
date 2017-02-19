@@ -34,6 +34,7 @@ class ArticleColumn extends \Eloquent
 
         if (!Cache::has($key)) {
             $rows = self::where('is_show', self::IS_SHOW_TRUE)
+                ->orderBy('weight', 'desc')
                 ->get()
                 ->toArray();
 
