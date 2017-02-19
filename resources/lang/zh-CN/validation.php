@@ -110,6 +110,7 @@ return [
     */
     'attributes'           => [
         'name'                  => '名称',
+        'author'                => '作者',
         'alias'                  => '别名',
         'username'              => '用户名',
         'email'                 => '邮箱',

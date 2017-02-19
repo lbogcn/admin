@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Admin\ArticleManage;
 
 use App\Components\ApiResponse;
-use App\Components\CacheName;
 use App\Components\Qiniu;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
@@ -61,6 +60,7 @@ class ArticleController extends Controller
         $type = implode(',', [Article::TYPE_ARTICLE, Article::TYPE_PAGE]);
         $this->validate($request, array(
             'title' => ['required', 'max:30'],
+            'author' => ['required', 'max:12'],
             'content' => ['required'],
             'status' => ['required', "in:{$status}"],
             'type' => ['required', "in:{$type}"],
@@ -68,8 +68,7 @@ class ArticleController extends Controller
             'column' => ['array']
         ));
 
-        $data = $request->only(['title', 'status', 'type']);
-        $data['author'] = \Auth::guard()->user()->username;
+        $data = $request->only(['title', 'status', 'type', 'author']);
         $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
         $data['excerpt'] = str_excerpt($request->input('content'), 250);
         $column = $request->input('column');
@@ -142,6 +141,7 @@ class ArticleController extends Controller
         $type = implode(',', [Article::TYPE_ARTICLE, Article::TYPE_PAGE]);
         $this->validate($request, array(
             'title' => ['required', 'max:30'],
+            'author' => ['required', 'max:12'],
             'content' => ['required'],
             'status' => ['required', "in:{$status}"],
             'type' => ['required', "in:{$type}"],
@@ -149,8 +149,7 @@ class ArticleController extends Controller
             'column' => ['array']
         ));
 
-        $data = $request->only(['title', 'status', 'type']);
-        $data['author'] = \Auth::guard()->user()->username;
+        $data = $request->only(['title', 'status', 'type', 'author']);
         $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
         $data['excerpt'] = str_excerpt($request->input('content'), 250);
         $column = $request->input('column');

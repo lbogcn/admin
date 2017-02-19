@@ -25,7 +25,7 @@ class Article extends \Eloquent
     const TYPE_PAGE = 2;
 
     protected $fillable = [
-        'title', 'user_id', 'author', 'status', 'type', 'excerpt'
+        'title', 'user_id', 'author', 'status', 'type', 'excerpt', 'author'
     ];
 
     /** 需要额外显示的字段 @var array */
