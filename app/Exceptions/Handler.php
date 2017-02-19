@@ -4,7 +4,9 @@ namespace App\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -44,6 +46,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->server('HTTP_HOST') == config('domain.blog')) {
+            if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
+                return \Response::view('blog.404');
+            }
+        }
+
         return parent::render($request, $exception);
     }
 

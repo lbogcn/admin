@@ -55,7 +55,9 @@ class BlogController extends Controller
         $redis = \RedisClient::connection();
 
         if (!$redis->hexists($key, $id)) {
-            $article = Article::with('contents', 'tags')->findOrFail($id);
+            $article = Article::with('contents', 'tags')
+                ->where('status', Article::STATUS_RELEASE)
+                ->findOrFail($id);
 
             $data = array(
                 'article' => $article,
