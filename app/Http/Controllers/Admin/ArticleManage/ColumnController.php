@@ -31,7 +31,7 @@ class ColumnController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'alias' => ['required', 'unique:article_columns', 'max:10'],
+            'alias' => ['required', 'unique:article_columns,alias,NULL,id,deleted_at,NULL', 'max:10'],
             'column_name' => ['required', 'max:8'],
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
             'is_show' => ['required', 'in:1,2'],
@@ -51,7 +51,7 @@ class ColumnController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, array(
-            'alias' => ['required', "unique:article_columns,alias,{$id}", 'max:10'],
+            'alias' => ['required', "unique:article_columns,alias,{$id},id,deleted_at,NULL", 'max:10'],
             'column_name' => ['required', 'max:8'],
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
             'is_show' => ['required', 'in:1,2'],
