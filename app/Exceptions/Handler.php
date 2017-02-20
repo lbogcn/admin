@@ -42,13 +42,24 @@ class Handler extends ExceptionHandler
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Exception  $exception
-     * @return \Illuminate\Http\Response
+     * @return \Symfony\Component\HttpFoundation\Response|\Response
      */
     public function render($request, Exception $exception)
     {
+        // 博客404
         if ($request->server('HTTP_HOST') == config('domain.blog')) {
             if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
                 return \Response::view('blog.404');
+            }
+        }
+
+        // 后台普通异常
+        if ($request->server('HTTP_HOST') == config('domain.admin')) {
+            if ($exception instanceof \App\Components\Exception) {
+                return \Response::view('admin.alert', array(
+                    'error' => $exception->getMessage(),
+                    'pageName' => '出错啦！'
+                ));
             }
         }
 

@@ -28,6 +28,8 @@ class Permissions
     {
         $this->rbacService = new RbacService($guard);
 
+        $this->shareViewData();
+
         if (!$this->rbacService->check($request->route())) {
             if ($request->ajax() || $request->wantsJson()) {
                 return ApiResponse::buildFromArray(ErrorCode::PERMISSION_DENIED);
@@ -35,8 +37,6 @@ class Permissions
 
             throw Exception::buildFromArray(ErrorCode::PERMISSION_DENIED);
         }
-
-        $this->shareViewData();
 
         return $next($request);
     }
