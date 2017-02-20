@@ -21,7 +21,7 @@ class HomeController extends Controller
 
         if (!\Cache::has($key)) {
             $data = array(
-                'pageName' => '首页',
+                'pageName' => get_option('blog_subtitle'),
                 'articles' => Article::getHomeArticles(),
                 'title' => '最新文章'
             );
