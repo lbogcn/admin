@@ -3,7 +3,7 @@
 namespace App\Models;
 
 
-class AdminMenu extends \Eloquent
+class AdminMenu extends Model
 {
 
     /**
