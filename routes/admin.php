@@ -17,6 +17,10 @@ Route::group(['namespace' => 'Admin'], function() {
         // UEditor
         Route::get('ueditor', 'HomeController@ueditor');
 
+        // 修改密码
+        Route::get('modify-password', 'AuthController@modifyPasswordForm')->name('modify-password');
+        Route::post('modify-password', 'AuthController@modifyPassword')->name('modify-password');
+
         // 文章管理
         Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');
         Route::patch('article-manage/article/down/{id}', 'ArticleManage\ArticleController@down');

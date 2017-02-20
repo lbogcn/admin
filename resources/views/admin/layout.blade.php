@@ -44,6 +44,9 @@
                     </li>
                     <li class="divider"></li>
                     <li>
+                        <a href="{{route('modify-password')}}"><i class="glyphicon glyphicon-refresh"></i> 修改密码</a>
+                    </li>
+                    <li>
                         <a href="{{route('logout')}}"><i class="fa fa-sign-out fa-fw"></i> 退出登录</a>
                     </li>
                 </ul>

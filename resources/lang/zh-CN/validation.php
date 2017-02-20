@@ -28,7 +28,7 @@ return [
         'array'   => ':attribute 必须只有 :min - :max 个单元。',
     ],
     'boolean'              => ':attribute 必须为布尔值。',
-    'confirmed'            => ':attribute 两次输入不一致。',
+    'confirmed'            => '两次 :attribute 输入不一致。',
     'date'                 => ':attribute 不是一个有效的日期。',
     'date_format'          => ':attribute 的格式必须为 :format。',
     'different'            => ':attribute 和 :other 必须不同。',
@@ -83,6 +83,10 @@ return [
     'unique'               => ':attribute 已经存在。',
     'uploaded'             => ':attribute 上传失败。',
     'url'                  => ':attribute 格式不正确。',
+
+    // 密码验证
+    'attempt'              => ':attribute 不正确。',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
@@ -117,6 +121,8 @@ return [
         'first_name'            => '名',
         'last_name'             => '姓',
         'password'              => '密码',
+        'old_password'          => '旧密码',
+        'new_password'          => '新密码',
         'password_confirmation' => '确认密码',
         'city'                  => '城市',
         'country'               => '国家',

@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @property string password
+ */
 class Admin extends Authenticatable
 {
     /**
