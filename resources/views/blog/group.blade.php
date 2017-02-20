@@ -4,7 +4,7 @@
     <div id="index" class="bs">
         <h1 class="h4">{{$pageName}}</h1>
         <div id="list">
-            <p class="date"><strong>{{get_option('blog_name')}}</strong>目前共有文章： {{$total}}篇 </p>
+            <p class="date"><strong>{{get_option('blog_title')}}</strong>目前共有文章： {{$total}}篇 </p>
             <div class="car-container car-collapse">
                 <a href="#" class="car-toggler">折叠所有月份</a>
 

@@ -61,6 +61,8 @@ class BlogController extends Controller
 
             $data = array(
                 'article' => $article,
+                'blogKeywords' => implode(',', array_column($article['tags']->toArray(), 'tag')),
+                'blogDescription' => $article['title'],
                 'pageName' => $article['title']
             );
 

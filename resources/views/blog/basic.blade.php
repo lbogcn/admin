@@ -2,9 +2,9 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>{{$pageName}} - {{get_option('blog_description')}}</title>
-    <meta name="keywords" content="妞妞溜溜,lenbo,林博"/>
-    <meta name="description" content="Lenbo(林博)的博客，主要分享关于妞妞以及溜溜的相关日常。"/>
+    <title>{{$pageName}} - {{get_option('blog_title')}}</title>
+    <meta name="keywords" content="{{$blogKeywords or get_option('blog_keywords')}}"/>
+    <meta name="description" content="{{$blogDescription or get_option('blog_description')}}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link rel="stylesheet" href="{{cdn('css/style.css')}}" type="text/css" media="all" />
 </head>
@@ -17,8 +17,8 @@
                 <div class="tx">
                     <img src="{{get_option('avatar')}}" />
                 </div>
-                <h1 class="uk-panel-title">{{get_option('blog_name')}}</h1>
-                <span> {{get_option('blog_description')}}</span>
+                <h1 class="uk-panel-title">{{get_option('blog_title')}}</h1>
+                <span> {{get_option('blog_subtitle')}}</span>
                 <div class="my uk-grid-collapse uk-grid uk-grid-width-1-3">
                     <div>
                         <span>{{$stat['articleTotal']}}</span>
