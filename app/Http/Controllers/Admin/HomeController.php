@@ -14,9 +14,20 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.home');
+        $redisInfo = \RedisClient::connection()->info();
+
+        $data = array(
+            'redis' => $redisInfo
+        );
+
+        return view('admin.home', $data);
     }
 
+    /**
+     * UE控制器
+     * @param Request $request
+     * @return mixed|string
+     */
     public function ueditor(Request $request)
     {
         $action = $request->input('action');
