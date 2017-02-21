@@ -6,3 +6,22 @@ p{
     margin-bottom: 20px;
     letter-spacing: 1px;
 }
+
+img {
+    max-width: 100%; /*图片自适应宽度*/
+}
+body {
+    overflow-y: scroll !important;
+}
+.view {
+    word-break: break-all;
+}
+.vote_area {
+    display: block;
+}
+.vote_iframe {
+    background-color: transparent;
+    border: 0 none;
+    height: 100%;
+}
+#edui1_imagescale{display:none !important;}
