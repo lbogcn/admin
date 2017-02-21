@@ -13,6 +13,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        // debug下记录SQL日志
+        if (config('app.debug')) {
+            \DB::connection()->enableQueryLog();
+        }
     }
 
     /**

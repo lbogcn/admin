@@ -1,8 +1,6 @@
 <?php
 
 Route::group(['namespace' => 'Admin'], function() {
-    // SQL日志分析
-    Route::get('sqlLog', 'HomeController@sqlExplain');
 
     Route::get('login', 'AuthController@showLoginForm')->name('login');
     Route::post('login', 'AuthController@login');
