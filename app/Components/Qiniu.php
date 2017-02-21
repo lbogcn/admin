@@ -102,7 +102,7 @@ class Qiniu
             $this->bucketMgr->move($bucket, $callbackBodyHash['key'], $this->publicBucket, $key);
         }
 
-        return config('qiniu.public_domain') . '/' . $key;
+        return '//' . config('qiniu.public_domain') . '/' . $key;
     }
 
 
