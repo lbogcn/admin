@@ -12,10 +12,9 @@ class HomeController extends Controller
 
     /**
      * 首页
-     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index()
     {
         $key = CacheName::PAGE_HOME[0];
 
@@ -32,17 +31,6 @@ class HomeController extends Controller
         }
 
         return \Cache::get($key);
-    }
-
-    /**
-     * 关于页面
-     * @return string
-     */
-    public function about()
-    {
-        $aboutArtileId = get_option('about_artile_id');
-
-        return (new BlogController())->detail($aboutArtileId);
     }
 
 }

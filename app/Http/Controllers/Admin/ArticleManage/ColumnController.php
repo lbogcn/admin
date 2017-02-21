@@ -35,9 +35,10 @@ class ColumnController extends Controller
             'column_name' => ['required', 'max:8'],
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
             'is_show' => ['required', 'in:1,2'],
+            'type' => ['required', 'in:1,2'],
         ));
 
-        ArticleColumn::store($request->only(['column_name', 'alias', 'weight', 'is_show']));
+        ArticleColumn::store($request->only(['column_name', 'alias', 'weight', 'is_show', 'type']));
 
         return ApiResponse::buildFromArray();
     }
@@ -55,9 +56,10 @@ class ColumnController extends Controller
             'column_name' => ['required', 'max:8'],
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
             'is_show' => ['required', 'in:1,2'],
+            'type' => ['required', 'in:1,2'],
         ));
 
-        $data = $request->only(['column_name', 'alias', 'weight', 'is_show']);
+        $data = $request->only(['column_name', 'alias', 'weight', 'is_show', 'type']);
 
         ArticleColumn::updateById($id, $data);
 

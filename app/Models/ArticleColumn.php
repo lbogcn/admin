@@ -6,6 +6,11 @@ use App\Components\CacheName;
 use Cache;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+/**
+ * @property int id
+ * @property int type
+ * @property string column_name
+ */
 class ArticleColumn extends \Eloquent
 {
     use SoftDeletes;
@@ -16,12 +21,19 @@ class ArticleColumn extends \Eloquent
     /** 不显示 */
     const IS_SHOW_FALSE = 2;
 
+    /** 类型-列表 */
+    const TYPE_LIST = 1;
+
+    /** 类型-页面 */
+    const TYPE_PAGE = 2;
+
     protected $fillable = [
-        'column_name', 'alias', 'weight', 'is_show'
+        'column_name', 'type', 'alias', 'weight', 'is_show'
     ];
 
     protected $appends = [
-        'is_show_text'
+        'is_show_text',
+        'type_text'
     ];
 
     /**
@@ -121,6 +133,15 @@ class ArticleColumn extends \Eloquent
             return '是';
         } else {
             return '否';
+        }
+    }
+
+    public function getTypeTextAttribute()
+    {
+        if (isset($this->attributes['type']) && $this->attributes['type'] == self::TYPE_PAGE) {
+            return '页面';
+        } else {
+            return '列表';
         }
     }
 

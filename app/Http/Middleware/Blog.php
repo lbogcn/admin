@@ -41,10 +41,6 @@ class Blog
             'column_name' => '首页',
             'url' => '/'
         );
-        $about = array(
-            'column_name' => '关于',
-            'url' => '/about'
-        );
 
         foreach ($columns as $column) {
             $nav = array(
@@ -56,7 +52,6 @@ class Blog
         }
 
         array_unshift($navs, $home);
-        array_push($navs, $about);
 
         foreach ($navs as &$column) {
             if ($column['url'] == $request->getPathInfo()) {

@@ -33,11 +33,50 @@ class ColumnController extends Controller
      */
     public function detail(Request $request, $alias)
     {
+        /** @var ArticleColumn $column */
         $column = ArticleColumn::findByAliasOrFail($alias);
-        $page = $request->input('page');
+
+        if ($column->type == ArticleColumn::TYPE_PAGE) {
+            return $this->detailPage($column);
+        } else {
+            $page = $request->input('page');
+            return $this->detailList($column, $page);
+        }
+    }
+
+    /**
+     * 页面详情
+     * @param ArticleColumn $column
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    private function detailPage($column)
+    {
+        /** @var ArticleColumnsRelation $relation */
+        $relation = ArticleColumnsRelation::getFirstOrFailColumnArticles($column->id);
+        $article = $relation->article;
+        $article->load('tags');
+
+        $data = array(
+            'article' => $article,
+            'blogKeywords' => implode(',', array_column($article['tags']->toArray(), 'tag')),
+            'blogDescription' => $article['title'],
+            'pageName' => $article['title']
+        );
+
+        return view('blog.detail', $data);
+    }
+
+    /**
+     * 列表详情
+     * @param ArticleColumn $column
+     * @param $page
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    private function detailList($column, $page)
+    {
         $pageSize = 15;
 
-        $paginate = ArticleColumnsRelation::getColumnArticles($column['id'], $page, $pageSize);
+        $paginate = ArticleColumnsRelation::getColumnArticles($column->id, $page, $pageSize);
         $articles = array();
 
         foreach ($paginate as $item) {
@@ -46,9 +85,9 @@ class ColumnController extends Controller
 
         $data = array(
             'articles' => $articles,
-            'pageName' => $column['column_name'],
+            'pageName' => $column->column_name,
             'paginate' => $paginate->render(),
-            'title' => $column['column_name']
+            'title' => $column->column_name
         );
 
         return view('blog.list', $data);

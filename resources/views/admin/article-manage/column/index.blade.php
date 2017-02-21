@@ -30,6 +30,7 @@
                     <th>ID</th>
                     <th>别名</th>
                     <th>栏目名称</th>
+                    <th>类型</th>
                     <th>权重</th>
                     <th>是否是示</th>
                     <th>创建时间</th>
@@ -75,6 +76,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label class="col-xs-3 control-label">类型</label>
+                            <div class="col-sm-9">
+                                <select name="type" class="form-control">
+                                    <option value="1">列表</option>
+                                    <option value="2">页面</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label class="col-xs-3 control-label">权重</label>
                             <div class="col-sm-9">
                                 <input type="text" class="form-control" name="weight" value="50">
@@ -116,9 +127,10 @@ require(['jquery', 'restful'], function($, restful) {
 
         $modal.find('.modal-title').html(title);
         $modal.find('[name=column_name]').val(defObj.column_name || '');
+        $modal.find('[name=type]').find('option[value=' + defObj.type + ']').attr('selected', true);
         $modal.find('[name=alias]').val(defObj.alias || '');
         $modal.find('[name=weight]').val(defObj.weight || '50');
-        $modal.find('option[value=' + defObj.is_show + ']', '[name=is_show]').attr('selected', true);
+        $modal.find('[name=is_show]').find('option[value=' + defObj.is_show + ']').attr('selected', true);
 
         $modal.modal();
 
@@ -162,8 +174,9 @@ require(['jquery', 'restful'], function($, restful) {
                 </td>');
 
         $tr.append('<td>' + obj.id + '</td>');
-        $tr.append('<td>' + obj.column_name + '</td>');
         $tr.append('<td>' + obj.alias + '</td>');
+        $tr.append('<td>' + obj.column_name + '</td>');
+        $tr.append('<td>' + obj.type_text + '</td>');
         $tr.append('<td>' + obj.weight + '</td>');
         $tr.append('<td>' + obj.is_show_text + '</td>');
         $tr.append('<td>' + obj.created_at + '</td>');

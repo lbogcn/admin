@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Pagination\LengthAwarePaginator;
 
+/**
+ * @property Article article
+ */
 class ArticleColumnsRelation extends \Eloquent
 {
 
@@ -33,6 +36,19 @@ class ArticleColumnsRelation extends \Eloquent
             ->where('column_id', $columnId)
             ->orderBy('article_id', 'desc')
             ->paginate($pageSize);
+    }
+
+    /**
+     * 获取条一条栏目文章
+     * @param $columnId
+     * @return \Illuminate\Database\Eloquent\Model|null|static
+     */
+    public static function getFirstOrFailColumnArticles($columnId)
+    {
+        return self::with('article')
+            ->where('column_id', $columnId)
+            ->orderBy('article_id', 'desc')
+            ->firstOrFail();
     }
 
 
