@@ -86,5 +86,12 @@
         s.parentNode.insertBefore(hm, s);
     })();
 </script>
+
+<script type="text/javascript">
+    /*底部悬浮*/
+    var cpro_id = "u2900501";
+</script>
+<script type="text/javascript" src="http://cpro.baidustatic.com/cpro/ui/c.js"></script>
+
 </body>
 </html>
