@@ -26,15 +26,11 @@
 
                     <div class="col-xs-8">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">标题</label>
-                            <div class="col-xs-10">
-                                <input type="text" class="form-control" name="title">
+                            <div class="col-xs-8">
+                                <input type="text" class="form-control" name="title" placeholder="标题">
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">作者</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="author" value="{{Auth::guard()->user()->username}}">
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" name="author" placeholder="作者" value="{{Auth::guard()->user()->username}}">
                             </div>
                         </div>
                         <div class="form-group">

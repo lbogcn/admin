@@ -26,18 +26,15 @@
 
                     <div class="col-xs-8">
                         <div class="form-group">
-                            <label class="col-sm-2 control-label">标题</label>
-                            <div class="col-xs-10">
+                            <div class="col-xs-8">
                                 <input type="text" class="form-control" name="title" placeholder="标题" value="{{$model->title}}">
+                            </div>
+
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" name="author" placeholder="作者" value="{{$model->author}}">
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label">作者</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" name="author" value="{{$model->author}}">
-                            </div>
-                        </div>
                         <div class="form-group">
                             <div class="col-xs-12">
                                 <script id="editor" name="content" type="text/plain" style="width:100%;height:500px;">@foreach($model->contents as $content){!! $content['content'] !!}@endforeach</script>
