@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use app\Components\UEditor\UEditor;
+use App\Components\UEditor\UEditor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -22,7 +22,7 @@ class HomeController extends Controller
         $action = $request->input('action');
         $callback = $request->input('callback');
 
-        return (new UEditor())->callAction($action, $callback);
+        return (new UEditor($request))->callAction($action, $callback);
     }
 
 }

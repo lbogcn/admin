@@ -5,7 +5,7 @@ return array(
     "imageSaveType" => "date",
 	"uploadPath" => "uploads/ueditor/",
     "imageActionName" => "uploadimage", /* 执行上传图片的action名称 */
-	"imageUrl" =>"http://upload.qiniu.com/",
+	"imageUrl" =>"http://up-z2.qiniu.com/",
     "imageFieldName" => "file", /* 提交的图片表单名称 */
     "imageMaxSize" => 2048000, /* 上传大小限制，单位B */
     "imageAllowFiles" => [".png", ".jpg", ".jpeg", ".gif", ".bmp"], /* 上传图片格式显示 */

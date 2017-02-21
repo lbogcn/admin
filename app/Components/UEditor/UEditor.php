@@ -1,6 +1,7 @@
 <?php
 
-namespace app\Components\UEditor;
+namespace App\Components\UEditor;
+use App\Components\Qiniu;
 
 /**
  * UE组件
@@ -10,11 +11,16 @@ class UEditor
 
     private $config = array();
 
+    /** @var \Illuminate\Http\Request */
+    private $request;
+
     /**
      * UEditor constructor.
+     * @param \Illuminate\Http\Request $request
      */
-    public function __construct()
+    public function __construct($request)
     {
+        $this->request = $request;
         $this->config = config('ueditor');
     }
 
@@ -33,34 +39,32 @@ class UEditor
                 break;
 
                 // 上传图片
-            case 'uploadimage':
+//            case 'uploadimage':
                 // 上传涂鸦
-            case 'uploadscrawl':
+//            case 'uploadscrawl':
                 // 上传视频
-            case 'uploadvideo':
+//            case 'uploadvideo':
                 // 上传文件
-            case 'uploadfile':
-//                $result = include("action_upload.php");
-                $result = $this->actionUpload();
-                break;
+//            case 'uploadfile':
+                // UE中已将文件上传改为直传七牛，不需要经过服务器
+//                $result = array('error' => '暂不支持上传');
+//                break;
 
                 // 列出图片
             case 'listimage':
                 // 列出文件
-            case 'listfile':
-//                $result = include("action_list.php");
-                $result = $this->actionList();
+//            case 'listfile':
+                $result = $this->imageList();
                 break;
 
                 // 抓取远程文件
-            case 'catchimage':
-//                $result = include("action_crawler.php");
-                $result = $this->actionCrawler();
-                break;
+//            case 'catchimage':
+//                $result = $this->actionCrawler($action);
+//                break;
 
             default:
                 $result = json_encode(array(
-                    'state'=> '请求地址出错'
+                    'state'=> '暂不支持该功能'
                 ));
                 break;
         }
@@ -78,15 +82,41 @@ class UEditor
         }
     }
 
-    private function actionUpload()
+    /**
+     * 获取图片列表
+     * @return string
+     */
+    private function imageList()
     {
-    }
+//        $size = $this->request->input('size', $this->config['imageManagerListSize']);
+        $start = $this->request->input('start', 0);
+//        $end = $start + $size;
 
-    private function actionList()
-    {
-    }
+        // 这里只会返回一页数据，共1000条，若$start大于0时，不返回空
+        if ($start > 0) {
+            return json_encode(array(
+                'state' => '没有更多文件了。',
+                'list' => array(),
+                'start' => $start,
+                'total' => 0
+            ));
+        }
 
-    private function actionCrawler()
-    {
+        $qiniu = new Qiniu();
+        $files = $qiniu->listFile();
+        $list = array();
+
+        foreach ($files as $file) {
+            $list[] = array(
+                'url' => $qiniu->getUrl($file['key'])
+            );
+        }
+
+        return json_encode(array(
+            'state' => 'SUCCESS',
+            'list' => $list,
+            'start' => $start,
+            'total' => count($list)
+        ));
     }
 }

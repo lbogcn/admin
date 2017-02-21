@@ -102,6 +102,27 @@ class Qiniu
             $this->bucketMgr->move($bucket, $callbackBodyHash['key'], $this->publicBucket, $key);
         }
 
+        return $this->getUrl($key);
+    }
+
+    /**
+     * 获取文件列表
+     * @return array
+     */
+    public function listFile()
+    {
+        list($files) = $this->bucketMgr->listFiles($this->publicBucket, null, null, 1000);
+
+        return $files;
+    }
+
+    /**
+     * 返回资源地址
+     * @param $key
+     * @return string
+     */
+    public function getUrl($key)
+    {
         return '//' . config('qiniu.public_domain') . '/' . $key;
     }
 
