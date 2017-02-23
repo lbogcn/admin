@@ -1,1 +1,53 @@
-require(["jquery","metisMenu"],function(i){i(function(){i("#side-menu").metisMenu()}),i(function(){i(window).bind("load resize",function(){var n=50,e=this.window.innerWidth>0?this.window.innerWidth:this.screen.width;e<768?(i("div.navbar-collapse").addClass("collapse"),n=100):i("div.navbar-collapse").removeClass("collapse");var t=(this.window.innerHeight>0?this.window.innerHeight:this.screen.height)-1;t-=n,t<1&&(t=1),t>n&&i("#page-wrapper").css("min-height",t+"px")});var n=window.location.toString().split("?")[0],e=i("#nav-location").html();n=e?e:n;for(var t=i("ul.nav a").filter(function(){return this.href==n}).addClass("active").parent();;){if(!t.is("li"))break;t=t.parent().addClass("in").parent()}})});
+/*!
+ * Start Bootstrap - SB Admin 2 v3.3.7+1 (http://startbootstrap.com/template-overviews/sb-admin-2)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+require(['jquery', 'metisMenu'], function($) {
+    $(function() {
+        $('#side-menu').metisMenu();
+    });
+
+    //Loads the correct sidebar on window load,
+    //collapses the sidebar on window resize.
+    // Sets the min-height of #page-wrapper to window size
+    $(function() {
+        $(window).bind("load resize", function() {
+            var topOffset = 50;
+            var width = (this.window.innerWidth > 0) ? this.window.innerWidth : this.screen.width;
+            if (width < 768) {
+                $('div.navbar-collapse').addClass('collapse');
+                topOffset = 100; // 2-row-menu
+            } else {
+                $('div.navbar-collapse').removeClass('collapse');
+            }
+
+            var height = ((this.window.innerHeight > 0) ? this.window.innerHeight : this.screen.height) - 1;
+            height = height - topOffset;
+            if (height < 1) height = 1;
+            if (height > topOffset) {
+                $("#page-wrapper").css("min-height", (height) + "px");
+            }
+        });
+
+        var url = window.location.toString().split('?')[0],
+            location = $('#nav-location').html();
+        url = location ? location : url;
+
+        // var element = $('ul.nav a').filter(function() {
+        //     return this.href == url;
+        // }).addClass('active').parent().parent().addClass('in').parent();
+        var element = $('ul.nav a').filter(function() {
+            return this.href == url;
+        }).addClass('active').parent();
+
+        while (true) {
+            if (element.is('li')) {
+                element = element.parent().addClass('in').parent();
+            } else {
+                break;
+            }
+        }
+    });
+});
+//# sourceMappingURL=sb-admin-2.js.map

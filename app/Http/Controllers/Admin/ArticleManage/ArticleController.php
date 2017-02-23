@@ -65,10 +65,11 @@ class ArticleController extends Controller
             'status' => ['required', "in:{$status}"],
             'type' => ['required', "in:{$type}"],
             'tag' => ['array'],
-            'column' => ['array']
+            'column' => ['array'],
+            'write_time' => ['required', 'date_format:Y-m-d']
         ));
 
-        $data = $request->only(['title', 'status', 'type', 'author']);
+        $data = $request->only(['title', 'status', 'type', 'author', 'write_time']);
         $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
         $data['excerpt'] = str_excerpt($request->input('content'), 250);
         $column = $request->input('column');
@@ -146,10 +147,11 @@ class ArticleController extends Controller
             'status' => ['required', "in:{$status}"],
             'type' => ['required', "in:{$type}"],
             'tag' => ['array'],
-            'column' => ['array']
+            'column' => ['array'],
+            'write_time' => ['required', 'date_format:Y-m-d']
         ));
 
-        $data = $request->only(['title', 'status', 'type', 'author']);
+        $data = $request->only(['title', 'status', 'type', 'author', 'write_time']);
         $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
         $data['excerpt'] = str_excerpt($request->input('content'), 250);
         $column = $request->input('column');

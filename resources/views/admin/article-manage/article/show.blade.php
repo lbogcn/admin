@@ -3,6 +3,7 @@
 @section('title', '编辑文章')
 
 @section('head-extend')
+    <link href="{{cdn('plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
     <style>
         .tag .glyphicon{top: 2px; color: #337ab7; cursor: pointer}
         .tag .glyphicon:hover,
@@ -49,7 +50,7 @@
                         </div>
                     </div>
 
-                    <div class="col-xs-4">
+                    <div class="col-xs-4" style="min-width: 272px;">
                         <div class="panel panel-default">
                             <div class="panel-heading"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> 选项</div>
                             <div class="panel-body">
@@ -75,6 +76,13 @@
                                             <label class="radio-inline">
                                                 <input type="radio" name="type" value="2" @if($model->type == 2) checked @endif>页面
                                             </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="pull-left"><label class="control-label">写作时间</label></div>
+                                        <div class="col-xs-8">
+                                            <input class="form_datetime form-control" name="write_time" type="text" value="{{mb_substr($model->write_time, 0, 10)}}" readonly style="width: 100px;">
                                         </div>
                                     </div>
                                 </div>
@@ -148,10 +156,21 @@
 <script type="text/plain" id="uploadToken">{{$uploadToken}}</script>
 <script type="text/plain" id="jsonTags">{!! json_encode(array_column($model->tags->toArray(), 'tag')) !!}</script>
 <script>
-    require(['jquery', 'restful', 'ueditor', 'zeroclipboard', 'ueditor-lang'], function($, restful, UE, zcl) {
+    require(['jquery', 'restful', 'ueditor', 'zeroclipboard', 'datetimepicker', 'datetimepicker-lang', 'ueditor-lang'], function($, restful, UE, zcl) {
         window.ZeroClipboard = zcl;
         window.uploadToken = '{{$uploadToken}}';
         var ue = UE.getEditor('editor');
+
+        $('[name=write_time]').datetimepicker({
+            format: 'yyyy-mm-dd',
+            language: 'zh-CN',
+            minView: 2,
+            maxView: 'year',
+            autoclose: true,
+            todayBtn: true,
+            todayHighlight: true,
+            weekStart: 0
+        });
 
         // 添加标签
         function addTag(tag) {

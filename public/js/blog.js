@@ -1,3 +1,2656 @@
-function grin(t){var i;if(t=" "+t+" ",!document.getElementById("comment")||"textarea"!=document.getElementById("comment").type)return!1;if(i=document.getElementById("comment"),document.selection)i.focus(),sel=document.selection.createRange(),sel.text=t,i.focus();else if(i.selectionStart||"0"==i.selectionStart){var e=i.selectionEnd,o=e;i.value=i.value.substring(0,i.selectionStart)+t+i.value.substring(e,i.value.length),o+=t.length,i.focus(),i.selectionStart=o,i.selectionEnd=o}else i.value+=t,i.focus()}function e_click(){$("#emojis_a").click(function(){$("#emojis_list").css("left","30vw"),$("#emojis_list").css("opacity","0"),$("#emojis_list").show(),$("#emojis_list").animate({left:"0",opacity:"1"})}),$("#emojis_list td").click(function(){$(this).parent().parent().parent().parent().fadeOut()})}function fen_qzhai(){if("0"==$(".favorite").attr("cl")){for(var t=100,i=1;8>i;i++)$(".fen li:nth-child("+i+")").css("transform","rotate("+t+"deg)"),$(".fen li:nth-child("+i+")").children().children().css("transform","rotate(-"+t+"deg)"),$(".fen li:nth-child("+i+")").children().animate({fontSize:"1.4rem"},100,function(){$(this).css("opacity","1"),$(this).css("transform","translate3d(0px, 90px, 0px)")}),t+=25;$(".favorite").attr("cl","1"),$("#index").mousemove(function(t){var i=(event||t).clientX-this.offsetLeft,e=$(this).width()/2;i<e?$(".fen li").children().animate({},function(){$(this).css("transform","translate3d("+.102*-(e-i)+"px, 90px, 0px)")}):i>e&&$(".fen li").children().animate({},function(){$(this).css("transform","translate3d("+.04*i+"px, 90px, 0px)")})}).mouseout(function(){$(".fen li").children().animate({},function(){$(this).css("transform","translate3d(0px, 90px, 0px)")})})}else if("1"==$(".favorite").attr("cl")){for(t=100,i=1;8>i;i++)$(".fen li:nth-child("+i+")").children().animate({},400,function(){$(this).css("transform","translate3d(0px, 0px, 0px)"),$(this).css("opacity","0")}),t+=25;$(".favorite").attr("cl","0")}}function archive(){$(".car-collapse").find(".car-monthlisting").hide(),$(".car-collapse").find(".car-monthlisting:first").show(),$(".car-collapse").find(".car-yearmonth").click(function(){$(this).next("ul").slideToggle(),$(this).parent("div").next("ul").slideToggle()}),$(".car-collapse").find(".car-toggler").click(function(){return"展开所有月份"==jQuery(this).text()?($(this).parent(".car-container").find(".car-monthlisting").show(),$(this).text("折叠所有月份")):($(this).parent(".car-container").find(".car-monthlisting").hide(),$(this).text("展开所有月份")),!1})}function comments(){$("#submit").click(function(){return $("#comment").focus(function(){$(this).removeClass("uk-form-danger"),$("#comment").attr("placeholder","内容...")}),$("#author").focus(function(){$(this).removeClass("uk-form-danger"),$(this).attr("placeholder","昵称*")}),$("#email").focus(function(){$(this).removeClass("uk-form-danger"),$(this).attr("placeholder","邮箱*")}),""==$("#comment").val()?($("#comment").addClass("uk-form-danger"),$("#comment").attr("placeholder","内容不能为空"),UIkit.notify("<i class='uk-icon-remove'></i> 内容不能为空",{pos:"bottom-right",status:"danger"}),!1):""==$("#author").val()?($("#author").addClass("uk-form-danger"),$("#author").attr("placeholder","昵称不能为空"),UIkit.notify("<i class='uk-icon-remove'></i> 昵称不能为空",{pos:"bottom-right",status:"danger"}),!1):""==$("#email").val()?($("#email").addClass("uk-form-danger"),$("#email").attr("placeholder","邮箱不能为空"),UIkit.notify("<i class='uk-icon-remove'></i> 邮箱不能为空",{pos:"bottom-right",status:"danger"}),!1):void 0}),$("article.uk-comment").mousemove(function(){$(this).children("h6").children("span").show()}).mouseout(function(){$(this).children("h6").children("span").hide()})}function link_target(){$("#link_qzhai").children().children().attr("target","_blank")}function ajaxloadPageInit(t){jQuery(t+"a").click(function(t){if(0<=this.href.indexOf(ajaxhome)&&1==ajaxcheck_ignore(this.href)){t.preventDefault(),this.blur();try{ajaxclick_code(this)}catch(i){}ajaxloadPage(this.href)}}),jQuery("."+ajaxsearch_class).each(function(t){jQuery(this).attr("action")&&(ajaxsearchPath=jQuery(this).attr("action"),jQuery(this).submit(function(){return submitSearch(jQuery(this).serialize()),!1}))}),jQuery("."+ajaxsearch_class).attr("action")}function ajaxloadPage(t,e,o){ajaxisLoad||(1==ajaxscroll_top&&jQuery("html,body").animate({scrollTop:0},1500),ajaxstarted=ajaxisLoad=!0,nohttp=t.replace("http://","").replace("https://",""),firstsla=nohttp.indexOf("/"),pathpos=t.indexOf(nohttp),path=t.substring(pathpos+firstsla),1!=e&&"function"==typeof window.history.pushState&&history.pushState({foo:1e3+1001*Math.random()},"ajax page loaded...",path),jQuery("#"+ajaxcontent),jQuery("#"+ajaxcontent).append(ajaxloading_code),jQuery("#index").children().fadeTo("slow",0,function(){}),jQuery("#"+ajaxcontent).fadeTo("slow",1,function(){jQuery("#"+ajaxcontent).fadeIn("slow",function(){jQuery.ajax({type:"GET",url:t,data:o,cache:!1,dataType:"html",success:function(t){ajaxisLoad=!1,datax=t.split("<title>"),titlesx=t.split("</title>"),2!=datax.length&&2!=titlesx.length||(t=t.split("<title>")[1],titles=t.split("</title>")[0],jQuery(document).attr("title",jQuery("<div/>").html(titles).text())),1==ajaxtrack_analytics&&"undefined"!=typeof _gaq&&(o="undefined"==typeof o?"":"?"+o,_gaq.push(["_trackPageview",path+o])),t=t.split('id="'+ajaxcontent+'"')[1],t=t.substring(t.indexOf(">")+1);for(var e=1,n="";0<e;){for(temp=t.split("</div>")[0],i=0,pos=temp.indexOf("<div");-1!=pos;)i++,pos=temp.indexOf("<div",pos+1);e=e+i-1,n=n+t.split("</div>")[0]+"</div>",t=t.substring(t.indexOf("</div>")+6)}document.getElementById(ajaxcontent).innerHTML=n,jQuery("#"+ajaxcontent).css("position","absolute"),jQuery("#"+ajaxcontent).css("left","20000px"),jQuery("#"+ajaxcontent).show(),ajaxloadPageInit("#"+ajaxcontent+" "),1==ajaxreloadDocumentReady&&jQuery(document).trigger("ready");try{ajaxreload_code()}catch(s){}jQuery("#index").children().hide(),jQuery("#"+ajaxcontent).css("position",""),jQuery("#"+ajaxcontent).css("left",""),jQuery("#index").children().fadeIn()},error:function(t,i,e){ajaxisLoad=!1,document.title="Error loading requested page!",document.getElementById(ajaxcontent).innerHTML=ajaxloading_error_code}})})}))}function submitSearch(t){ajaxisLoad||ajaxloadPage(ajaxsearchPath,0,t)}function ajaxcheck_ignore(t){for(var i in ajaxignore)if(0<=t.indexOf(ajaxignore[i]))return!1;return!0}function ajaxreload_code(){$("#article img").parent("a").attr("data-uk-lightbox","{group:'group_qzhai'}"),archive(),comments(),UIkit.sticky($("#ulsid"),{}),$(".rewards").click(function(){UIkit.modal("#reward").show()}),link_target(),e_click(),app()}function ajaxclick_code(t){jQuery("ul.nav li").each(function(){jQuery(this).removeClass(" uk-active")}),jQuery(t).parents("li").addClass("uk-active")}!function(t){if("function"==typeof define&&define.amd&&define("uikit",function(){var i=window.UIkit||t(window,window.jQuery,window.document);return i.load=function(t,e,o,n){t=t.split(",");var s=[],a=(n.config&&n.config.uikit&&n.config.uikit.base?n.config.uikit.base:"").replace(/\/+$/g,"");if(!a)throw Error("Please define base path to UIkit in the requirejs config.");for(n=0;n<t.length;n+=1){var r=t[n].replace(/\./g,"/");s.push(a+"/components/"+r)}e(s,function(){o(i)})},i}),!window.jQuery)throw Error("UIkit requires jQuery");window&&window.jQuery&&t(window,window.jQuery,window.document)}(function(t,i,e){var o={},n=t.UIkit?Object.create(t.UIkit):void 0;if(o.version="2.25.0",o.noConflict=function(){return n&&(t.UIkit=n,i.UIkit=n,i.fn.uk=n.fn),o},o.prefix=function(t){return t},o.$=i,o.$doc=o.$(document),o.$win=o.$(window),o.$html=o.$("html"),o.support={},o.support.transition=function(){var t;t:{var i=e.body||e.documentElement,o={WebkitTransition:"webkitTransitionEnd",MozTransition:"transitionend",OTransition:"oTransitionEnd otransitionend",transition:"transitionend"};for(t in o)if(void 0!==i.style[t]){t=o[t];break t}t=void 0}return t&&{end:t}}(),o.support.animation=function(){var t;t:{var i=e.body||e.documentElement,o={WebkitAnimation:"webkitAnimationEnd",MozAnimation:"animationend",OAnimation:"oAnimationEnd oanimationend",animation:"animationend"};for(t in o)if(void 0!==i.style[t]){t=o[t];break t}t=void 0}return t&&{end:t}}(),function(){Date.now=Date.now||function(){return(new Date).getTime()};for(var t=["webkit","moz"],i=0;i<t.length&&!window.requestAnimationFrame;++i){var e=t[i];window.requestAnimationFrame=window[e+"RequestAnimationFrame"],window.cancelAnimationFrame=window[e+"CancelAnimationFrame"]||window[e+"CancelRequestAnimationFrame"]}if(/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent)||!window.requestAnimationFrame||!window.cancelAnimationFrame){var o=0;window.requestAnimationFrame=function(t){var i=Date.now(),e=Math.max(o+16,i);return setTimeout(function(){t(o=e)},e-i)},window.cancelAnimationFrame=clearTimeout}}(),o.support.touch="ontouchstart"in document||t.DocumentTouch&&document instanceof t.DocumentTouch||t.navigator.msPointerEnabled&&0<t.navigator.msMaxTouchPoints||t.navigator.pointerEnabled&&0<t.navigator.maxTouchPoints||!1,o.support.mutationobserver=t.MutationObserver||t.WebKitMutationObserver||null,o.Utils={},o.Utils.isFullscreen=function(){return document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement||document.fullscreenElement||!1},o.Utils.str2json=function(t,i){try{return i?JSON.parse(t.replace(/([\$\w]+)\s*:/g,function(t,i){return'"'+i+'":'}).replace(/'([^']+)'/g,function(t,i){return'"'+i+'"'})):new Function("","var json = "+t+"; return JSON.parse(JSON.stringify(json));")()}catch(e){return!1}},o.Utils.debounce=function(t,i,e){var o;return function(){var n=this,s=arguments,a=e&&!o;clearTimeout(o),o=setTimeout(function(){o=null,e||t.apply(n,s)},i),a&&t.apply(n,s)}},o.Utils.removeCssRules=function(t){var i,e,o,n,s,a,r,l,c,h;t&&setTimeout(function(){try{for(h=document.styleSheets,n=0,r=h.length;r>n;n++){for(o=h[n],e=[],o.cssRules=o.cssRules,i=s=0,l=o.cssRules.length;l>s;i=++s)o.cssRules[i].type===CSSRule.STYLE_RULE&&t.test(o.cssRules[i].selectorText)&&e.unshift(i);for(a=0,c=e.length;c>a;a++)o.deleteRule(e[a])}}catch(d){}},0)},o.Utils.isInView=function(t,e){var n=i(t);if(!n.is(":visible"))return!1;var s=o.$win.scrollLeft(),a=o.$win.scrollTop(),r=n.offset(),l=r.left,r=r.top;return e=i.extend({topoffset:0,leftoffset:0},e),r+n.height()>=a&&r-e.topoffset<=a+o.$win.height()&&l+n.width()>=s&&l-e.leftoffset<=s+o.$win.width()},o.Utils.checkDisplay=function(t,e){var n=o.$("[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]",t||document);return t&&!n.length&&(n=i(t)),n.trigger("display.uk.check"),e&&("string"!=typeof e&&(e='[class*="uk-animation-"]'),n.find(e).each(function(){var t=o.$(this),i=t.attr("class").match(/uk\-animation\-(.+)/);t.removeClass(i[0]).width(),t.addClass(i[0])})),n},o.Utils.options=function(t){if("string"!=i.type(t))return t;-1!=t.indexOf(":")&&"}"!=t.trim().substr(-1)&&(t="{"+t+"}");var e=t?t.indexOf("{"):-1,n={};if(-1!=e)try{n=o.Utils.str2json(t.substr(e))}catch(s){}return n},o.Utils.animate=function(t,e){var n=i.Deferred();return t=o.$(t),t.css("display","none").addClass(e).one(o.support.animation.end,function(){t.removeClass(e),n.resolve()}),t.css("display",""),n.promise()},o.Utils.uid=function(t){return(t||"id")+(new Date).getTime()+"RAND"+Math.ceil(1e5*Math.random())},o.Utils.template=function(t,i){for(var e,o,n,s,a=t.replace(/\n/g,"\\n").replace(/\{\{\{\s*(.+?)\s*\}\}\}/g,"{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g),r=0,l=[],c=0;r<a.length;){if(e=a[r],e.match(/\{\{\s*(.+?)\s*\}\}/))switch(r+=1,e=a[r],o=e[0],n=e.substring(e.match(/^(\^|\#|\!|\~|\:)/)?1:0),o){case"~":l.push("for(var $i=0;$i<"+n+".length;$i++) { var $item = "+n+"[$i];"),c++;break;case":":l.push("for(var $key in "+n+") { var $val = "+n+"[$key];"),c++;break;case"#":l.push("if("+n+") {"),c++;break;case"^":l.push("if(!"+n+") {"),c++;break;case"/":l.push("}"),c--;break;case"!":l.push("__ret.push("+n+");");break;default:l.push("__ret.push(escape("+n+"));")}else l.push("__ret.push('"+e.replace(/\'/g,"\\'")+"');");r+=1}return s=new Function("$data",["var __ret = [];\ntry {\nwith($data){",c?'__ret = ["Not all blocks are closed correctly."]':l.join(""),"};\n}catch(e){__ret = [e.message];}\nreturn __ret.join(\"\").replace(/\\n\\n/g, \"\\n\");\nfunction escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"].join("\n")),i?s(i):s},o.Utils.events={},o.Utils.events.click=o.support.touch?"tap":"click",t.UIkit=o,o.fn=function(t,e){var n=arguments,s=t.match(/^([a-z\-]+)(?:\.([a-z]+))?/i),a=s[1],r=s[2];return o[a]?this.each(function(){var t=i(this),s=t.data(a);s||t.data(a,s=o[a](this,r?void 0:e)),r&&s[r].apply(s,Array.prototype.slice.call(n,1))}):(i.error("UIkit component ["+a+"] does not exist."),this)},i.UIkit=o,i.fn.uk=o.fn,o.langdirection="rtl"==o.$html.attr("dir")?"right":"left",o.components={},o.component=function(t,e){var n=function(e,s){var a=this;return this.UIkit=o,this.element=e?o.$(e):null,this.options=i.extend(!0,{},this.defaults,s),this.plugins={},this.element&&this.element.data(t,this),this.init(),(this.options.plugins.length?this.options.plugins:Object.keys(n.plugins)).forEach(function(t){n.plugins[t].init&&(n.plugins[t].init(a),a.plugins[t]=!0)}),this.trigger("init.uk.component",[t,this]),this};return n.plugins={},i.extend(!0,n.prototype,{defaults:{plugins:[]},boot:function(){},init:function(){},on:function(t,i,e){return o.$(this.element||this).on(t,i,e)},one:function(t,i,e){return o.$(this.element||this).one(t,i,e)},off:function(t){return o.$(this.element||this).off(t)},trigger:function(t,i){return o.$(this.element||this).trigger(t,i)},find:function(t){return o.$(this.element?this.element:[]).find(t)},proxy:function(t,i){var e=this;i.split(" ").forEach(function(i){e[i]||(e[i]=function(){return t[i].apply(t,arguments)})})},mixin:function(t,i){var e=this;i.split(" ").forEach(function(i){e[i]||(e[i]=t[i].bind(e))})},option:function(){return 1==arguments.length?this.options[arguments[0]]||void 0:void(2==arguments.length&&(this.options[arguments[0]]=arguments[1]))}},e),this.components[t]=n,this[t]=function(){var e,n;if(arguments.length)switch(arguments.length){case 1:"string"==typeof arguments[0]||arguments[0].nodeType||arguments[0]instanceof jQuery?e=i(arguments[0]):n=arguments[0];break;case 2:e=i(arguments[0]),n=arguments[1]}return e&&e.data(t)?e.data(t):new o.components[t](e,n)},o.domready&&o.component.boot(t),n},o.plugin=function(t,i,e){this.components[t].plugins[i]=e},o.component.boot=function(t){o.components[t].prototype&&o.components[t].prototype.boot&&!o.components[t].booted&&(o.components[t].prototype.boot.apply(o,[]),o.components[t].booted=!0)},o.component.bootComponents=function(){for(var t in o.components)o.component.boot(t)},o.domObservers=[],o.domready=!1,o.ready=function(t){o.domObservers.push(t),o.domready&&t(document)},o.on=function(t,i,e){return t&&-1<t.indexOf("ready.uk.dom")&&o.domready&&i.apply(o.$doc),o.$doc.on(t,i,e)},o.one=function(t,i,e){return t&&-1<t.indexOf("ready.uk.dom")&&o.domready?(i.apply(o.$doc),o.$doc):o.$doc.one(t,i,e)},o.trigger=function(t,i){return o.$doc.trigger(t,i)},o.domObserve=function(t,i){o.support.mutationobserver&&(i=i||function(){},o.$(t).each(function(){var t=this,e=o.$(t);if(!e.data("observer"))try{var n=new o.support.mutationobserver(o.Utils.debounce(function(){i.apply(t,[]),e.trigger("changed.uk.dom")},50));n.observe(t,{childList:!0,subtree:!0}),e.data("observer",n)}catch(s){}}))},o.init=function(t){t=t||document,o.domObservers.forEach(function(i){i(t)})},o.on("domready.uk.dom",function(){o.init(),o.domready&&o.Utils.checkDisplay()}),document.addEventListener("DOMContentLoaded",function(){var t=function(){o.$body=o.$("body"),o.ready(function(){o.domObserve("[data-uk-observe]")}),o.on("changed.uk.dom",function(t){o.init(t.target),o.Utils.checkDisplay(t.target)}),o.trigger("beforeready.uk.dom"),o.component.bootComponents(),requestAnimationFrame(function(){var t=0,i=0,e=window.pageXOffset,n=window.pageYOffset,s=function(){var a=window.pageXOffset,r=window.pageYOffset;e==a&&n==r||(t=a!=e?a>e?1:-1:0,i=r!=n?r>n?1:-1:0,e=a,n=r,o.$doc.trigger("scrolling.uk.document",[{dir:{x:t,y:i},x:a,y:r}])),requestAnimationFrame(s)};return o.support.touch&&o.$html.on("touchmove touchend MSPointerMove MSPointerUp pointermove pointerup",s),(e||n)&&s(),s}()),o.trigger("domready.uk.dom"),o.support.touch&&navigator.userAgent.match(/(iPad|iPhone|iPod)/g)&&o.$win.on("load orientationchange resize",o.Utils.debounce(function(){var t=function(){return i(".uk-height-viewport").css("height",window.innerHeight),t};return t()}(),100)),o.trigger("afterready.uk.dom"),o.domready=!0};return("complete"==document.readyState||"interactive"==document.readyState)&&setTimeout(t),t}()),o.$html.addClass(o.support.touch?"uk-touch":"uk-notouch"),o.support.touch){var s,a=!1;o.$html.on("mouseenter touchstart MSPointerDown pointerdown",".uk-overlay, .uk-overlay-hover, .uk-overlay-toggle, .uk-animation-hover, .uk-has-hover",function(){a&&i(".uk-hover").removeClass("uk-hover"),a=i(this).addClass("uk-hover")}).on("mouseleave touchend MSPointerUp pointerup",function(t){s=i(t.target).parents(".uk-overlay, .uk-overlay-hover, .uk-overlay-toggle, .uk-animation-hover, .uk-has-hover"),a&&a.not(s).removeClass("uk-hover")})}return o}),function(t){function i(t,i,e,o){return Math.abs(t-i)>=Math.abs(e-o)?0<t-i?"Left":"Right":0<e-o?"Up":"Down"}function e(){l=null,h.last&&(void 0!==h.el&&h.el.trigger("longTap"),h={})}function o(){s&&clearTimeout(s),a&&clearTimeout(a),r&&clearTimeout(r),l&&clearTimeout(l),s=a=r=l=null,h={}}function n(t){return t.pointerType==t.MSPOINTER_TYPE_TOUCH&&t.isPrimary}if(!t.fn.swipeLeft){var s,a,r,l,c,h={};t(function(){var d,u,p,f=0,m=0;"MSGesture"in window&&(c=new MSGesture,c.target=document.body),t(document).on("MSGestureEnd gestureend",function(t){(t=1<t.originalEvent.velocityX?"Right":-1>t.originalEvent.velocityX?"Left":1<t.originalEvent.velocityY?"Down":-1>t.originalEvent.velocityY?"Up":null)&&void 0!==h.el&&(h.el.trigger("swipe"),h.el.trigger("swipe"+t))}).on("touchstart MSPointerDown pointerdown",function(i){("MSPointerDown"!=i.type||n(i.originalEvent))&&(p="MSPointerDown"==i.type||"pointerdown"==i.type?i:i.originalEvent.touches[0],d=Date.now(),u=d-(h.last||d),h.el=t("tagName"in p.target?p.target:p.target.parentNode),s&&clearTimeout(s),h.x1=p.pageX,h.y1=p.pageY,0<u&&250>=u&&(h.isDoubleTap=!0),h.last=d,l=setTimeout(e,750),!c||"MSPointerDown"!=i.type&&"pointerdown"!=i.type&&"touchstart"!=i.type||c.addPointer(i.originalEvent.pointerId))}).on("touchmove MSPointerMove pointermove",function(t){("MSPointerMove"!=t.type||n(t.originalEvent))&&(p="MSPointerMove"==t.type||"pointermove"==t.type?t:t.originalEvent.touches[0],l&&clearTimeout(l),l=null,h.x2=p.pageX,h.y2=p.pageY,f+=Math.abs(h.x1-h.x2),m+=Math.abs(h.y1-h.y2))}).on("touchend MSPointerUp pointerup",function(e){("MSPointerUp"!=e.type||n(e.originalEvent))&&(l&&clearTimeout(l),l=null,h.x2&&30<Math.abs(h.x1-h.x2)||h.y2&&30<Math.abs(h.y1-h.y2)?r=setTimeout(function(){void 0!==h.el&&(h.el.trigger("swipe"),h.el.trigger("swipe"+i(h.x1,h.x2,h.y1,h.y2))),h={}},0):"last"in h&&(isNaN(f)||30>f&&30>m?a=setTimeout(function(){var i=t.Event("tap");i.cancelTouch=o,void 0!==h.el&&h.el.trigger(i),h.isDoubleTap?(void 0!==h.el&&h.el.trigger("doubleTap"),h={}):s=setTimeout(function(){s=null,void 0!==h.el&&h.el.trigger("singleTap"),h={}},250)},0):h={},f=m=0))}).on("touchcancel MSPointerCancel",o),t(window).on("scroll",o)}),"swipe swipeLeft swipeRight swipeUp swipeDown doubleTap tap singleTap longTap".split(" ").forEach(function(i){t.fn[i]=function(e){return t(this).on(i,e)}})}}(jQuery),function(t){var i=[];t.component("stackMargin",{defaults:{cls:"uk-margin-small-top",rowfirst:!1},boot:function(){t.ready(function(i){t.$("[data-uk-margin]",i).each(function(){var i=t.$(this);i.data("stackMargin")||t.stackMargin(i,t.Utils.options(i.attr("data-uk-margin")))})})},init:function(){var e=this;t.$win.on("resize orientationchange",function(){var i=function(){e.process()};return t.$(function(){i(),t.$win.on("load",i)}),t.Utils.debounce(i,20)}()),t.$html.on("changed.uk.dom",function(){e.process()}),this.on("display.uk.check",function(){this.element.is(":visible")&&this.process()}.bind(this)),i.push(this)},process:function(){var i=this,e=this.element.children();if(t.Utils.stackMargin(e,this.options),!this.options.rowfirst)return this;var o=e.removeClass(this.options.rowfirst).filter(":visible").first().position();return o&&e.each(function(){t.$(this)[t.$(this).position().left==o.left?"addClass":"removeClass"](i.options.rowfirst)}),this}}),function(){var i=[],e=function(t){if(t.is(":visible")){var i=t.parent().width(),e=t.data("width"),o=Math.floor(i/e*t.data("height"));t.css({height:e>i?o:t.data("height")})}};t.component("responsiveElement",{defaults:{},boot:function(){t.ready(function(i){t.$("iframe.uk-responsive-width, [data-uk-responsive]",i).each(function(){var i=t.$(this);i.data("responsiveElement")||t.responsiveElement(i,{})})})},init:function(){var t=this.element;t.attr("width")&&t.attr("height")&&(t.data({width:t.attr("width"),height:t.attr("height")}).on("display.uk.check",function(){e(t)}),e(t),i.push(t))}}),t.$win.on("resize load",t.Utils.debounce(function(){i.forEach(function(t){e(t)})},15))}(),t.Utils.stackMargin=function(i,e){e=t.$.extend({cls:"uk-margin-small-top"},e),e.cls=e.cls,i=t.$(i).removeClass(e.cls);var o=!1,n=i.filter(":visible:first"),s=!!n.length&&n.position().top+n.outerHeight()-1;!1!==s&&1!=i.length&&i.each(function(){var i=t.$(this);i.is(":visible")&&(o?i.addClass(e.cls):i.position().top>=s&&(o=i.addClass(e.cls)))})},t.Utils.matchHeights=function(i,e){i=t.$(i).css("min-height",""),e=t.$.extend({row:!0},e);var o=function(i){if(!(2>i.length)){var e=0;i.each(function(){e=Math.max(e,t.$(this).outerHeight())}).each(function(){var i=t.$(this),o=e-("border-box"==i.css("box-sizing")?0:i.outerHeight()-i.height());i.css("min-height",o+"px")})}};e.row?(i.first().width(),setTimeout(function(){var e=!1,n=[];i.each(function(){var i=t.$(this),s=i.offset().top;s!=e&&n.length&&(o(t.$(n)),n=[],s=i.offset().top),n.push(i),e=s}),n.length&&o(t.$(n))},0)):o(i)},function(i){t.Utils.inlineSvg=function(e,o){t.$(e||'img[src$=".svg"]',o||document).each(function(){var e=t.$(this),o=e.attr("src");if(!i[o]){var n=t.$.Deferred();t.$.get(o,{nc:Math.random()},function(i){n.resolve(t.$(i).find("svg"))}),i[o]=n.promise()}i[o].then(function(i){i=t.$(i).clone(),e.attr("id")&&i.attr("id",e.attr("id")),e.attr("class")&&i.attr("class",e.attr("class")),e.attr("style")&&i.attr("style",e.attr("style")),e.attr("width")&&(i.attr("width",e.attr("width")),e.attr("height")||i.removeAttr("height")),e.attr("height")&&(i.attr("height",e.attr("height")),e.attr("width")||i.removeAttr("width")),e.replaceWith(i)})})},t.ready(function(i){t.Utils.inlineSvg("[data-uk-svg]",i)})}({})}(UIkit),function(t){function i(i,e){e=t.$.extend({duration:1e3,transition:"easeOutExpo",offset:0,complete:function(){}},e);var o=i.offset().top-e.offset,n=t.$doc.height(),s=window.innerHeight;o+s>n&&(o=n-s),t.$("html,body").stop().animate({scrollTop:o},e.duration,e.transition).promise().done(e.complete)}t.component("smoothScroll",{boot:function(){t.$html.on("click.smooth-scroll.uikit","[data-uk-smooth-scroll]",function(){var i=t.$(this);return i.data("smoothScroll")||(t.smoothScroll(i,t.Utils.options(i.attr("data-uk-smooth-scroll"))),i.trigger("click")),!1})},init:function(){var e=this;this.on("click",function(o){o.preventDefault(),i(t.$(this.hash).length?t.$(this.hash):t.$("body"),e.options)})}}),t.Utils.scrollToElement=i,t.$.easing.easeOutExpo||(t.$.easing.easeOutExpo=function(t,i,e,o,n){return i==n?e+o:o*(-Math.pow(2,-10*i/n)+1)+e})}(UIkit),function(t){var i=t.$win,e=t.$doc,o=[],n=function(){for(var t=0;t<o.length;t++)window.requestAnimationFrame.apply(window,[o[t].check])};t.component("scrollspy",{defaults:{target:!1,cls:"uk-scrollspy-inview",initcls:"uk-scrollspy-init-inview",topoffset:0,leftoffset:0,repeat:!1,delay:0},boot:function(){e.on("scrolling.uk.document",n),i.on("load resize orientationchange",t.Utils.debounce(n,50)),t.ready(function(i){t.$("[data-uk-scrollspy]",i).each(function(){var i=t.$(this);i.data("scrollspy")||t.scrollspy(i,t.Utils.options(i.attr("data-uk-scrollspy")))})})},init:function(){var i,e=this,n=this.options.cls.split(/,/),s=function(){var o=e.options.target?e.element.find(e.options.target):e.element,s=1===o.length?1:0,a=0;o.each(function(){var o=t.$(this),r=o.data("inviewstate"),l=t.Utils.isInView(o,e.options),c=o.data("ukScrollspyCls")||n[a].trim();!l||r||o.data("scrollspy-idle")||(i||(o.addClass(e.options.initcls),e.offset=o.offset(),i=!0,o.trigger("init.uk.scrollspy")),o.data("scrollspy-idle",setTimeout(function(){o.addClass("uk-scrollspy-inview").toggleClass(c).width(),o.trigger("inview.uk.scrollspy"),o.data("scrollspy-idle",!1),o.data("inviewstate",!0)},e.options.delay*s)),s++),!l&&r&&e.options.repeat&&(o.data("scrollspy-idle")&&(clearTimeout(o.data("scrollspy-idle")),o.data("scrollspy-idle",!1)),o.removeClass("uk-scrollspy-inview").toggleClass(c),o.data("inviewstate",!1),o.trigger("outview.uk.scrollspy")),a=n[a+1]?a+1:0})};s(),this.check=s,o.push(this)}});var s=[],a=function(){for(var t=0;t<s.length;t++)window.requestAnimationFrame.apply(window,[s[t].check])};t.component("scrollspynav",{defaults:{cls:"uk-active",closest:!1,topoffset:0,leftoffset:0,smoothscroll:!1},boot:function(){e.on("scrolling.uk.document",a),i.on("resize orientationchange",t.Utils.debounce(a,50)),t.ready(function(i){t.$("[data-uk-scrollspy-nav]",i).each(function(){var i=t.$(this);i.data("scrollspynav")||t.scrollspynav(i,t.Utils.options(i.attr("data-uk-scrollspy-nav")))})})},init:function(){var e,o=[],n=this.find("a[href^='#']").each(function(){"#"!==this.getAttribute("href").trim()&&o.push(this.getAttribute("href"))}),a=t.$(o.join(",")),r=this.options.cls,l=this.options.closest||this.options.closest,c=this,h=function(){e=[];for(var o=0;o<a.length;o++)t.Utils.isInView(a.eq(o),c.options)&&e.push(a.eq(o));if(e.length){var s,o=i.scrollTop();t:{for(var h=0;h<e.length;h++)if(e[h].offset().top>=o){o=e[h];break t}o=void 0}o&&(c.options.closest?(n.blur().closest(l).removeClass(r),s=n.filter("a[href='#"+o.attr("id")+"']").closest(l).addClass(r)):s=n.removeClass(r).filter("a[href='#"+o.attr("id")+"']").addClass(r),c.element.trigger("inview.uk.scrollspynav",[o,s]))}};this.options.smoothscroll&&t.smoothScroll&&n.each(function(){t.smoothScroll(this,c.options.smoothscroll)}),h(),this.element.data("scrollspynav",this),this.check=h,s.push(this)}})}(UIkit),function(t){var i=[];t.component("toggle",{defaults:{target:!1,cls:"uk-hidden",animation:!1,duration:200},boot:function(){t.ready(function(e){t.$("[data-uk-toggle]",e).each(function(){var i=t.$(this);i.data("toggle")||t.toggle(i,t.Utils.options(i.attr("data-uk-toggle")))}),setTimeout(function(){i.forEach(function(t){t.getToggles()})},0)})},init:function(){var t=this;this.aria=-1!==this.options.cls.indexOf("uk-hidden"),this.getToggles(),this.on("click",function(i){t.element.is('a[href="#"]')&&i.preventDefault(),t.toggle()}),i.push(this)},toggle:function(){if(this.totoggle.length){if(this.options.animation&&t.support.animation){var i=this,e=this.options.animation.split(",");1==e.length&&(e[1]=e[0]),e[0]=e[0].trim(),e[1]=e[1].trim(),this.totoggle.css("animation-duration",this.options.duration+"ms"),this.totoggle.each(function(){var o=t.$(this);o.hasClass(i.options.cls)?(o.toggleClass(i.options.cls),t.Utils.animate(o,e[0]).then(function(){o.css("animation-duration",""),t.Utils.checkDisplay(o)})):t.Utils.animate(this,e[1]+" uk-animation-reverse").then(function(){o.toggleClass(i.options.cls).css("animation-duration",""),t.Utils.checkDisplay(o)})})}else this.totoggle.toggleClass(this.options.cls),t.Utils.checkDisplay(this.totoggle);this.updateAria()}},getToggles:function(){this.totoggle=this.options.target?t.$(this.options.target):[],this.updateAria()},updateAria:function(){this.aria&&this.totoggle.length&&this.totoggle.each(function(){t.$(this).attr("aria-hidden",t.$(this).hasClass("uk-hidden"))})}})}(UIkit),function(t){t.component("alert",{defaults:{fade:!0,duration:200,trigger:".uk-alert-close"},boot:function(){t.$html.on("click.alert.uikit","[data-uk-alert]",function(i){var e=t.$(this);e.data("alert")||(e=t.alert(e,t.Utils.options(e.attr("data-uk-alert"))),t.$(i.target).is(e.options.trigger)&&(i.preventDefault(),e.close()))})},init:function(){var t=this;this.on("click",this.options.trigger,function(i){i.preventDefault(),t.close()})},close:function(){var t=this.trigger("close.uk.alert"),i=function(){this.trigger("closed.uk.alert").remove()}.bind(this);this.options.fade?t.css("overflow","hidden").css("max-height",t.height()).animate({height:0,opacity:0,"padding-top":0,"padding-bottom":0,"margin-top":0,"margin-bottom":0},this.options.duration,i):i()}})}(UIkit),function(t){t.component("buttonRadio",{defaults:{activeClass:"uk-active",target:".uk-button"},boot:function(){t.$html.on("click.buttonradio.uikit","[data-uk-button-radio]",function(i){var e=t.$(this);e.data("buttonRadio")||(e=t.buttonRadio(e,t.Utils.options(e.attr("data-uk-button-radio"))),i=t.$(i.target),i.is(e.options.target)&&i.trigger("click"))})},init:function(){var i=this;this.find(i.options.target).attr("aria-checked","false").filter("."+i.options.activeClass).attr("aria-checked","true"),this.on("click",this.options.target,function(e){var o=t.$(this);o.is('a[href="#"]')&&e.preventDefault(),i.find(i.options.target).not(o).removeClass(i.options.activeClass).blur(),o.addClass(i.options.activeClass),i.find(i.options.target).not(o).attr("aria-checked","false"),o.attr("aria-checked","true"),i.trigger("change.uk.button",[o])})},getSelected:function(){return this.find("."+this.options.activeClass)}}),t.component("buttonCheckbox",{defaults:{activeClass:"uk-active",target:".uk-button"},boot:function(){t.$html.on("click.buttoncheckbox.uikit","[data-uk-button-checkbox]",function(i){var e=t.$(this);e.data("buttonCheckbox")||(e=t.buttonCheckbox(e,t.Utils.options(e.attr("data-uk-button-checkbox"))),i=t.$(i.target),i.is(e.options.target)&&i.trigger("click"))})},init:function(){var i=this;this.find(i.options.target).attr("aria-checked","false").filter("."+i.options.activeClass).attr("aria-checked","true"),this.on("click",this.options.target,function(e){var o=t.$(this);o.is('a[href="#"]')&&e.preventDefault(),o.toggleClass(i.options.activeClass).blur(),o.attr("aria-checked",o.hasClass(i.options.activeClass)),i.trigger("change.uk.button",[o])})},getSelected:function(){return this.find("."+this.options.activeClass)}}),t.component("button",{defaults:{},boot:function(){t.$html.on("click.button.uikit","[data-uk-button]",function(){var i=t.$(this);i.data("button")||(t.button(i,t.Utils.options(i.attr("data-uk-button"))),i.trigger("click"))})},init:function(){var t=this;this.element.attr("aria-pressed",this.element.hasClass("uk-active")),this.on("click",function(i){t.element.is('a[href="#"]')&&i.preventDefault(),t.toggle(),t.trigger("change.uk.button",[t.element.blur().hasClass("uk-active")])})},toggle:function(){this.element.toggleClass("uk-active"),this.element.attr("aria-pressed",this.element.hasClass("uk-active"))}})}(UIkit),function(t){function i(i,e,o,n){if(i=t.$(i),e=t.$(e),o=o||window.innerWidth,n=n||i.offset(),e.length){var s=e.outerWidth();i.css("min-width",s),"right"==t.langdirection?(e=o-(e.offset().left+s),o-=i.offset().left+i.outerWidth(),i.css("margin-right",e-o)):i.css("margin-left",e.offset().left-n.left)}}var e,o=!1,n={"bottom-left":"bottom-right","bottom-right":"bottom-left","bottom-center":"bottom-center","top-left":"top-right","top-right":"top-left","top-center":"top-center","left-top":"right-top","left-bottom":"right-bottom","left-center":"right-center","right-top":"left-top","right-bottom":"left-bottom","right-center":"left-center"},s={"bottom-left":"top-left","bottom-right":"top-right","bottom-center":"top-center","top-left":"bottom-left","top-right":"bottom-right",
-"top-center":"bottom-center","left-top":"left-bottom","left-bottom":"left-top","left-center":"left-center","right-top":"right-bottom","right-bottom":"right-top","right-center":"right-center"},a={"bottom-left":"top-right","bottom-right":"top-left","bottom-center":"top-center","top-left":"bottom-right","top-right":"bottom-left","top-center":"bottom-center","left-top":"right-bottom","left-bottom":"right-top","left-center":"right-center","right-top":"left-bottom","right-bottom":"left-top","right-center":"left-center"};t.component("dropdown",{defaults:{mode:"hover",pos:"bottom-left",offset:0,remaintime:800,justify:!1,boundary:t.$win,delay:0,dropdownSelector:".uk-dropdown,.uk-dropdown-blank",hoverDelayIdle:250,preventflip:!1},remainIdle:!1,boot:function(){var i=t.support.touch?"click":"mouseenter";t.$html.on(i+".dropdown.uikit","[data-uk-dropdown]",function(e){var o=t.$(this);o.data("dropdown")||(o=t.dropdown(o,t.Utils.options(o.attr("data-uk-dropdown"))),("click"==i||"mouseenter"==i&&"hover"==o.options.mode)&&o.element.trigger(i),o.element.find(o.options.dropdownSelector).length&&e.preventDefault())})},init:function(){var i=this;this.dropdown=this.find(this.options.dropdownSelector),this.offsetParent=this.dropdown.parents().filter(function(){return-1!==t.$.inArray(t.$(this).css("position"),["relative","fixed","absolute"])}).slice(0,1),this.centered=this.dropdown.hasClass("uk-dropdown-center"),this.justified=!!this.options.justify&&t.$(this.options.justify),this.boundary=t.$(this.options.boundary),this.boundary.length||(this.boundary=t.$win),this.dropdown.hasClass("uk-dropdown-up")&&(this.options.pos="top-left"),this.dropdown.hasClass("uk-dropdown-flip")&&(this.options.pos=this.options.pos.replace("left","right")),this.dropdown.hasClass("uk-dropdown-center")&&(this.options.pos=this.options.pos.replace(/(left|right)/,"center")),this.element.attr("aria-haspopup","true"),this.element.attr("aria-expanded",this.element.hasClass("uk-open")),"click"==this.options.mode||t.support.touch?this.on("click.uk.dropdown",function(e){var o=t.$(e.target);o.parents(i.options.dropdownSelector).length||((o.is("a[href='#']")||o.parent().is("a[href='#']")||i.dropdown.length&&!i.dropdown.is(":visible"))&&e.preventDefault(),o.blur()),i.element.hasClass("uk-open")?(!i.dropdown.find(e.target).length||o.is(".uk-dropdown-close")||o.parents(".uk-dropdown-close").length)&&i.hide():i.show()}):this.on("mouseenter",function(){i.trigger("pointerenter.uk.dropdown",[i]),i.remainIdle&&clearTimeout(i.remainIdle),e&&clearTimeout(e),o&&o==i||(e=o&&o!=i?setTimeout(function(){e=setTimeout(i.show.bind(i),i.options.delay)},i.options.hoverDelayIdle):setTimeout(i.show.bind(i),i.options.delay))}).on("mouseleave",function(){e&&clearTimeout(e),i.remainIdle=setTimeout(function(){o&&o==i&&i.hide()},i.options.remaintime),i.trigger("pointerleave.uk.dropdown",[i])}).on("click",function(e){var n=t.$(e.target);return i.remainIdle&&clearTimeout(i.remainIdle),o&&o==i?void((!i.dropdown.find(e.target).length||n.is(".uk-dropdown-close")||n.parents(".uk-dropdown-close").length)&&i.hide()):((n.is("a[href='#']")||n.parent().is("a[href='#']"))&&e.preventDefault(),void i.show())})},show:function(){t.$html.off("click.outer.dropdown"),o&&o!=this&&o.hide(!0),e&&clearTimeout(e),this.trigger("beforeshow.uk.dropdown",[this]),this.checkDimensions(),this.element.addClass("uk-open"),this.element.attr("aria-expanded","true"),this.trigger("show.uk.dropdown",[this]),t.Utils.checkDisplay(this.dropdown,!0),o=this,this.registerOuterClick()},hide:function(t){this.trigger("beforehide.uk.dropdown",[this,t]),this.element.removeClass("uk-open"),this.remainIdle&&clearTimeout(this.remainIdle),this.remainIdle=!1,this.element.attr("aria-expanded","false"),this.trigger("hide.uk.dropdown",[this,t]),o==this&&(o=!1)},registerOuterClick:function(){var i=this;t.$html.off("click.outer.dropdown"),setTimeout(function(){t.$html.on("click.outer.dropdown",function(n){e&&clearTimeout(e),t.$(n.target),o!=i||i.element.find(n.target).length||(i.hide(!0),t.$html.off("click.outer.dropdown"))})},10)},checkDimensions:function(){if(this.dropdown.length){this.dropdown.removeClass("uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack").css({"top-left":"",left:"","margin-left":"","margin-right":""}),this.justified&&this.justified.length&&this.dropdown.css("min-width","");var e,o=t.$.extend({},this.offsetParent.offset(),{width:this.offsetParent[0].offsetWidth,height:this.offsetParent[0].offsetHeight});e=this.options.offset;var r=this.dropdown,l=(r.show().offset()||{left:0,top:0},r.outerWidth()),c=r.outerHeight(),h=this.boundary.width(),d=(this.boundary[0]!==window&&this.boundary.offset()?this.boundary.offset():{top:0,left:0},this.options.pos),u={"bottom-left":{top:0+o.height+e,left:0},"bottom-right":{top:0+o.height+e,left:0+o.width-l},"bottom-center":{top:0+o.height+e,left:0+o.width/2-l/2},"top-left":{top:0-c-e,left:0},"top-right":{top:0-c-e,left:0+o.width-l},"top-center":{top:0-c-e,left:0+o.width/2-l/2},"left-top":{top:0,left:0-l-e},"left-bottom":{top:0+o.height-c,left:0-l-e},"left-center":{top:0+o.height/2-c/2,left:0-l-e},"right-top":{top:0,left:0+o.width+e},"right-bottom":{top:0+o.height-c,left:0+o.width+e},"right-center":{top:0+o.height/2-c/2,left:0+o.width+e}},p={};if(e=d.split("-"),p=u[d]?u[d]:u["bottom-left"],this.justified&&this.justified.length)i(r.css({left:0}),this.justified,h);else if(!0!==this.options.preventflip){var f;switch(this.checkBoundary(o.left+p.left,o.top+p.top,l,c,h)){case"x":"x"!==this.options.preventflip&&(f=n[d]||"right-top");break;case"y":"y"!==this.options.preventflip&&(f=s[d]||"top-left");break;case"xy":this.options.preventflip||(f=a[d]||"right-bottom")}f&&(e=f.split("-"),p=u[f]?u[f]:u["bottom-left"],this.checkBoundary(o.left+p.left,o.top+p.top,l,c,h)&&(e=d.split("-"),p=u[d]?u[d]:u["bottom-left"]))}l>h&&(r.addClass("uk-dropdown-stack"),this.trigger("stack.uk.dropdown",[this])),r.css(p).css("display","").addClass("uk-dropdown-"+e[0])}},checkBoundary:function(i,e,o,n,s){var a="";return(0>i||i-t.$win.scrollLeft()+o>s)&&(a+="x"),(0>e-t.$win.scrollTop()||e-t.$win.scrollTop()+n>window.innerHeight)&&(a+="y"),a}}),t.component("dropdownOverlay",{defaults:{justify:!1,cls:"",duration:200},boot:function(){t.ready(function(i){t.$("[data-uk-dropdown-overlay]",i).each(function(){var i=t.$(this);i.data("dropdownOverlay")||t.dropdownOverlay(i,t.Utils.options(i.attr("data-uk-dropdown-overlay")))})})},init:function(){var e=this;this.justified=!!this.options.justify&&t.$(this.options.justify),this.overlay=this.element.find("uk-dropdown-overlay"),this.overlay.length||(this.overlay=t.$('<div class="uk-dropdown-overlay"></div>').appendTo(this.element)),this.overlay.addClass(this.options.cls),this.on({"beforeshow.uk.dropdown":function(t,o){e.dropdown=o,e.justified&&e.justified.length&&i(e.overlay.css({display:"block","margin-left":"","margin-right":""}),e.justified,e.justified.outerWidth())},"show.uk.dropdown":function(){var i=e.dropdown.dropdown.outerHeight(!0);e.dropdown.element.removeClass("uk-open"),e.overlay.stop().css("display","block").animate({height:i},e.options.duration,function(){e.dropdown.dropdown.css("visibility",""),e.dropdown.element.addClass("uk-open"),t.Utils.checkDisplay(e.dropdown.dropdown,!0)}),e.pointerleave=!1},"hide.uk.dropdown":function(){e.overlay.stop().animate({height:0},e.options.duration)},"pointerenter.uk.dropdown":function(){clearTimeout(e.remainIdle)},"pointerleave.uk.dropdown":function(){e.pointerleave=!0}}),this.overlay.on({mouseenter:function(){e.remainIdle&&(clearTimeout(e.dropdown.remainIdle),clearTimeout(e.remainIdle))},mouseleave:function(){e.pointerleave&&o&&(e.remainIdle=setTimeout(function(){o&&o.hide()},o.options.remaintime))}})}})}(UIkit),function(t){var i=[];t.component("gridMatchHeight",{defaults:{target:!1,row:!0,ignorestacked:!1},boot:function(){t.ready(function(i){t.$("[data-uk-grid-match]",i).each(function(){var i=t.$(this);i.data("gridMatchHeight")||t.gridMatchHeight(i,t.Utils.options(i.attr("data-uk-grid-match")))})})},init:function(){var e=this;this.columns=this.element.children(),this.elements=this.options.target?this.find(this.options.target):this.columns,this.columns.length&&(t.$win.on("load resize orientationchange",function(){var i=function(){e.match()};return t.$(function(){i()}),t.Utils.debounce(i,50)}()),t.$html.on("changed.uk.dom",function(){e.columns=e.element.children(),e.elements=e.options.target?e.find(e.options.target):e.columns,e.match()}),this.on("display.uk.check",function(){this.element.is(":visible")&&this.match()}.bind(this)),i.push(this))},match:function(){var i=this.columns.filter(":visible:first");if(i.length)return 100<=Math.ceil(100*parseFloat(i.css("width"))/parseFloat(i.parent().css("width")))&&!this.options.ignorestacked?this.revert():t.Utils.matchHeights(this.elements,this.options),this},revert:function(){return this.elements.css("min-height",""),this}}),t.component("gridMargin",{defaults:{cls:"uk-grid-margin",rowfirst:"uk-row-first"},boot:function(){t.ready(function(i){t.$("[data-uk-grid-margin]",i).each(function(){var i=t.$(this);i.data("gridMargin")||t.gridMargin(i,t.Utils.options(i.attr("data-uk-grid-margin")))})})},init:function(){t.stackMargin(this.element,this.options)}})}(UIkit),function(t){function i(i,e){return e?("object"==typeof i?(i=i instanceof jQuery?i:t.$(i),i.parent().length&&(e.persist=i,e.persist.data("modalPersistParent",i.parent()))):i="string"==typeof i||"number"==typeof i?t.$("<div></div>").html(i):t.$("<div></div>").html("UIkit.modal Error: Unsupported data type: "+typeof i),i.appendTo(e.element.find(".uk-modal-dialog")),e):void 0}var e,o=!1,n=0,s=t.$html;t.component("modal",{defaults:{keyboard:!0,bgclose:!0,minScrollHeight:150,center:!1,modal:!0},scrollable:!1,transition:!1,hasTransitioned:!0,init:function(){if(e||(e=t.$("body")),this.element.length){var i=this;this.paddingdir="padding-"+("left"==t.langdirection?"right":"left"),this.dialog=this.find(".uk-modal-dialog"),this.active=!1,this.element.attr("aria-hidden",this.element.hasClass("uk-open")),this.on("click",".uk-modal-close",function(t){t.preventDefault(),i.hide()}).on("click",function(e){t.$(e.target)[0]==i.element[0]&&i.options.bgclose&&i.hide()})}},toggle:function(){return this[this.isActive()?"hide":"show"]()},show:function(){if(this.element.length){var i=this;if(!this.isActive())return this.options.modal&&o&&o.hide(!0),this.element.removeClass("uk-open").show(),this.resize(),this.options.modal&&(o=this),this.active=!0,n++,t.support.transition?(this.hasTransitioned=!1,this.element.one(t.support.transition.end,function(){i.hasTransitioned=!0}).addClass("uk-open")):this.element.addClass("uk-open"),s.addClass("uk-modal-page").height(),this.element.attr("aria-hidden","false"),this.element.trigger("show.uk.modal"),t.Utils.checkDisplay(this.dialog,!0),this}},hide:function(i){if(!i&&t.support.transition&&this.hasTransitioned){var e=this;this.one(t.support.transition.end,function(){e._hide()}).removeClass("uk-open")}else this._hide();return this},resize:function(){var t=e.width();if(this.scrollbarwidth=window.innerWidth-t,e.css(this.paddingdir,this.scrollbarwidth),this.element.css("overflow-y",this.scrollbarwidth?"scroll":"auto"),!this.updateScrollable()&&this.options.center){var t=this.dialog.outerHeight(),i=parseInt(this.dialog.css("margin-top"),10)+parseInt(this.dialog.css("margin-bottom"),10);t+i<window.innerHeight?this.dialog.css({top:window.innerHeight/2-t/2-i}):this.dialog.css({top:""})}},updateScrollable:function(){var t=this.dialog.find(".uk-overflow-container:visible:first");if(t.length){t.css("height",0);var i=Math.abs(parseInt(this.dialog.css("margin-top"),10)),e=this.dialog.outerHeight(),i=window.innerHeight-2*(20>i?20:i)-e;return t.css({"max-height":i<this.options.minScrollHeight?"":i,height:""}),!0}return!1},_hide:function(){this.active=!1,0<n?n--:n=0,this.element.hide().removeClass("uk-open"),this.element.attr("aria-hidden","true"),n||(s.removeClass("uk-modal-page"),e.css(this.paddingdir,"")),o===this&&(o=!1),this.trigger("hide.uk.modal")},isActive:function(){return this.active}}),t.component("modalTrigger",{boot:function(){t.$html.on("click.modal.uikit","[data-uk-modal]",function(i){var e=t.$(this);e.is("a")&&i.preventDefault(),e.data("modalTrigger")||t.modalTrigger(e,t.Utils.options(e.attr("data-uk-modal"))).show()}),t.$html.on("keydown.modal.uikit",function(t){o&&27===t.keyCode&&o.options.keyboard&&(t.preventDefault(),o.hide())}),t.$win.on("resize orientationchange",t.Utils.debounce(function(){o&&o.resize()},150))},init:function(){var i=this;this.options=t.$.extend({target:!!i.element.is("a")&&i.element.attr("href")},this.options),this.modal=t.modal(this.options.target,this.options),this.on("click",function(t){t.preventDefault(),i.show()}),this.proxy(this.modal,"show hide isActive")}}),t.modal.dialog=function(e,o){var n=t.modal(t.$(t.modal.dialog.template).appendTo("body"),o);return n.on("hide.uk.modal",function(){n.persist&&(n.persist.appendTo(n.persist.data("modalPersistParent")),n.persist=!1),n.element.remove()}),i(e,n),n},t.modal.dialog.template='<div class="uk-modal"><div class="uk-modal-dialog" style="min-height:0;"></div></div>',t.modal.alert=function(i,e){e=t.$.extend(!0,{bgclose:!1,keyboard:!1,modal:!1,labels:t.modal.labels},e);var o=t.modal.dialog(['<div class="uk-margin uk-modal-content">'+String(i)+"</div>",'<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">'+e.labels.Ok+"</button></div>"].join(""),e);return o.on("show.uk.modal",function(){setTimeout(function(){o.element.find("button:first").focus()},50)}),o.show()},t.modal.confirm=function(i,e,o){var n=1<arguments.length&&arguments[arguments.length-1]?arguments[arguments.length-1]:{};e=t.$.isFunction(e)?e:function(){},o=t.$.isFunction(o)?o:function(){};var n=t.$.extend(!0,{bgclose:!1,keyboard:!1,modal:!1,labels:t.modal.labels},t.$.isFunction(n)?{}:n),s=t.modal.dialog(['<div class="uk-margin uk-modal-content">'+String(i)+"</div>",'<div class="uk-modal-footer uk-text-right"><button class="uk-button js-modal-confirm-cancel">'+n.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-confirm">'+n.labels.Ok+"</button></div>"].join(""),n);return s.element.find(".js-modal-confirm, .js-modal-confirm-cancel").on("click",function(){t.$(this).is(".js-modal-confirm")?e():o(),s.hide()}),s.on("show.uk.modal",function(){setTimeout(function(){s.element.find(".js-modal-confirm").focus()},50)}),s.show()},t.modal.prompt=function(i,e,o,n){o=t.$.isFunction(o)?o:function(){},n=t.$.extend(!0,{bgclose:!1,keyboard:!1,modal:!1,labels:t.modal.labels},n);var s=t.modal.dialog([i?'<div class="uk-modal-content uk-form">'+String(i)+"</div>":"",'<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>','<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">'+n.labels.Cancel+'</button> <button class="uk-button uk-button-primary js-modal-ok">'+n.labels.Ok+"</button></div>"].join(""),n),a=s.element.find("input[type='text']").val(e||"").on("keyup",function(t){13==t.keyCode&&s.element.find(".js-modal-ok").trigger("click")});return s.element.find(".js-modal-ok").on("click",function(){!1!==o(a.val())&&s.hide()}),s.on("show.uk.modal",function(){setTimeout(function(){a.focus()},50)}),s.show()},t.modal.blockUI=function(i,e){var o=t.modal.dialog(""+('<div class="uk-margin uk-modal-content">'+String(i||'<div class="uk-text-center">...</div>')+"</div>"),t.$.extend({bgclose:!1,keyboard:!1,modal:!1},e));return o.content=o.element.find(".uk-modal-content:first"),o.show()},t.modal.labels={Ok:"Ok",Cancel:"Cancel"}}(UIkit),function(t){function i(i){i=t.$(i);var e="auto";if(i.is(":visible"))e=i.outerHeight();else{var o={position:i.css("position"),visibility:i.css("visibility"),display:i.css("display")},e=i.css({position:"absolute",visibility:"hidden",display:"block"}).outerHeight();i.css(o)}return e}t.component("nav",{defaults:{toggle:">li.uk-parent > a[href='#']",lists:">li.uk-parent > ul",multiple:!1},boot:function(){t.ready(function(i){t.$("[data-uk-nav]",i).each(function(){var i=t.$(this);i.data("nav")||t.nav(i,t.Utils.options(i.attr("data-uk-nav")))})})},init:function(){var i=this;this.on("click.uk.nav",this.options.toggle,function(e){e.preventDefault(),e=t.$(this),i.open(e.parent()[0]==i.element[0]?e:e.parent("li"))}),this.find(this.options.lists).each(function(){var e=t.$(this),o=e.parent(),n=o.hasClass("uk-active");e.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>'),o.data("list-container",e.parent()[n?"removeClass":"addClass"]("uk-hidden")),o.attr("aria-expanded",o.hasClass("uk-open")),n&&i.open(o,!0)})},open:function(e,o){var n=this,s=this.element,a=t.$(e),r=a.data("list-container");this.options.multiple||s.children(".uk-open").not(e).each(function(){var i=t.$(this);i.data("list-container")&&i.data("list-container").stop().animate({height:0},function(){t.$(this).parent().removeClass("uk-open").end().addClass("uk-hidden")})}),a.toggleClass("uk-open"),a.attr("aria-expanded",a.hasClass("uk-open")),r&&(a.hasClass("uk-open")&&r.removeClass("uk-hidden"),o?(r.stop().height(a.hasClass("uk-open")?"auto":0),a.hasClass("uk-open")||r.addClass("uk-hidden"),this.trigger("display.uk.check")):r.stop().animate({height:a.hasClass("uk-open")?i(r.find("ul:first")):0},function(){a.hasClass("uk-open")?r.css("height",""):r.addClass("uk-hidden"),n.trigger("display.uk.check")}))}})}(UIkit),function(t){var i=window.scrollX,e=window.scrollY,o=(t.$win,t.$doc,t.$html),n={show:function(n){if(n=t.$(n),n.length){var s=t.$("body"),a=n.find(".uk-offcanvas-bar:first"),r="right"==t.langdirection,l=(a.hasClass("uk-offcanvas-bar-flip")?-1:1)*(r?-1:1),c=window.innerWidth-s.width();i=window.pageXOffset,e=window.pageYOffset,n.addClass("uk-active"),s.css({width:window.innerWidth-c,height:window.innerHeight}).addClass("uk-offcanvas-page"),s.css(r?"margin-right":"margin-left",(r?-1:1)*a.outerWidth()*l).width(),o.css("margin-top",-1*e),a.addClass("uk-offcanvas-bar-show"),this._initElement(n),a.trigger("show.uk.offcanvas",[n,a]),n.attr("aria-hidden","false")}},hide:function(n){var s=t.$("body"),a=t.$(".uk-offcanvas.uk-active"),r="right"==t.langdirection,l=a.find(".uk-offcanvas-bar:first"),c=function(){s.removeClass("uk-offcanvas-page").css({width:"",height:"","margin-left":"","margin-right":""}),a.removeClass("uk-active"),l.removeClass("uk-offcanvas-bar-show"),o.css("margin-top",""),window.scrollTo(i,e),l.trigger("hide.uk.offcanvas",[a,l]),a.attr("aria-hidden","true")};a.length&&(t.support.transition&&!n?(s.one(t.support.transition.end,function(){c()}).css(r?"margin-right":"margin-left",""),setTimeout(function(){l.removeClass("uk-offcanvas-bar-show")},0)):c())},_initElement:function(i){i.data("OffcanvasInit")||(i.on("click.uk.offcanvas swipeRight.uk.offcanvas swipeLeft.uk.offcanvas",function(i){var e=t.$(i.target);(i.type.match(/swipe/)||e.hasClass("uk-offcanvas-close")||!e.hasClass("uk-offcanvas-bar")&&!e.parents(".uk-offcanvas-bar:first").length)&&(i.stopImmediatePropagation(),n.hide())}),i.on("click","a[href*='#']",function(){var i=t.$(this),e=i.attr("href");"#"!=e&&(t.$doc.one("hide.uk.offcanvas",function(){var o;try{o=t.$(i[0].hash)}catch(n){o=""}o.length||(o=t.$('[name="'+i[0].hash.replace("#","")+'"]')),o.length&&t.Utils.scrollToElement?t.Utils.scrollToElement(o,t.Utils.options(i.attr("data-uk-smooth-scroll")||"{}")):window.location.href=e}),n.hide())}),i.data("OffcanvasInit",!0))}};t.component("offcanvasTrigger",{boot:function(){o.on("click.offcanvas.uikit","[data-uk-offcanvas]",function(i){i.preventDefault(),i=t.$(this),i.data("offcanvasTrigger")||(t.offcanvasTrigger(i,t.Utils.options(i.attr("data-uk-offcanvas"))),i.trigger("click"))}),o.on("keydown.uk.offcanvas",function(t){27===t.keyCode&&n.hide()})},init:function(){var i=this;this.options=t.$.extend({target:!!i.element.is("a")&&i.element.attr("href")},this.options),this.on("click",function(t){t.preventDefault(),n.show(i.options.target)})}}),t.offcanvas=n}(UIkit),function(t){function i(i,e,o){var n,s=t.$.Deferred(),a=i,r=i;return o[0]===e[0]?(s.resolve(),s.promise()):("object"==typeof i&&(a=i[0],r=i[1]||i[0]),t.$body.css("overflow-x","hidden"),n=function(){e&&e.hide().removeClass("uk-active "+r+" uk-animation-reverse"),o.addClass(a).one(t.support.animation.end,function(){o.removeClass(""+a).css({opacity:"",display:""}),s.resolve(),t.$body.css("overflow-x",""),e&&e.css({opacity:"",display:""})}.bind(this)).show()},o.css("animation-duration",this.options.duration+"ms"),e&&e.length?(e.css("animation-duration",this.options.duration+"ms"),e.css("display","none").addClass(r+" uk-animation-reverse").one(t.support.animation.end,function(){n()}.bind(this)).css("display","")):(o.addClass("uk-active"),n()),s.promise())}var e;t.component("switcher",{defaults:{connect:!1,toggle:">*",active:0,animation:!1,duration:200,swiping:!0},animating:!1,boot:function(){t.ready(function(i){t.$("[data-uk-switcher]",i).each(function(){var i=t.$(this);i.data("switcher")||t.switcher(i,t.Utils.options(i.attr("data-uk-switcher")))})})},init:function(){var i=this;if(this.on("click.uk.switcher",this.options.toggle,function(t){t.preventDefault(),i.show(this)}),this.options.connect){this.connect=t.$(this.options.connect),this.connect.find(".uk-active").removeClass(".uk-active"),this.connect.length&&(this.connect.children().attr("aria-hidden","true"),this.connect.on("click","[data-uk-switcher-item]",function(e){if(e.preventDefault(),e=t.$(this).attr("data-uk-switcher-item"),i.index!=e)switch(e){case"next":case"previous":i.show(i.index+("next"==e?1:-1));break;default:i.show(parseInt(e,10))}}),this.options.swiping&&this.connect.on("swipeRight swipeLeft",function(t){t.preventDefault(),window.getSelection().toString()||i.show(i.index+("swipeLeft"==t.type?1:-1))}));var e=this.find(this.options.toggle),o=e.filter(".uk-active");if(o.length)this.show(o,!1);else{if(!1===this.options.active)return;o=e.eq(this.options.active),this.show(o.length?o:e.eq(0),!1)}e.not(o).attr("aria-expanded","false"),o.attr("aria-expanded","true"),this.on("changed.uk.dom",function(){i.connect=t.$(i.options.connect)})}},show:function(o,n){if(!this.animating){if(isNaN(o))o=t.$(o);else{var s=this.find(this.options.toggle);o=0>o?s.length-1:o,o=s.eq(s[o]?o:0)}var a=this,s=this.find(this.options.toggle),r=t.$(o),l=e[this.options.animation]||function(t,o){if(!a.options.animation)return e.none.apply(a);var n=a.options.animation.split(",");return 1==n.length&&(n[1]=n[0]),n[0]=n[0].trim(),n[1]=n[1].trim(),i.apply(a,[n,t,o])};!1!==n&&t.support.animation||(l=e.none),r.hasClass("uk-disabled")||(s.attr("aria-expanded","false"),r.attr("aria-expanded","true"),s.filter(".uk-active").removeClass("uk-active"),r.addClass("uk-active"),this.options.connect&&this.connect.length&&(this.index=this.find(this.options.toggle).index(r),-1==this.index&&(this.index=0),this.connect.each(function(){var i=t.$(this),i=t.$(i.children()),e=t.$(i.filter(".uk-active")),o=t.$(i.eq(a.index));a.animating=!0,l.apply(a,[e,o]).then(function(){e.removeClass("uk-active"),o.addClass("uk-active"),e.attr("aria-hidden","true"),o.attr("aria-hidden","false"),t.Utils.checkDisplay(o,!0),a.animating=!1})})),this.trigger("show.uk.switcher",[r]))}}}),e={none:function(){var i=t.$.Deferred();return i.resolve(),i.promise()},fade:function(t,e){return i.apply(this,["uk-animation-fade",t,e])},"slide-bottom":function(t,e){return i.apply(this,["uk-animation-slide-bottom",t,e])},"slide-top":function(t,e){return i.apply(this,["uk-animation-slide-top",t,e])},"slide-vertical":function(t,e){var o=["uk-animation-slide-top","uk-animation-slide-bottom"];return t&&t.index()>e.index()&&o.reverse(),i.apply(this,[o,t,e])},"slide-left":function(t,e){return i.apply(this,["uk-animation-slide-left",t,e])},"slide-right":function(t,e){return i.apply(this,["uk-animation-slide-right",t,e])},"slide-horizontal":function(t,e){var o=["uk-animation-slide-right","uk-animation-slide-left"];return t&&t.index()>e.index()&&o.reverse(),i.apply(this,[o,t,e])},scale:function(t,e){return i.apply(this,["uk-animation-scale-up",t,e])}},t.switcher.animations=e}(UIkit),function(t){t.component("tab",{defaults:{target:">li:not(.uk-tab-responsive, .uk-disabled)",connect:!1,active:0,animation:!1,duration:200,swiping:!0},boot:function(){t.ready(function(i){t.$("[data-uk-tab]",i).each(function(){var i=t.$(this);i.data("tab")||t.tab(i,t.Utils.options(i.attr("data-uk-tab")))})})},init:function(){var i=this;this.current=!1,this.on("click.uk.tab",this.options.target,function(e){e.preventDefault(),i.switcher&&i.switcher.animating||(e=i.find(i.options.target).not(this),e.removeClass("uk-active").blur(),i.trigger("change.uk.tab",[t.$(this).addClass("uk-active"),i.current]),i.current=t.$(this),i.options.connect||(e.attr("aria-expanded","false"),t.$(this).attr("aria-expanded","true")))}),this.options.connect&&(this.connect=t.$(this.options.connect)),this.responsivetab=t.$('<li class="uk-tab-responsive uk-active"><a></a></li>').append('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>'),this.responsivetab.dropdown=this.responsivetab.find(".uk-dropdown"),this.responsivetab.lst=this.responsivetab.dropdown.find("ul"),this.responsivetab.caption=this.responsivetab.find("a:first"),this.element.hasClass("uk-tab-bottom")&&this.responsivetab.dropdown.addClass("uk-dropdown-up"),this.responsivetab.lst.on("click.uk.tab","a",function(e){e.preventDefault(),e.stopPropagation(),e=t.$(this),i.element.children("li:not(.uk-tab-responsive)").eq(e.data("index")).trigger("click")}),this.on("show.uk.switcher change.uk.tab",function(t,e){i.responsivetab.caption.html(e.text())}),this.element.append(this.responsivetab),this.options.connect&&(this.switcher=t.switcher(this.element,{toggle:">li:not(.uk-tab-responsive)",connect:this.options.connect,active:this.options.active,animation:this.options.animation,duration:this.options.duration,swiping:this.options.swiping})),t.dropdown(this.responsivetab,{mode:"click",preventflip:"y"}),i.trigger("change.uk.tab",[this.element.find(this.options.target).not(".uk-tab-responsive").filter(".uk-active")]),this.check(),t.$win.on("resize orientationchange",t.Utils.debounce(function(){i.element.is(":visible")&&i.check()},100)),this.on("display.uk.check",function(){i.element.is(":visible")&&i.check()})},check:function(){var i=this.element.children("li:not(.uk-tab-responsive)").removeClass("uk-hidden");if(!i.length)return void this.responsivetab.addClass("uk-hidden");var e,o,n=i.eq(0).offset().top+Math.ceil(i.eq(0).height()/2),s=!1;if(this.responsivetab.lst.empty(),i.each(function(){t.$(this).offset().top>n&&(s=!0)}),s)for(var a=0;a<i.length;a++)e=t.$(i.eq(a)),e.find("a"),"none"==e.css("float")||e.attr("uk-dropdown")||(e.hasClass("uk-disabled")||(o=e[0].outerHTML.replace("<a ",'<a data-index="'+a+'" '),this.responsivetab.lst.append(o)),e.addClass("uk-hidden"));this.responsivetab[this.responsivetab.lst.children("li").length?"removeClass":"addClass"]("uk-hidden")}})}(UIkit),function(t){t.component("cover",{defaults:{automute:!0},boot:function(){t.ready(function(i){t.$("[data-uk-cover]",i).each(function(){var i=t.$(this);i.data("cover")||t.cover(i,t.Utils.options(i.attr("data-uk-cover")))})})},init:function(){if(this.parent=this.element.parent(),t.$win.on("load resize orientationchange",t.Utils.debounce(function(){this.check()}.bind(this),100)),this.on("display.uk.check",function(){this.element.is(":visible")&&this.check()}.bind(this)),this.check(),this.element.is("iframe")&&this.options.automute){var i=this.element.attr("src");this.element.attr("src","").on("load",function(){this.contentWindow.postMessage('{ "event": "command", "func": "mute", "method":"setVolume", "value":0}',"*")}).attr("src",[i,-1<i.indexOf("?")?"&":"?","enablejsapi=1&api=1"].join(""))}},check:function(){this.element.css({width:"",height:""}),this.dimension={w:this.element.width(),h:this.element.height()},this.element.attr("width")&&!isNaN(this.element.attr("width"))&&(this.dimension.w=this.element.attr("width")),this.element.attr("height")&&!isNaN(this.element.attr("height"))&&(this.dimension.h=this.element.attr("height")),this.ratio=this.dimension.w/this.dimension.h;var t,i,e=this.parent.width(),o=this.parent.height();e/this.ratio<o?(t=Math.ceil(o*this.ratio),i=o):(t=e,i=Math.ceil(e/this.ratio)),this.element.css({width:t,height:i})}})}(UIkit),!function(t){var i;window.UIkit&&(i=t(UIkit)),"function"==typeof define&&define.amd&&define("uikit-parallax",["uikit"],function(){return i||t(UIkit)})}(function(t){function i(i,e,o){var n,s,a,r,l,c,h,d=new Image;return s=i.element.css({"background-size":"cover","background-repeat":"no-repeat"}),n=s.css("background-image").replace(/^url\(/g,"").replace(/\)$/g,"").replace(/("|')/g,""),r=function(){var t=s.innerWidth(),n=s.innerHeight(),r="bg"==e?o.diff:o.diff/100*n;return n+=r,t+=Math.ceil(r*l),t-r<a.w&&n<a.h?i.element.css({"background-size":"auto"}):(n>t/l?(c=Math.ceil(n*l),h=n,n>window.innerHeight&&(c*=1.2,h*=1.2)):(c=t,h=Math.ceil(t/l)),void s.css({"background-size":c+"px "+h+"px"}).data("bgsize",{w:c,h:h}))},d.onerror=function(){},d.onload=function(){a={w:d.width,h:d.height},l=d.width/d.height,t.$win.on("load resize orientationchange",t.Utils.debounce(function(){r()},50)),r()},d.src=n,!0}function e(t){var i;return(i=/#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})/.exec(t))?[parseInt(i[1],16),parseInt(i[2],16),parseInt(i[3],16),1]:(i=/#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/.exec(t))?[17*parseInt(i[1],16),17*parseInt(i[2],16),17*parseInt(i[3],16),1]:(i=/rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(t))?[parseInt(i[1]),parseInt(i[2]),parseInt(i[3]),1]:(i=/rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9\.]*)\s*\)/.exec(t))?[parseInt(i[1],10),parseInt(i[2],10),parseInt(i[3],10),parseFloat(i[4])]:l[t]||[255,255,255,0]}var o=[],n=!1,s=0,a=window.innerHeight,r=function(){s=t.$win.scrollTop(),window.requestAnimationFrame(function(){for(var t=0;t<o.length;t++)o[t].process()})};t.component("parallax",{defaults:{velocity:.5,target:!1,viewport:!1,media:!1},boot:function(){n=function(){var t,i=document.createElement("div"),e={WebkitTransform:"-webkit-transform",MSTransform:"-ms-transform",MozTransform:"-moz-transform",Transform:"transform"};document.body.insertBefore(i,null);for(var o in e)void 0!==i.style[o]&&(i.style[o]="translate3d(1px,1px,1px)",t=window.getComputedStyle(i).getPropertyValue(e[o]));return document.body.removeChild(i),void 0!==t&&0<t.length&&"none"!==t}(),t.$doc.on("scrolling.uk.document",r),t.$win.on("load resize orientationchange",t.Utils.debounce(function(){a=window.innerHeight,r()},50)),t.ready(function(i){t.$("[data-uk-parallax]",i).each(function(){var i=t.$(this);i.data("parallax")||t.parallax(i,t.Utils.options(i.attr("data-uk-parallax")))})})},init:function(){this.base=this.options.target?t.$(this.options.target):this.element,this.props={},this.velocity=this.options.velocity||1;var i=["target","velocity","viewport","plugins","media"];Object.keys(this.options).forEach(function(t){if(-1===i.indexOf(t)){var e,o,n,s,a=String(this.options[t]).split(",");t.match(/color/i)?(e=a[1]?a[0]:this._getStartValue(t),o=a[1]?a[1]:a[0],e||(e="rgba(255,255,255,0)")):(e=parseFloat(a[1]?a[0]:this._getStartValue(t)),o=parseFloat(a[1]?a[1]:a[0]),s=o>e?o-e:e-o,n=o>e?1:-1),this.props[t]={start:e,end:o,dir:n,diff:s}}}.bind(this)),o.push(this)},process:function(){if(this.options.media)switch(typeof this.options.media){case"number":if(window.innerWidth<this.options.media)return!1;break;case"string":if(window.matchMedia&&!window.matchMedia(this.options.media).matches)return!1}var t=this.percentageInViewport();!1!==this.options.viewport&&(t=0===this.options.viewport?1:t/this.options.viewport),this.update(t)},percentageInViewport:function(){var t,i,e,o=this.base.offset().top,n=this.base.outerHeight();return o>s+a?e=0:s>o+n?e=1:a>o+n?e=(a>s?s:s-a)/(o+n):(t=s+a-o,i=Math.round(t/((a+n)/100)),
-e=i/100),e},update:function(t){var o,s,a={transform:""},r=t*(1-(this.velocity-this.velocity*t));0>r&&(r=0),1<r&&(r=1),(void 0===this._percent||this._percent!=r)&&(Object.keys(this.props).forEach(function(l){switch(o=this.props[l],0===t?s=o.start:1===t?s=o.end:void 0!==o.diff&&(s=o.start+o.diff*r*o.dir),"bg"!=l&&"bgp"!=l||this._bgcover||(this._bgcover=i(this,l,o)),l){case"x":a.transform+=n?" translate3d("+s+"px, 0, 0)":" translateX("+s+"px)";break;case"xp":a.transform+=n?" translate3d("+s+"%, 0, 0)":" translateX("+s+"%)";break;case"y":a.transform+=n?" translate3d(0, "+s+"px, 0)":" translateY("+s+"px)";break;case"yp":a.transform+=n?" translate3d(0, "+s+"%, 0)":" translateY("+s+"%)";break;case"rotate":a.transform+=" rotate("+s+"deg)";break;case"scale":a.transform+=" scale("+s+")";break;case"bg":a["background-position"]="50% "+s+"px";break;case"bgp":a["background-position"]="50% "+s+"%";break;case"color":case"background-color":case"border-color":var c=o.start,h=o.end,d=r,c=e(c),h=e(h),d=d||0,d="rgba("+parseInt(c[0]+d*(h[0]-c[0]),10)+","+parseInt(c[1]+d*(h[1]-c[1]),10)+","+parseInt(c[2]+d*(h[2]-c[2]),10)+","+(c&&h?parseFloat(c[3]+d*(h[3]-c[3])):1)+")";a[l]=d;break;default:a[l]=s}}.bind(this)),this.element.css(a),this._percent=r)},_getStartValue:function(t){var i=0;switch(t){case"scale":i=1;break;default:i=this.element.css(t)}return i||0}});var l={black:[0,0,0,1],blue:[0,0,255,1],brown:[165,42,42,1],cyan:[0,255,255,1],fuchsia:[255,0,255,1],gold:[255,215,0,1],green:[0,128,0,1],indigo:[75,0,130,1],khaki:[240,230,140,1],lime:[0,255,0,1],magenta:[255,0,255,1],maroon:[128,0,0,1],navy:[0,0,128,1],olive:[128,128,0,1],orange:[255,165,0,1],pink:[255,192,203,1],purple:[128,0,128,1],violet:[128,0,128,1],red:[255,0,0,1],silver:[192,192,192,1],white:[255,255,255,1],yellow:[255,255,0,1],transparent:[255,255,255,0]};return t.parallax}),!function(t){var i;window.UIkit&&(i=t(UIkit)),"function"==typeof define&&define.amd&&define("uikit-sticky",["uikit"],function(){return i||t(UIkit)})}(function(t){function i(){var i=arguments.length?arguments:n;if(i.length&&!(0>e.scrollTop()))for(var s,a,r,l,c=e.scrollTop(),h=o.height(),d=e.height(),d=h-d,d=c>d?d-c:0,u=0;u<i.length;u++)l=i[u],l.element.is(":visible")&&!l.animate&&(l.check()?(0>l.top?s=0:(r=l.element.outerHeight(),s=h-r-l.top-l.options.bottom-c-d,s=0>s?s+l.top:l.top),l.boundary&&l.boundary.length&&(a=l.boundary.offset().top,a=l.boundtoparent?h-(a+l.boundary.outerHeight())+parseInt(l.boundary.css("padding-bottom")):h-a-parseInt(l.boundary.css("margin-top")),s=c+r>h-a-(0>l.top?0:l.top)?h-a-(c+r):s),l.currentTop!=s&&(l.element.css({position:"fixed",top:s,width:l.getWidthFrom.length?l.getWidthFrom.width():l.element.width()}),!l.init&&(l.element.addClass(l.options.clsinit),location.hash&&0<c&&l.options.target)&&(a=t.$(location.hash),a.length&&setTimeout(function(t,i){return function(){i.element.width();var e=t.offset(),o=e.top+t.outerHeight(),n=i.element.offset(),s=i.element.outerHeight(),a=n.top+s;n.top<o&&e.top<a&&(c=e.top-s-i.options.target,window.scrollTo(0,c))}}(a,l),0)),l.element.addClass(l.options.clsactive).removeClass(l.options.clsinactive),l.element.trigger("active.uk.sticky"),l.element.css("margin",""),l.options.animation&&l.init&&!t.Utils.isInView(l.wrapper)&&l.element.addClass(l.options.animation),l.currentTop=s)):null!==l.currentTop&&l.reset(),l.init=!0)}var e=t.$win,o=t.$doc,n=[],s=1;return t.component("sticky",{defaults:{top:0,bottom:0,animation:"",clsinit:"uk-sticky-init",clsactive:"uk-active",clsinactive:"",getWidthFrom:"",showup:!1,boundary:!1,media:!1,target:!1,disabled:!1},boot:function(){t.$doc.on("scrolling.uk.document",function(t,e){e&&e.dir&&(s=e.dir.y,i())}),t.$win.on("resize orientationchange",t.Utils.debounce(function(){if(n.length){for(var t=0;t<n.length;t++)n[t].reset(!0);i()}},100)),t.ready(function(e){setTimeout(function(){t.$("[data-uk-sticky]",e).each(function(){var i=t.$(this);i.data("sticky")||t.sticky(i,t.Utils.options(i.attr("data-uk-sticky")))}),i()},0)})},init:function(){var i,a=this.options.boundary;this.wrapper=this.element.wrap('<div class="uk-sticky-placeholder"></div>').parent(),this.computeWrapper(),this.element.css("margin",0),a&&(!0===a||"!"===a[0]?(a=!0===a?this.wrapper.parent():this.wrapper.closest(a.substr(1)),i=!0):"string"==typeof a&&(a=t.$(a))),this.sticky={self:this,options:this.options,element:this.element,currentTop:null,wrapper:this.wrapper,init:!1,getWidthFrom:t.$(this.options.getWidthFrom||this.wrapper),boundary:a,boundtoparent:i,top:0,calcTop:function(){var i=this.options.top;if(this.options.top&&"string"==typeof this.options.top)if(this.options.top.match(/^(-|)(\d+)vh$/))i=window.innerHeight*parseInt(this.options.top,10)/100;else{var e=t.$(this.options.top).first();e.length&&e.is(":visible")&&(i=-1*(e.offset().top+e.outerHeight()-this.wrapper.offset().top))}this.top=i},reset:function(i){this.calcTop();var e=function(){this.element.css({position:"",top:"",width:"",left:"",margin:"0"}),this.element.removeClass([this.options.animation,"uk-animation-reverse",this.options.clsactive].join(" ")),this.element.addClass(this.options.clsinactive),this.element.trigger("inactive.uk.sticky"),this.currentTop=null,this.animate=!1}.bind(this);!i&&this.options.animation&&t.support.animation&&!t.Utils.isInView(this.wrapper)?(this.animate=!0,this.element.removeClass(this.options.animation).one(t.support.animation.end,function(){e()}).width(),this.element.addClass(this.options.animation+" uk-animation-reverse")):e()},check:function(){if(this.options.disabled)return!1;if(this.options.media)switch(typeof this.options.media){case"number":if(window.innerWidth<this.options.media)return!1;break;case"string":if(window.matchMedia&&!window.matchMedia(this.options.media).matches)return!1}var i=e.scrollTop(),n=o.height()-window.innerHeight,n=i>n?n-i:0,n=this.wrapper.offset().top-this.top-n,i=i>=n;return i&&this.options.showup&&(1==s&&(i=!1),-1==s&&!this.element.hasClass(this.options.clsactive)&&t.Utils.isInView(this.wrapper)&&(i=!1)),i}},this.sticky.calcTop(),n.push(this.sticky)},update:function(){i(this.sticky)},enable:function(){this.options.disabled=!1,this.update()},disable:function(t){this.options.disabled=!0,this.sticky.reset(t)},computeWrapper:function(){this.wrapper.css({height:-1==["absolute","fixed"].indexOf(this.element.css("position"))?this.element.outerHeight():"","float":"none"!=this.element.css("float")?this.element.css("float"):"",margin:this.element.css("margin")}),"fixed"==this.element.css("position")&&this.element.css({width:this.sticky.getWidthFrom.length?this.sticky.getWidthFrom.width():this.element.width()})}}),t.sticky}),!function(t){var i;window.UIkit&&(i=t(UIkit)),"function"==typeof define&&define.amd&&define("uikit-tooltip",["uikit"],function(){return i||t(UIkit)})}(function(t){var i,e,o;return t.component("tooltip",{defaults:{offset:5,pos:"top",animation:!1,delay:0,cls:"",activeClass:"uk-active",src:function(t){var i=t.attr("title");return void 0!==i&&t.data("cached-title",i).removeAttr("title"),t.data("cached-title")}},tip:"",boot:function(){t.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit","[data-uk-tooltip]",function(){var i=t.$(this);i.data("tooltip")||(t.tooltip(i,t.Utils.options(i.attr("data-uk-tooltip"))),i.trigger("mouseenter"))})},init:function(){var e=this;i||(i=t.$('<div class="uk-tooltip"></div>').appendTo("body")),this.on({focus:function(){e.show()},blur:function(){e.hide()},mouseenter:function(){e.show()},mouseleave:function(){e.hide()}})},show:function(){if(this.tip="function"==typeof this.options.src?this.options.src(this.element):this.options.src,e&&clearTimeout(e),o&&clearTimeout(o),"string"==typeof this.tip?this.tip.length:0){i.stop().css({top:-2e3,visibility:"hidden"}).removeClass(this.options.activeClass).show(),i.html('<div class="uk-tooltip-inner">'+this.tip+"</div>");var n=this,s=t.$.extend({},this.element.offset(),{width:this.element[0].offsetWidth,height:this.element[0].offsetHeight}),a=i[0].offsetWidth,r=i[0].offsetHeight,l="function"==typeof this.options.offset?this.options.offset.call(this.element):this.options.offset,c="function"==typeof this.options.pos?this.options.pos.call(this.element):this.options.pos,h=c.split("-"),d={display:"none",visibility:"visible",top:s.top+s.height+r,left:s.left};if("fixed"==t.$html.css("position")||"fixed"==t.$body.css("position")){var u=t.$("body").offset(),p=t.$("html").offset(),f=p.top+u.top;s.left-=p.left+u.left,s.top-=f}if("left"!=h[0]&&"right"!=h[0]||"right"!=t.langdirection||(h[0]="left"==h[0]?"right":"left"),l={bottom:{top:s.top+s.height+l,left:s.left+s.width/2-a/2},top:{top:s.top-r-l,left:s.left+s.width/2-a/2},left:{top:s.top+s.height/2-r/2,left:s.left-a-l},right:{top:s.top+s.height/2-r/2,left:s.left+s.width+l}},t.$.extend(d,l[h[0]]),2==h.length&&(d.left="left"==h[1]?s.left:s.left+s.width-a),r=this.checkBoundary(d.left,d.top,a,r)){switch(r){case"x":c=2==h.length?h[0]+"-"+(0>d.left?"left":"right"):0>d.left?"right":"left";break;case"y":c=2==h.length?(0>d.top?"bottom":"top")+"-"+h[1]:0>d.top?"bottom":"top";break;case"xy":c=2==h.length?(0>d.top?"bottom":"top")+"-"+(0>d.left?"left":"right"):0>d.left?"right":"left"}h=c.split("-"),t.$.extend(d,l[h[0]]),2==h.length&&(d.left="left"==h[1]?s.left:s.left+s.width-a)}d.left-=t.$body.position().left,e=setTimeout(function(){i.css(d).attr("class",["uk-tooltip","uk-tooltip-"+c,n.options.cls].join(" ")),n.options.animation?i.css({opacity:0,display:"block"}).addClass(n.options.activeClass).animate({opacity:1},parseInt(n.options.animation,10)||400):i.show().addClass(n.options.activeClass),e=!1,o=setInterval(function(){n.element.is(":visible")||n.hide()},150)},parseInt(this.options.delay,10)||0)}},hide:function(){if(!this.element.is("input")||this.element[0]!==document.activeElement)if(e&&clearTimeout(e),o&&clearTimeout(o),i.stop(),this.options.animation){var t=this;i.fadeOut(parseInt(this.options.animation,10)||400,function(){i.removeClass(t.options.activeClass)})}else i.hide().removeClass(this.options.activeClass)},content:function(){return this.tip},checkBoundary:function(i,e,o,n){var s="";return(0>i||i-t.$win.scrollLeft()+o>window.innerWidth)&&(s+="x"),(0>e||e-t.$win.scrollTop()+n>window.innerHeight)&&(s+="y"),s}}),t.tooltip}),!function(t){var i;window.UIkit&&(i=t(UIkit)),"function"==typeof define&&define.amd&&define("uikit-notify",["uikit"],function(){return i||t(UIkit)})}(function(t){var i={},e={},o=function(i,e){return"string"==t.$.type(i)&&(i={message:i}),e&&(i=t.$.extend(i,"string"==t.$.type(e)?{status:e}:e)),new n(i).show()},n=function(o){this.options=t.$.extend({},n.defaults,o),this.uuid=t.Utils.uid("notifymsg"),this.element=t.$('<div class="uk-notify-message"><a class="uk-close"></a><div></div></div>').data("notifyMessage",this),this.content(this.options.message),this.options.status&&(this.element.addClass("uk-notify-message-"+this.options.status),this.currentstatus=this.options.status),this.group=this.options.group,e[this.uuid]=this,i[this.options.pos]||(i[this.options.pos]=t.$('<div class="uk-notify uk-notify-'+this.options.pos+'"></div>').appendTo("body").on("click",".uk-notify-message",function(){var i=t.$(this).data("notifyMessage");i.element.trigger("manualclose.uk.notify",[i]),i.close()}))};return t.$.extend(n.prototype,{uuid:!1,element:!1,timout:!1,currentstatus:"",group:!1,show:function(){if(!this.element.is(":visible")){var t=this;i[this.options.pos].show().prepend(this.element);var e=parseInt(this.element.css("margin-bottom"),10);return this.element.css({opacity:0,"margin-top":-1*this.element.outerHeight(),"margin-bottom":0}).animate({opacity:1,"margin-top":0,"margin-bottom":e},function(){if(t.options.timeout){var i=function(){t.close()};t.timeout=setTimeout(i,t.options.timeout),t.element.hover(function(){clearTimeout(t.timeout)},function(){t.timeout=setTimeout(i,t.options.timeout)})}}),this}},close:function(t){var o=this,n=function(){o.element.remove(),i[o.options.pos].children().length||i[o.options.pos].hide(),o.options.onClose.apply(o,[]),o.element.trigger("close.uk.notify",[o]),delete e[o.uuid]};this.timeout&&clearTimeout(this.timeout),t?n():this.element.animate({opacity:0,"margin-top":-1*this.element.outerHeight(),"margin-bottom":0},function(){n()})},content:function(t){var i=this.element.find(">div");return t?(i.html(t),this):i.html()},status:function(t){return t?(this.element.removeClass("uk-notify-message-"+this.currentstatus).addClass("uk-notify-message-"+t),this.currentstatus=t,this):this.currentstatus}}),n.defaults={message:"",status:"",timeout:5e3,group:null,pos:"top-center",onClose:function(){}},t.notify=o,t.notify.message=n,t.notify.closeAll=function(t,i){var o;if(t)for(o in e)t===e[o].group&&e[o].close(i);else for(o in e)e[o].close(i)},o}),!function(t){var i;window.UIkit&&(i=t(UIkit)),"function"==typeof define&&define.amd&&define("uikit-lightbox",["uikit"],function(){return i||t(UIkit)})}(function(t){function i(i){return e?(e.lightbox=i,e):(e=t.$(['<div class="uk-modal">','<div class="uk-modal-dialog uk-modal-dialog-lightbox uk-slidenav-position" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:'+Math.abs(window.innerHeight/2-200)+'px;">','<a href="#" class="uk-modal-close uk-close uk-close-alt"></a><div class="uk-lightbox-content"></div><div class="uk-modal-spinner uk-hidden"></div></div></div>'].join("")).appendTo("body"),e.dialog=e.find(".uk-modal-dialog:first"),e.content=e.find(".uk-lightbox-content:first"),e.loader=e.find(".uk-modal-spinner:first"),e.closer=e.find(".uk-close.uk-close-alt"),e.modal=t.modal(e,{modal:!1}),e.on("swipeRight swipeLeft",function(t){e.lightbox["swipeLeft"==t.type?"next":"previous"]()}).on("click","[data-lightbox-previous], [data-lightbox-next]",function(i){i.preventDefault(),e.lightbox[t.$(this).is("[data-lightbox-next]")?"next":"previous"]()}),e.on("hide.uk.modal",function(){e.content.html("")}),t.$win.on("load resize orientationchange",t.Utils.debounce(function(){e.is(":visible")&&!t.Utils.isFullscreen()&&e.lightbox.fitSize()}.bind(this),100)),e.lightbox=i,e)}var e,o={};return t.component("lightbox",{defaults:{group:!1,duration:400,keyboard:!0},index:0,items:!1,boot:function(){t.$html.on("click","[data-uk-lightbox]",function(i){i.preventDefault(),i=t.$(this),i.data("lightbox")||t.lightbox(i,t.Utils.options(i.attr("data-uk-lightbox"))),i.data("lightbox").show(i)}),t.$doc.on("keyup",function(t){if(e&&e.is(":visible")&&e.lightbox.options.keyboard)switch(t.preventDefault(),t.keyCode){case 37:e.lightbox.previous();break;case 39:e.lightbox.next()}})},init:function(){var i=[];if(this.index=0,this.siblings=[],this.element&&this.element.length){var e=this.options.group?t.$(['[data-uk-lightbox*="'+this.options.group+'"]',"[data-uk-lightbox*='"+this.options.group+"']"].join()):this.element;e.each(function(){var e=t.$(this);i.push({source:e.attr("href"),title:e.attr("data-title")||e.attr("title"),type:e.attr("data-lightbox-type")||"auto",link:e})}),this.index=e.index(this.element),this.siblings=i}else this.options.group&&this.options.group.length&&(this.siblings=this.options.group);this.trigger("lightbox-init",[this])},show:function(e){this.modal=i(this),this.modal.dialog.stop(),this.modal.content.stop();var o,n,s=this,a=t.$.Deferred();e=e||0,"object"==typeof e&&this.siblings.forEach(function(t,i){e[0]===t.link[0]&&(e=i)}),0>e?e=this.siblings.length-e:this.siblings[e]||(e=0),n=this.siblings[e],o={lightbox:s,source:n.source,type:n.type,index:e,promise:a,title:n.title,item:n,meta:{content:"",width:null,height:null}},this.index=e,this.modal.content.empty(),this.modal.is(":visible")||(this.modal.content.css({width:"",height:""}).empty(),this.modal.modal.show()),this.modal.loader.removeClass("uk-hidden"),a.promise().done(function(){s.data=o,s.fitSize(o)}).fail(function(){o.meta.content='<div class="uk-position-cover uk-flex uk-flex-middle uk-flex-center"><strong>Loading resource failed!</strong></div>',o.meta.width=400,o.meta.height=300,s.data=o,s.fitSize(o)}),s.trigger("showitem.uk.lightbox",[o])},fitSize:function(){var i=this,e=this.data,o=this.modal.dialog.outerWidth()-this.modal.dialog.width(),n=parseInt(this.modal.dialog.css("margin-top"),10),s=parseInt(this.modal.dialog.css("margin-bottom"),10),s=n+s,a=e.meta.content,n=i.options.duration;1<this.siblings.length&&(a=[a,'<a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous uk-hidden-touch" data-lightbox-previous></a><a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next uk-hidden-touch" data-lightbox-next></a>'].join(""));var r,l,c=t.$("<div>&nbsp;</div>").css({opacity:0,position:"absolute",top:0,left:0,width:"100%","max-width":i.modal.dialog.css("max-width"),padding:i.modal.dialog.css("padding"),margin:i.modal.dialog.css("margin")}),h=e.meta.width,d=e.meta.height;c.appendTo("body").width(),r=c.width(),l=window.innerHeight-s,c.remove(),this.modal.dialog.find(".uk-modal-caption").remove(),e.title&&(this.modal.dialog.append('<div class="uk-modal-caption">'+e.title+"</div>"),l-=this.modal.dialog.find(".uk-modal-caption").outerHeight()),r<e.meta.width&&(d=Math.floor(r/h*d),h=r),d>l&&(d=Math.floor(l),h=Math.ceil(l/e.meta.height*e.meta.width)),this.modal.content.css("opacity",0).width(h).html(a),"iframe"==e.type&&this.modal.content.find("iframe:first").height(d),e=Math.floor(window.innerHeight/2-(d+o)/2)-s,0>e&&(e=0),this.modal.closer.addClass("uk-hidden"),i.modal.data("mwidth")==h&&i.modal.data("mheight")==d&&(n=0),this.modal.dialog.animate({width:h+o,height:d+o,top:e},n,"swing",function(){i.modal.loader.addClass("uk-hidden"),i.modal.content.css({width:""}).animate({opacity:1},function(){i.modal.closer.removeClass("uk-hidden")}),i.modal.data({mwidth:h,mheight:d})})},next:function(){this.show(this.siblings[this.index+1]?this.index+1:0)},previous:function(){this.show(this.siblings[this.index-1]?this.index-1:this.siblings.length-1)}}),t.plugin("lightbox","image",{init:function(t){t.on("showitem.uk.lightbox",function(t,i){if("image"==i.type||i.source&&i.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)){var e=function(t,e,o){i.meta={content:'<img class="uk-responsive-width" width="'+e+'" height="'+o+'" src ="'+t+'">',width:e,height:o},i.type="image",i.promise.resolve()};if(o[i.source])e(i.source,o[i.source].width,o[i.source].height);else{var n=new Image;n.onerror=function(){i.promise.reject("Loading image failed")},n.onload=function(){o[i.source]={width:n.width,height:n.height},e(i.source,o[i.source].width,o[i.source].height)},n.src=i.source}}})}}),t.plugin("lightbox","youtube",{init:function(t){var i=/(\/\/.*?youtube\.[a-z]+)\/watch\?v=([^&]+)&?(.*)/,e=/youtu\.be\/(.*)/;t.on("showitem.uk.lightbox",function(t,n){var s,a,r=function(t,i,e){n.meta={content:'<iframe src="//www.youtube.com/embed/'+t+'" width="'+i+'" height="'+e+'" style="max-width:100%;"></iframe>',width:i,height:e},n.type="iframe",n.promise.resolve()};if((a=n.source.match(i))&&(s=a[2]),(a=n.source.match(e))&&(s=a[1]),s){if(o[s])r(s,o[s].width,o[s].height);else{var l=new Image,c=!1;l.onerror=function(){o[s]={width:640,height:320},r(s,o[s].width,o[s].height)},l.onload=function(){120==l.width&&90==l.height?c?(o[s]={width:640,height:320},r(s,o[s].width,o[s].height)):(c=!0,l.src="//img.youtube.com/vi/"+s+"/0.jpg"):(o[s]={width:l.width,height:l.height},r(s,l.width,l.height))},l.src="//img.youtube.com/vi/"+s+"/maxresdefault.jpg"}t.stopImmediatePropagation()}})}}),t.plugin("lightbox","vimeo",{init:function(i){var e,n=/(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/;i.on("showitem.uk.lightbox",function(i,s){var a,r=function(t,i,e){s.meta={content:'<iframe src="//player.vimeo.com/video/'+t+'" width="'+i+'" height="'+e+'" style="width:100%;box-sizing:border-box;"></iframe>',width:i,height:e},s.type="iframe",s.promise.resolve()};(e=s.source.match(n))&&(a=e[2],o[a]?r(a,o[a].width,o[a].height):t.$.ajax({type:"GET",url:"http://vimeo.com/api/oembed.json?url="+encodeURI(s.source),jsonp:"callback",dataType:"jsonp",success:function(t){o[a]={width:t.width,height:t.height},r(a,o[a].width,o[a].height)}}),i.stopImmediatePropagation())})}}),t.plugin("lightbox","video",{init:function(i){i.on("showitem.uk.lightbox",function(i,e){var n=function(t,i,o){e.meta={content:'<video class="uk-responsive-width" src="'+t+'" width="'+i+'" height="'+o+'" controls></video>',width:i,height:o},e.type="video",e.promise.resolve()};if("video"==e.type||e.source.match(/\.(mp4|webm|ogv)$/i))if(o[e.source])n(e.source,o[e.source].width,o[e.source].height);else var s=t.$('<video style="position:fixed;visibility:hidden;top:-10000px;"></video>').attr("src",e.source).appendTo("body"),a=setInterval(function(){s[0].videoWidth&&(clearInterval(a),o[e.source]={width:s[0].videoWidth,height:s[0].videoHeight},n(e.source,o[e.source].width,o[e.source].height),s.remove())},20)})}}),t.lightbox.create=function(i,e){if(i){var o=[];return i.forEach(function(i){o.push(t.$.extend({source:"",title:"",type:"auto",link:!1},"string"==typeof i?{source:i}:i))}),t.lightbox(t.$.extend({},e,{group:o}))}},t.lightbox}),$.fn.postLike=function(){if(!$(this).hasClass("done")){$(this).addClass("done");var t=$(this).data("id"),i=$(this).data("action"),e=$(this).children("i");return $.post(ajaxhome+"/wp-admin/admin-ajax.php",{action:"bigfa_like",um_id:t,um_action:i},function(t){$(e).attr("title",t+"人喜欢")}),$(this).animate({opacity:"0"},200),$(this).css("color","#dd0055"),$(this).animate({opacity:"1"}),$(this).children("i").animate({fontSize:"1.3rem"},200,function(){$(".em03").animate({opacity:".87",top:"-36px",left:"10px",fontSize:".5rem"},function(){$(".em02").animate({opacity:".69",top:"-29px",left:"22px",fontSize:".7rem"},200),$(".em02").animate({opacity:"0",fontSize:"1rem"}),$(".em04").animate({opacity:".94",top:"-22px",left:"-25px",fontSize:".7rem"},400),$(".em04").animate({opacity:"0",fontSize:"1rem"})}),$(".em03").animate({opacity:"0",fontSize:"1rem"}),$(".em01").animate({opacity:".49",top:"-35px",left:"-30px",fontSize:".8rem"},500),$(".em01").animate({opacity:"0",fontSize:"1rem"}),$(".em05").animate({opacity:".74",top:"-20px",left:"-21px",fontSize:".9rem"},200),$(".em05").animate({opacity:"0",fontSize:"1rem"})}),$(this).children("i").animate({fontSize:"2.3rem"},150),$(this).children("i").animate({fontSize:"1.7rem"},150,fen_qzhai()),$(this).children("i").animate({fontSize:"2rem"},100),!1}$(this).animate({opacity:"0"},200),$(this).css("color","#dd0055"),$(this).animate({opacity:"1"}),$(this).children("i").animate({fontSize:"1.3rem"},200,fen_qzhai()),$(this).children("i").animate({fontSize:"2.3rem"},150),$(this).children("i").animate({fontSize:"1.7rem"},150),$(this).children("i").animate({fontSize:"2rem"},100)},$(document).on("click",".favorite i",function(){$(this).parent().postLike()}),$(window).scroll(function(){50<$(this).scrollTop()?$(".top").fadeIn():$(".top").fadeOut(),$(this).scrollTop()>=$(document).height()-$(window).height()?$(".icon_link").css("bottom","20px"):$(".icon_link").css("bottom","-80px")}),$(function(){$("#op_m").click(function(){"lock"!=$("#op_hed").attr("lock")?($("#op_hed").attr("lock","lock"),$("#op_hed").animate({right:"250px",left:"-250px"}),$(".op").animate({width:"260px"}),$("#op_m").removeClass("uk-icon-music"),$("#op_m").addClass("uk-icon-close")):"lock"==$("#op_hed").attr("lock")&&($("#op_hed").attr("lock","open"),$("#op_hed").animate({right:"0px",left:"0px"}),$(".op").animate({width:"80%"}),$("#op_m").removeClass("uk-icon-close"),$("#op_m").addClass("uk-icon-music"))}),$("#s_s a").click(function(){"#"!=$(this).attr("href")&&$("#s_s").click()})});var ajaxcontent="content",ajaxsearch_class="s",ajaxloading_error_code='<div id="index" class="bs" style="width:100%; height:80vh"><h4>加载失败</h4> <article id="article" class="uk-article"><p>加载失败 ...</p></article></div>',ajaxreloadDocumentReady=!1,ajaxtrack_analytics=!1,ajaxscroll_top=!0,ajaxisLoad=!1,ajaxstarted=!1,ajaxsearchPath=null,ajaxua=jQuery.browser;jQuery(document).ready(function(){ajaxloadPageInit(""),$("#article img").parent("a").attr("data-uk-lightbox","{group:'group_qzhai'}"),archive(),comments(),UIkit.sticky($("#ulsid"),{}),$(".rewards").click(function(){UIkit.modal("#reward").show()}),link_target(),e_click(),app()}),window.onpopstate=function(t){!0===ajaxstarted&&1==ajaxcheck_ignore(document.location.toString())&&ajaxloadPage(document.location.toString(),1)};
+!function (a) {
+    if ("function" == typeof define && define.amd && define("uikit", function () {
+            var f = window.UIkit || a(window, window.jQuery, window.document);
+            return f.load = function (a, b, g, e) {
+                a = a.split(",");
+                var d = [], k = (e.config && e.config.uikit && e.config.uikit.base ? e.config.uikit.base : "").replace(/\/+$/g, "");
+                if (!k)throw Error("Please define base path to UIkit in the requirejs config.");
+                for (e = 0; e < a.length; e += 1) {
+                    var l = a[e].replace(/\./g, "/");
+                    d.push(k + "/components/" + l)
+                }
+                b(d, function () {
+                    g(f)
+                })
+            }, f
+        }), !window.jQuery)throw Error("UIkit requires jQuery");
+    window && window.jQuery && a(window, window.jQuery, window.document)
+}(function (a, f, c) {
+    var b = {}, g = a.UIkit ? Object.create(a.UIkit) : void 0;
+    if (b.version = "2.25.0", b.noConflict = function () {
+            return g && (a.UIkit = g, f.UIkit = g, f.fn.uk = g.fn), b
+        }, b.prefix = function (a) {
+            return a
+        }, b.$ = f, b.$doc = b.$(document), b.$win = b.$(window), b.$html = b.$("html"), b.support = {}, b.support.transition = function () {
+            var a;
+            a:{
+                var b = c.body || c.documentElement, d = {
+                    WebkitTransition: "webkitTransitionEnd",
+                    MozTransition: "transitionend",
+                    OTransition: "oTransitionEnd otransitionend",
+                    transition: "transitionend"
+                };
+                for (a in d)if (void 0 !== b.style[a]) {
+                    a = d[a];
+                    break a
+                }
+                a = void 0
+            }
+            return a && {end: a}
+        }(), b.support.animation = function () {
+            var a;
+            a:{
+                var b = c.body || c.documentElement, d = {
+                    WebkitAnimation: "webkitAnimationEnd",
+                    MozAnimation: "animationend",
+                    OAnimation: "oAnimationEnd oanimationend",
+                    animation: "animationend"
+                };
+                for (a in d)if (void 0 !== b.style[a]) {
+                    a = d[a];
+                    break a
+                }
+                a = void 0
+            }
+            return a && {end: a}
+        }(), function () {
+            Date.now = Date.now || function () {
+                    return (new Date).getTime()
+                };
+            for (var a = ["webkit", "moz"], b = 0; b < a.length && !window.requestAnimationFrame; ++b) {
+                var d = a[b];
+                window.requestAnimationFrame = window[d + "RequestAnimationFrame"];
+                window.cancelAnimationFrame = window[d + "CancelAnimationFrame"] || window[d + "CancelRequestAnimationFrame"]
+            }
+            if (/iP(ad|hone|od).*OS 6/.test(window.navigator.userAgent) || !window.requestAnimationFrame || !window.cancelAnimationFrame) {
+                var h = 0;
+                window.requestAnimationFrame = function (a) {
+                    var b = Date.now(), k = Math.max(h + 16, b);
+                    return setTimeout(function () {
+                        a(h = k)
+                    }, k - b)
+                };
+                window.cancelAnimationFrame = clearTimeout
+            }
+        }(),
+            b.support.touch = "ontouchstart" in document || a.DocumentTouch && document instanceof a.DocumentTouch || a.navigator.msPointerEnabled && 0 < a.navigator.msMaxTouchPoints || a.navigator.pointerEnabled && 0 < a.navigator.maxTouchPoints || !1, b.support.mutationobserver = a.MutationObserver || a.WebKitMutationObserver || null, b.Utils = {}, b.Utils.isFullscreen = function () {
+            return document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement || document.fullscreenElement || !1
+        }, b.Utils.str2json = function (a,
+                                        b) {
+            try {
+                return b ? JSON.parse(a.replace(/([\$\w]+)\s*:/g, function (a, b) {
+                        return '"' + b + '":'
+                    }).replace(/'([^']+)'/g, function (a, b) {
+                        return '"' + b + '"'
+                    })) : (new Function("", "var json = " + a + "; return JSON.parse(JSON.stringify(json));"))()
+            } catch (d) {
+                return !1
+            }
+        }, b.Utils.debounce = function (a, b, d) {
+            var h;
+            return function () {
+                var e = this, c = arguments, g = d && !h;
+                clearTimeout(h);
+                h = setTimeout(function () {
+                    h = null;
+                    d || a.apply(e, c)
+                }, b);
+                g && a.apply(e, c)
+            }
+        }, b.Utils.removeCssRules = function (a) {
+            var b, d, h, e, c, g, f, q, u, v;
+            a && setTimeout(function () {
+                try {
+                    for (v =
+                             document.styleSheets, e = 0, f = v.length; f > e; e++) {
+                        h = v[e];
+                        d = [];
+                        h.cssRules = h.cssRules;
+                        b = c = 0;
+                        for (q = h.cssRules.length; q > c; b = ++c)h.cssRules[b].type === CSSRule.STYLE_RULE && a.test(h.cssRules[b].selectorText) && d.unshift(b);
+                        g = 0;
+                        for (u = d.length; u > g; g++)h.deleteRule(d[g])
+                    }
+                } catch (w) {
+                }
+            }, 0)
+        }, b.Utils.isInView = function (a, d) {
+            var e = f(a);
+            if (!e.is(":visible"))return !1;
+            var h = b.$win.scrollLeft(), c = b.$win.scrollTop(), g = e.offset(), n = g.left, g = g.top;
+            return d = f.extend({topoffset: 0, leftoffset: 0}, d), g + e.height() >= c && g - d.topoffset <=
+            c + b.$win.height() && n + e.width() >= h && n - d.leftoffset <= h + b.$win.width() ? !0 : !1
+        }, b.Utils.checkDisplay = function (a, d) {
+            var e = b.$("[data-uk-margin], [data-uk-grid-match], [data-uk-grid-margin], [data-uk-check-display]", a || document);
+            return a && !e.length && (e = f(a)), e.trigger("display.uk.check"), d && ("string" != typeof d && (d = '[class*="uk-animation-"]'), e.find(d).each(function () {
+                var a = b.$(this), k = a.attr("class").match(/uk\-animation\-(.+)/);
+                a.removeClass(k[0]).width();
+                a.addClass(k[0])
+            })), e
+        }, b.Utils.options = function (a) {
+            if ("string" !=
+                f.type(a))return a;
+            -1 != a.indexOf(":") && "}" != a.trim().substr(-1) && (a = "{" + a + "}");
+            var d = a ? a.indexOf("{") : -1, e = {};
+            if (-1 != d)try {
+                e = b.Utils.str2json(a.substr(d))
+            } catch (h) {
+            }
+            return e
+        }, b.Utils.animate = function (a, d) {
+            var e = f.Deferred();
+            return a = b.$(a), a.css("display", "none").addClass(d).one(b.support.animation.end, function () {
+                a.removeClass(d);
+                e.resolve()
+            }), a.css("display", ""), e.promise()
+        }, b.Utils.uid = function (a) {
+            return (a || "id") + (new Date).getTime() + "RAND" + Math.ceil(1E5 * Math.random())
+        }, b.Utils.template = function (a,
+                                        b) {
+            for (var d, h, e, c, g = a.replace(/\n/g, "\\n").replace(/\{\{\{\s*(.+?)\s*\}\}\}/g, "{{!$1}}").split(/(\{\{\s*(.+?)\s*\}\})/g), f = 0, q = [], u = 0; f < g.length;) {
+                if (d = g[f], d.match(/\{\{\s*(.+?)\s*\}\}/))switch (f += 1, d = g[f], h = d[0], e = d.substring(d.match(/^(\^|\#|\!|\~|\:)/) ? 1 : 0), h) {
+                    case "~":
+                        q.push("for(var $i=0;$i<" + e + ".length;$i++) { var $item = " + e + "[$i];");
+                        u++;
+                        break;
+                    case ":":
+                        q.push("for(var $key in " + e + ") { var $val = " + e + "[$key];");
+                        u++;
+                        break;
+                    case "#":
+                        q.push("if(" + e + ") {");
+                        u++;
+                        break;
+                    case "^":
+                        q.push("if(!" + e + ") {");
+                        u++;
+                        break;
+                    case "/":
+                        q.push("}");
+                        u--;
+                        break;
+                    case "!":
+                        q.push("__ret.push(" + e + ");");
+                        break;
+                    default:
+                        q.push("__ret.push(escape(" + e + "));")
+                } else q.push("__ret.push('" + d.replace(/\'/g, "\\'") + "');");
+                f += 1
+            }
+            return c = new Function("$data", ["var __ret = [];\ntry {\nwith($data){", u ? '__ret = ["Not all blocks are closed correctly."]' : q.join(""), "};\n}catch(e){__ret = [e.message];}\nreturn __ret.join(\"\").replace(/\\n\\n/g, \"\\n\");\nfunction escape(html) { return String(html).replace(/&/g, '&amp;').replace(/\"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');}"].join("\n")),
+                b ? c(b) : c
+        }, b.Utils.events = {}, b.Utils.events.click = b.support.touch ? "tap" : "click", a.UIkit = b, b.fn = function (a, d) {
+            var e = arguments, h = a.match(/^([a-z\-]+)(?:\.([a-z]+))?/i), c = h[1], g = h[2];
+            return b[c] ? this.each(function () {
+                    var a = f(this), k = a.data(c);
+                    k || a.data(c, k = b[c](this, g ? void 0 : d));
+                    g && k[g].apply(k, Array.prototype.slice.call(e, 1))
+                }) : (f.error("UIkit component [" + c + "] does not exist."), this)
+        }, f.UIkit = b, f.fn.uk = b.fn, b.langdirection = "rtl" == b.$html.attr("dir") ? "right" : "left", b.components = {}, b.component = function (a,
+                                                                                                                                                      d) {
+            var e = function (d, c) {
+                var g = this;
+                return this.UIkit = b, this.element = d ? b.$(d) : null, this.options = f.extend(!0, {}, this.defaults, c), this.plugins = {}, this.element && this.element.data(a, this), this.init(), (this.options.plugins.length ? this.options.plugins : Object.keys(e.plugins)).forEach(function (a) {
+                    e.plugins[a].init && (e.plugins[a].init(g), g.plugins[a] = !0)
+                }), this.trigger("init.uk.component", [a, this]), this
+            };
+            return e.plugins = {}, f.extend(!0, e.prototype, {
+                defaults: {plugins: []}, boot: function () {
+                }, init: function () {
+                }, on: function (a,
+                                 k, d) {
+                    return b.$(this.element || this).on(a, k, d)
+                }, one: function (a, k, d) {
+                    return b.$(this.element || this).one(a, k, d)
+                }, off: function (a) {
+                    return b.$(this.element || this).off(a)
+                }, trigger: function (a, k) {
+                    return b.$(this.element || this).trigger(a, k)
+                }, find: function (a) {
+                    return b.$(this.element ? this.element : []).find(a)
+                }, proxy: function (a, b) {
+                    var k = this;
+                    b.split(" ").forEach(function (b) {
+                        k[b] || (k[b] = function () {
+                            return a[b].apply(a, arguments)
+                        })
+                    })
+                }, mixin: function (a, b) {
+                    var k = this;
+                    b.split(" ").forEach(function (b) {
+                        k[b] || (k[b] = a[b].bind(k))
+                    })
+                },
+                option: function () {
+                    return 1 == arguments.length ? this.options[arguments[0]] || void 0 : (2 == arguments.length && (this.options[arguments[0]] = arguments[1]), void 0)
+                }
+            }, d), this.components[a] = e, this[a] = function () {
+                var d, e;
+                if (arguments.length)switch (arguments.length) {
+                    case 1:
+                        "string" == typeof arguments[0] || arguments[0].nodeType || arguments[0] instanceof jQuery ? d = f(arguments[0]) : e = arguments[0];
+                        break;
+                    case 2:
+                        d = f(arguments[0]), e = arguments[1]
+                }
+                return d && d.data(a) ? d.data(a) : new b.components[a](d, e)
+            }, b.domready && b.component.boot(a),
+                e
+        }, b.plugin = function (a, b, d) {
+            this.components[a].plugins[b] = d
+        }, b.component.boot = function (a) {
+            b.components[a].prototype && b.components[a].prototype.boot && !b.components[a].booted && (b.components[a].prototype.boot.apply(b, []), b.components[a].booted = !0)
+        }, b.component.bootComponents = function () {
+            for (var a in b.components)b.component.boot(a)
+        }, b.domObservers = [], b.domready = !1, b.ready = function (a) {
+            b.domObservers.push(a);
+            b.domready && a(document)
+        }, b.on = function (a, d, e) {
+            return a && -1 < a.indexOf("ready.uk.dom") && b.domready &&
+            d.apply(b.$doc), b.$doc.on(a, d, e)
+        }, b.one = function (a, d, e) {
+            return a && -1 < a.indexOf("ready.uk.dom") && b.domready ? (d.apply(b.$doc), b.$doc) : b.$doc.one(a, d, e)
+        }, b.trigger = function (a, d) {
+            return b.$doc.trigger(a, d)
+        }, b.domObserve = function (a, d) {
+            b.support.mutationobserver && (d = d || function () {
+                }, b.$(a).each(function () {
+                var a = this, k = b.$(a);
+                if (!k.data("observer"))try {
+                    var e = new b.support.mutationobserver(b.Utils.debounce(function () {
+                        d.apply(a, []);
+                        k.trigger("changed.uk.dom")
+                    }, 50));
+                    e.observe(a, {childList: !0, subtree: !0});
+                    k.data("observer",
+                        e)
+                } catch (c) {
+                }
+            }))
+        }, b.init = function (a) {
+            a = a || document;
+            b.domObservers.forEach(function (b) {
+                b(a)
+            })
+        }, b.on("domready.uk.dom", function () {
+            b.init();
+            b.domready && b.Utils.checkDisplay()
+        }), document.addEventListener("DOMContentLoaded", function () {
+            var a = function () {
+                b.$body = b.$("body");
+                b.ready(function () {
+                    b.domObserve("[data-uk-observe]")
+                });
+                b.on("changed.uk.dom", function (a) {
+                    b.init(a.target);
+                    b.Utils.checkDisplay(a.target)
+                });
+                b.trigger("beforeready.uk.dom");
+                b.component.bootComponents();
+                requestAnimationFrame(function () {
+                    var a =
+                        0, d = 0, k = window.pageXOffset, e = window.pageYOffset, c = function () {
+                        var g = window.pageXOffset, f = window.pageYOffset;
+                        k == g && e == f || (a = g != k ? g > k ? 1 : -1 : 0, d = f != e ? f > e ? 1 : -1 : 0, k = g, e = f, b.$doc.trigger("scrolling.uk.document", [{
+                            dir: {
+                                x: a,
+                                y: d
+                            }, x: g, y: f
+                        }]));
+                        requestAnimationFrame(c)
+                    };
+                    return b.support.touch && b.$html.on("touchmove touchend MSPointerMove MSPointerUp pointermove pointerup", c), (k || e) && c(), c
+                }());
+                b.trigger("domready.uk.dom");
+                b.support.touch && navigator.userAgent.match(/(iPad|iPhone|iPod)/g) && b.$win.on("load orientationchange resize",
+                    b.Utils.debounce(function () {
+                        var a = function () {
+                            return f(".uk-height-viewport").css("height", window.innerHeight), a
+                        };
+                        return a()
+                    }(), 100));
+                b.trigger("afterready.uk.dom");
+                b.domready = !0
+            };
+            return ("complete" == document.readyState || "interactive" == document.readyState) && setTimeout(a), a
+        }()), b.$html.addClass(b.support.touch ? "uk-touch" : "uk-notouch"), b.support.touch) {
+        var e, d = !1;
+        b.$html.on("mouseenter touchstart MSPointerDown pointerdown", ".uk-overlay, .uk-overlay-hover, .uk-overlay-toggle, .uk-animation-hover, .uk-has-hover",
+            function () {
+                d && f(".uk-hover").removeClass("uk-hover");
+                d = f(this).addClass("uk-hover")
+            }).on("mouseleave touchend MSPointerUp pointerup", function (a) {
+            e = f(a.target).parents(".uk-overlay, .uk-overlay-hover, .uk-overlay-toggle, .uk-animation-hover, .uk-has-hover");
+            d && d.not(e).removeClass("uk-hover")
+        })
+    }
+    return b
+});
+(function (a) {
+    function f(a, b, d, k) {
+        return Math.abs(a - b) >= Math.abs(d - k) ? 0 < a - b ? "Left" : "Right" : 0 < d - k ? "Up" : "Down"
+    }
+
+    function c() {
+        l = null;
+        h.last && (void 0 !== h.el && h.el.trigger("longTap"), h = {})
+    }
+
+    function b() {
+        e && clearTimeout(e);
+        d && clearTimeout(d);
+        k && clearTimeout(k);
+        l && clearTimeout(l);
+        e = d = k = l = null;
+        h = {}
+    }
+
+    function g(a) {
+        return a.pointerType == a.MSPOINTER_TYPE_TOUCH && a.isPrimary
+    }
+
+    if (!a.fn.swipeLeft) {
+        var e, d, k, l, p, h = {};
+        a(function () {
+            var m, r, n, t = 0, q = 0;
+            "MSGesture" in window && (p = new MSGesture, p.target = document.body);
+            a(document).on("MSGestureEnd gestureend",
+                function (a) {
+                    (a = 1 < a.originalEvent.velocityX ? "Right" : -1 > a.originalEvent.velocityX ? "Left" : 1 < a.originalEvent.velocityY ? "Down" : -1 > a.originalEvent.velocityY ? "Up" : null) && void 0 !== h.el && (h.el.trigger("swipe"), h.el.trigger("swipe" + a))
+                }).on("touchstart MSPointerDown pointerdown", function (b) {
+                ("MSPointerDown" != b.type || g(b.originalEvent)) && (n = "MSPointerDown" == b.type || "pointerdown" == b.type ? b : b.originalEvent.touches[0], m = Date.now(), r = m - (h.last || m), h.el = a("tagName" in n.target ? n.target : n.target.parentNode), e && clearTimeout(e),
+                    h.x1 = n.pageX, h.y1 = n.pageY, 0 < r && 250 >= r && (h.isDoubleTap = !0), h.last = m, l = setTimeout(c, 750), !p || "MSPointerDown" != b.type && "pointerdown" != b.type && "touchstart" != b.type || p.addPointer(b.originalEvent.pointerId))
+            }).on("touchmove MSPointerMove pointermove", function (a) {
+                if ("MSPointerMove" != a.type || g(a.originalEvent)) n = "MSPointerMove" == a.type || "pointermove" == a.type ? a : a.originalEvent.touches[0], l && clearTimeout(l), l = null, h.x2 = n.pageX, h.y2 = n.pageY, t += Math.abs(h.x1 - h.x2), q += Math.abs(h.y1 - h.y2)
+            }).on("touchend MSPointerUp pointerup",
+                function (c) {
+                    if ("MSPointerUp" != c.type || g(c.originalEvent)) l && clearTimeout(l), l = null, h.x2 && 30 < Math.abs(h.x1 - h.x2) || h.y2 && 30 < Math.abs(h.y1 - h.y2) ? k = setTimeout(function () {
+                            void 0 !== h.el && (h.el.trigger("swipe"), h.el.trigger("swipe" + f(h.x1, h.x2, h.y1, h.y2)));
+                            h = {}
+                        }, 0) : "last" in h && (isNaN(t) || 30 > t && 30 > q ? d = setTimeout(function () {
+                                var d = a.Event("tap");
+                                d.cancelTouch = b;
+                                void 0 !== h.el && h.el.trigger(d);
+                                h.isDoubleTap ? (void 0 !== h.el && h.el.trigger("doubleTap"), h = {}) : e = setTimeout(function () {
+                                        e = null;
+                                        void 0 !== h.el && h.el.trigger("singleTap");
+                                        h = {}
+                                    }, 250)
+                            }, 0) : h = {}, t = q = 0)
+                }).on("touchcancel MSPointerCancel", b);
+            a(window).on("scroll", b)
+        });
+        "swipe swipeLeft swipeRight swipeUp swipeDown doubleTap tap singleTap longTap".split(" ").forEach(function (b) {
+            a.fn[b] = function (d) {
+                return a(this).on(b, d)
+            }
+        })
+    }
+})(jQuery);
+(function (a) {
+    var f = [];
+    a.component("stackMargin", {
+        defaults: {cls: "uk-margin-small-top", rowfirst: !1}, boot: function () {
+            a.ready(function (c) {
+                a.$("[data-uk-margin]", c).each(function () {
+                    var b = a.$(this);
+                    b.data("stackMargin") || a.stackMargin(b, a.Utils.options(b.attr("data-uk-margin")))
+                })
+            })
+        }, init: function () {
+            var c = this;
+            a.$win.on("resize orientationchange", function () {
+                var b = function () {
+                    c.process()
+                };
+                return a.$(function () {
+                    b();
+                    a.$win.on("load", b)
+                }), a.Utils.debounce(b, 20)
+            }());
+            a.$html.on("changed.uk.dom", function () {
+                c.process()
+            });
+            this.on("display.uk.check", function () {
+                this.element.is(":visible") && this.process()
+            }.bind(this));
+            f.push(this)
+        }, process: function () {
+            var c = this, b = this.element.children();
+            if (a.Utils.stackMargin(b, this.options), !this.options.rowfirst)return this;
+            var g = b.removeClass(this.options.rowfirst).filter(":visible").first().position();
+            return g && b.each(function () {
+                a.$(this)[a.$(this).position().left == g.left ? "addClass" : "removeClass"](c.options.rowfirst)
+            }), this
+        }
+    });
+    (function () {
+        var c = [], b = function (a) {
+            if (a.is(":visible")) {
+                var b =
+                    a.parent().width(), d = a.data("width"), k = Math.floor(b / d * a.data("height"));
+                a.css({height: d > b ? k : a.data("height")})
+            }
+        };
+        a.component("responsiveElement", {
+            defaults: {}, boot: function () {
+                a.ready(function (b) {
+                    a.$("iframe.uk-responsive-width, [data-uk-responsive]", b).each(function () {
+                        var b = a.$(this);
+                        b.data("responsiveElement") || a.responsiveElement(b, {})
+                    })
+                })
+            }, init: function () {
+                var a = this.element;
+                a.attr("width") && a.attr("height") && (a.data({
+                    width: a.attr("width"),
+                    height: a.attr("height")
+                }).on("display.uk.check", function () {
+                    b(a)
+                }),
+                    b(a), c.push(a))
+            }
+        });
+        a.$win.on("resize load", a.Utils.debounce(function () {
+            c.forEach(function (a) {
+                b(a)
+            })
+        }, 15))
+    })();
+    a.Utils.stackMargin = function (c, b) {
+        b = a.$.extend({cls: "uk-margin-small-top"}, b);
+        b.cls = b.cls;
+        c = a.$(c).removeClass(b.cls);
+        var g = !1, e = c.filter(":visible:first"), d = e.length ? e.position().top + e.outerHeight() - 1 : !1;
+        !1 !== d && 1 != c.length && c.each(function () {
+            var k = a.$(this);
+            k.is(":visible") && (g ? k.addClass(b.cls) : k.position().top >= d && (g = k.addClass(b.cls)))
+        })
+    };
+    a.Utils.matchHeights = function (c, b) {
+        c = a.$(c).css("min-height",
+            "");
+        b = a.$.extend({row: !0}, b);
+        var g = function (b) {
+            if (!(2 > b.length)) {
+                var d = 0;
+                b.each(function () {
+                    d = Math.max(d, a.$(this).outerHeight())
+                }).each(function () {
+                    var b = a.$(this), e = d - ("border-box" == b.css("box-sizing") ? 0 : b.outerHeight() - b.height());
+                    b.css("min-height", e + "px")
+                })
+            }
+        };
+        b.row ? (c.first().width(), setTimeout(function () {
+                var b = !1, d = [];
+                c.each(function () {
+                    var k = a.$(this), c = k.offset().top;
+                    c != b && d.length && (g(a.$(d)), d = [], c = k.offset().top);
+                    d.push(k);
+                    b = c
+                });
+                d.length && g(a.$(d))
+            }, 0)) : g(c)
+    };
+    (function (c) {
+        a.Utils.inlineSvg =
+            function (b, g) {
+                a.$(b || 'img[src$=".svg"]', g || document).each(function () {
+                    var b = a.$(this), d = b.attr("src");
+                    if (!c[d]) {
+                        var k = a.$.Deferred();
+                        a.$.get(d, {nc: Math.random()}, function (b) {
+                            k.resolve(a.$(b).find("svg"))
+                        });
+                        c[d] = k.promise()
+                    }
+                    c[d].then(function (d) {
+                        d = a.$(d).clone();
+                        b.attr("id") && d.attr("id", b.attr("id"));
+                        b.attr("class") && d.attr("class", b.attr("class"));
+                        b.attr("style") && d.attr("style", b.attr("style"));
+                        b.attr("width") && (d.attr("width", b.attr("width")), b.attr("height") || d.removeAttr("height"));
+                        b.attr("height") &&
+                        (d.attr("height", b.attr("height")), b.attr("width") || d.removeAttr("width"));
+                        b.replaceWith(d)
+                    })
+                })
+            };
+        a.ready(function (b) {
+            a.Utils.inlineSvg("[data-uk-svg]", b)
+        })
+    })({})
+})(UIkit);
+(function (a) {
+    function f(c, b) {
+        b = a.$.extend({
+            duration: 1E3, transition: "easeOutExpo", offset: 0, complete: function () {
+            }
+        }, b);
+        var g = c.offset().top - b.offset, e = a.$doc.height(), d = window.innerHeight;
+        g + d > e && (g = e - d);
+        a.$("html,body").stop().animate({scrollTop: g}, b.duration, b.transition).promise().done(b.complete)
+    }
+
+    a.component("smoothScroll", {
+        boot: function () {
+            a.$html.on("click.smooth-scroll.uikit", "[data-uk-smooth-scroll]", function () {
+                var c = a.$(this);
+                c.data("smoothScroll") || (a.smoothScroll(c, a.Utils.options(c.attr("data-uk-smooth-scroll"))),
+                    c.trigger("click"));
+                return !1
+            })
+        }, init: function () {
+            var c = this;
+            this.on("click", function (b) {
+                b.preventDefault();
+                f(a.$(this.hash).length ? a.$(this.hash) : a.$("body"), c.options)
+            })
+        }
+    });
+    a.Utils.scrollToElement = f;
+    a.$.easing.easeOutExpo || (a.$.easing.easeOutExpo = function (a, b, g, e, d) {
+        return b == d ? g + e : e * (-Math.pow(2, -10 * b / d) + 1) + g
+    })
+})(UIkit);
+(function (a) {
+    var f = a.$win, c = a.$doc, b = [], g = function () {
+        for (var a = 0; a < b.length; a++)window.requestAnimationFrame.apply(window, [b[a].check])
+    };
+    a.component("scrollspy", {
+        defaults: {
+            target: !1,
+            cls: "uk-scrollspy-inview",
+            initcls: "uk-scrollspy-init-inview",
+            topoffset: 0,
+            leftoffset: 0,
+            repeat: !1,
+            delay: 0
+        }, boot: function () {
+            c.on("scrolling.uk.document", g);
+            f.on("load resize orientationchange", a.Utils.debounce(g, 50));
+            a.ready(function (b) {
+                a.$("[data-uk-scrollspy]", b).each(function () {
+                    var b = a.$(this);
+                    b.data("scrollspy") || a.scrollspy(b,
+                        a.Utils.options(b.attr("data-uk-scrollspy")))
+                })
+            })
+        }, init: function () {
+            var d, e = this, c = this.options.cls.split(/,/), h = function () {
+                var b = e.options.target ? e.element.find(e.options.target) : e.element, h = 1 === b.length ? 1 : 0, g = 0;
+                b.each(function () {
+                    var b = a.$(this), f = b.data("inviewstate"), m = a.Utils.isInView(b, e.options), v = b.data("ukScrollspyCls") || c[g].trim();
+                    !m || f || b.data("scrollspy-idle") || (d || (b.addClass(e.options.initcls), e.offset = b.offset(), d = !0, b.trigger("init.uk.scrollspy")), b.data("scrollspy-idle", setTimeout(function () {
+                        b.addClass("uk-scrollspy-inview").toggleClass(v).width();
+                        b.trigger("inview.uk.scrollspy");
+                        b.data("scrollspy-idle", !1);
+                        b.data("inviewstate", !0)
+                    }, e.options.delay * h)), h++);
+                    !m && f && e.options.repeat && (b.data("scrollspy-idle") && (clearTimeout(b.data("scrollspy-idle")), b.data("scrollspy-idle", !1)), b.removeClass("uk-scrollspy-inview").toggleClass(v), b.data("inviewstate", !1), b.trigger("outview.uk.scrollspy"));
+                    g = c[g + 1] ? g + 1 : 0
+                })
+            };
+            h();
+            this.check = h;
+            b.push(this)
+        }
+    });
+    var e = [], d = function () {
+        for (var a = 0; a < e.length; a++)window.requestAnimationFrame.apply(window, [e[a].check])
+    };
+    a.component("scrollspynav", {
+        defaults: {cls: "uk-active", closest: !1, topoffset: 0, leftoffset: 0, smoothscroll: !1}, boot: function () {
+            c.on("scrolling.uk.document", d);
+            f.on("resize orientationchange", a.Utils.debounce(d, 50));
+            a.ready(function (b) {
+                a.$("[data-uk-scrollspy-nav]", b).each(function () {
+                    var b = a.$(this);
+                    b.data("scrollspynav") || a.scrollspynav(b, a.Utils.options(b.attr("data-uk-scrollspy-nav")))
+                })
+            })
+        }, init: function () {
+            var b, d = [], c = this.find("a[href^='#']").each(function () {
+                "#" !== this.getAttribute("href").trim() &&
+                d.push(this.getAttribute("href"))
+            }), h = a.$(d.join(",")), g = this.options.cls, r = this.options.closest || this.options.closest, n = this, t = function () {
+                b = [];
+                for (var d = 0; d < h.length; d++)a.Utils.isInView(h.eq(d), n.options) && b.push(h.eq(d));
+                if (b.length) {
+                    var e, d = f.scrollTop();
+                    a:{
+                        for (var l = 0; l < b.length; l++)if (b[l].offset().top >= d) {
+                            d = b[l];
+                            break a
+                        }
+                        d = void 0
+                    }
+                    d && (n.options.closest ? (c.blur().closest(r).removeClass(g), e = c.filter("a[href='#" + d.attr("id") + "']").closest(r).addClass(g)) : e = c.removeClass(g).filter("a[href='#" + d.attr("id") +
+                            "']").addClass(g), n.element.trigger("inview.uk.scrollspynav", [d, e]))
+                }
+            };
+            this.options.smoothscroll && a.smoothScroll && c.each(function () {
+                a.smoothScroll(this, n.options.smoothscroll)
+            });
+            t();
+            this.element.data("scrollspynav", this);
+            this.check = t;
+            e.push(this)
+        }
+    })
+})(UIkit);
+(function (a) {
+    var f = [];
+    a.component("toggle", {
+        defaults: {target: !1, cls: "uk-hidden", animation: !1, duration: 200}, boot: function () {
+            a.ready(function (c) {
+                a.$("[data-uk-toggle]", c).each(function () {
+                    var b = a.$(this);
+                    b.data("toggle") || a.toggle(b, a.Utils.options(b.attr("data-uk-toggle")))
+                });
+                setTimeout(function () {
+                    f.forEach(function (a) {
+                        a.getToggles()
+                    })
+                }, 0)
+            })
+        }, init: function () {
+            var a = this;
+            this.aria = -1 !== this.options.cls.indexOf("uk-hidden");
+            this.getToggles();
+            this.on("click", function (b) {
+                a.element.is('a[href="#"]') && b.preventDefault();
+                a.toggle()
+            });
+            f.push(this)
+        }, toggle: function () {
+            if (this.totoggle.length) {
+                if (this.options.animation && a.support.animation) {
+                    var c = this, b = this.options.animation.split(",");
+                    1 == b.length && (b[1] = b[0]);
+                    b[0] = b[0].trim();
+                    b[1] = b[1].trim();
+                    this.totoggle.css("animation-duration", this.options.duration + "ms");
+                    this.totoggle.each(function () {
+                        var g = a.$(this);
+                        g.hasClass(c.options.cls) ? (g.toggleClass(c.options.cls), a.Utils.animate(g, b[0]).then(function () {
+                                g.css("animation-duration", "");
+                                a.Utils.checkDisplay(g)
+                            })) : a.Utils.animate(this,
+                                b[1] + " uk-animation-reverse").then(function () {
+                                g.toggleClass(c.options.cls).css("animation-duration", "");
+                                a.Utils.checkDisplay(g)
+                            })
+                    })
+                } else this.totoggle.toggleClass(this.options.cls), a.Utils.checkDisplay(this.totoggle);
+                this.updateAria()
+            }
+        }, getToggles: function () {
+            this.totoggle = this.options.target ? a.$(this.options.target) : [];
+            this.updateAria()
+        }, updateAria: function () {
+            this.aria && this.totoggle.length && this.totoggle.each(function () {
+                a.$(this).attr("aria-hidden", a.$(this).hasClass("uk-hidden"))
+            })
+        }
+    })
+})(UIkit);
+(function (a) {
+    a.component("alert", {
+        defaults: {fade: !0, duration: 200, trigger: ".uk-alert-close"}, boot: function () {
+            a.$html.on("click.alert.uikit", "[data-uk-alert]", function (f) {
+                var c = a.$(this);
+                c.data("alert") || (c = a.alert(c, a.Utils.options(c.attr("data-uk-alert"))), a.$(f.target).is(c.options.trigger) && (f.preventDefault(), c.close()))
+            })
+        }, init: function () {
+            var a = this;
+            this.on("click", this.options.trigger, function (c) {
+                c.preventDefault();
+                a.close()
+            })
+        }, close: function () {
+            var a = this.trigger("close.uk.alert"), c = function () {
+                this.trigger("closed.uk.alert").remove()
+            }.bind(this);
+            this.options.fade ? a.css("overflow", "hidden").css("max-height", a.height()).animate({
+                    height: 0,
+                    opacity: 0,
+                    "padding-top": 0,
+                    "padding-bottom": 0,
+                    "margin-top": 0,
+                    "margin-bottom": 0
+                }, this.options.duration, c) : c()
+        }
+    })
+})(UIkit);
+(function (a) {
+    a.component("buttonRadio", {
+        defaults: {activeClass: "uk-active", target: ".uk-button"}, boot: function () {
+            a.$html.on("click.buttonradio.uikit", "[data-uk-button-radio]", function (f) {
+                var c = a.$(this);
+                c.data("buttonRadio") || (c = a.buttonRadio(c, a.Utils.options(c.attr("data-uk-button-radio"))), f = a.$(f.target), f.is(c.options.target) && f.trigger("click"))
+            })
+        }, init: function () {
+            var f = this;
+            this.find(f.options.target).attr("aria-checked", "false").filter("." + f.options.activeClass).attr("aria-checked", "true");
+            this.on("click", this.options.target, function (c) {
+                var b = a.$(this);
+                b.is('a[href="#"]') && c.preventDefault();
+                f.find(f.options.target).not(b).removeClass(f.options.activeClass).blur();
+                b.addClass(f.options.activeClass);
+                f.find(f.options.target).not(b).attr("aria-checked", "false");
+                b.attr("aria-checked", "true");
+                f.trigger("change.uk.button", [b])
+            })
+        }, getSelected: function () {
+            return this.find("." + this.options.activeClass)
+        }
+    });
+    a.component("buttonCheckbox", {
+        defaults: {activeClass: "uk-active", target: ".uk-button"}, boot: function () {
+            a.$html.on("click.buttoncheckbox.uikit",
+                "[data-uk-button-checkbox]", function (f) {
+                    var c = a.$(this);
+                    c.data("buttonCheckbox") || (c = a.buttonCheckbox(c, a.Utils.options(c.attr("data-uk-button-checkbox"))), f = a.$(f.target), f.is(c.options.target) && f.trigger("click"))
+                })
+        }, init: function () {
+            var f = this;
+            this.find(f.options.target).attr("aria-checked", "false").filter("." + f.options.activeClass).attr("aria-checked", "true");
+            this.on("click", this.options.target, function (c) {
+                var b = a.$(this);
+                b.is('a[href="#"]') && c.preventDefault();
+                b.toggleClass(f.options.activeClass).blur();
+                b.attr("aria-checked", b.hasClass(f.options.activeClass));
+                f.trigger("change.uk.button", [b])
+            })
+        }, getSelected: function () {
+            return this.find("." + this.options.activeClass)
+        }
+    });
+    a.component("button", {
+        defaults: {}, boot: function () {
+            a.$html.on("click.button.uikit", "[data-uk-button]", function () {
+                var f = a.$(this);
+                f.data("button") || (a.button(f, a.Utils.options(f.attr("data-uk-button"))), f.trigger("click"))
+            })
+        }, init: function () {
+            var a = this;
+            this.element.attr("aria-pressed", this.element.hasClass("uk-active"));
+            this.on("click",
+                function (c) {
+                    a.element.is('a[href="#"]') && c.preventDefault();
+                    a.toggle();
+                    a.trigger("change.uk.button", [a.element.blur().hasClass("uk-active")])
+                })
+        }, toggle: function () {
+            this.element.toggleClass("uk-active");
+            this.element.attr("aria-pressed", this.element.hasClass("uk-active"))
+        }
+    })
+})(UIkit);
+(function (a) {
+    function f(b, d, e, c) {
+        if (b = a.$(b), d = a.$(d), e = e || window.innerWidth, c = c || b.offset(), d.length) {
+            var g = d.outerWidth();
+            (b.css("min-width", g), "right" == a.langdirection) ? (d = e - (d.offset().left + g), e -= b.offset().left + b.outerWidth(), b.css("margin-right", d - e)) : b.css("margin-left", d.offset().left - c.left)
+        }
+    }
+
+    var c, b = !1, g = {
+        "bottom-left": "bottom-right",
+        "bottom-right": "bottom-left",
+        "bottom-center": "bottom-center",
+        "top-left": "top-right",
+        "top-right": "top-left",
+        "top-center": "top-center",
+        "left-top": "right-top",
+        "left-bottom": "right-bottom",
+        "left-center": "right-center",
+        "right-top": "left-top",
+        "right-bottom": "left-bottom",
+        "right-center": "left-center"
+    }, e = {
+        "bottom-left": "top-left",
+        "bottom-right": "top-right",
+        "bottom-center": "top-center",
+        "top-left": "bottom-left",
+        "top-right": "bottom-right",
+        "top-center": "bottom-center",
+        "left-top": "left-bottom",
+        "left-bottom": "left-top",
+        "left-center": "left-center",
+        "right-top": "right-bottom",
+        "right-bottom": "right-top",
+        "right-center": "right-center"
+    }, d = {
+        "bottom-left": "top-right",
+        "bottom-right": "top-left",
+        "bottom-center": "top-center",
+        "top-left": "bottom-right",
+        "top-right": "bottom-left",
+        "top-center": "bottom-center",
+        "left-top": "right-bottom",
+        "left-bottom": "right-top",
+        "left-center": "right-center",
+        "right-top": "left-bottom",
+        "right-bottom": "left-top",
+        "right-center": "left-center"
+    };
+    a.component("dropdown", {
+        defaults: {
+            mode: "hover",
+            pos: "bottom-left",
+            offset: 0,
+            remaintime: 800,
+            justify: !1,
+            boundary: a.$win,
+            delay: 0,
+            dropdownSelector: ".uk-dropdown,.uk-dropdown-blank",
+            hoverDelayIdle: 250,
+            preventflip: !1
+        }, remainIdle: !1, boot: function () {
+            var b =
+                a.support.touch ? "click" : "mouseenter";
+            a.$html.on(b + ".dropdown.uikit", "[data-uk-dropdown]", function (d) {
+                var e = a.$(this);
+                e.data("dropdown") || (e = a.dropdown(e, a.Utils.options(e.attr("data-uk-dropdown"))), ("click" == b || "mouseenter" == b && "hover" == e.options.mode) && e.element.trigger(b), e.element.find(e.options.dropdownSelector).length && d.preventDefault())
+            })
+        }, init: function () {
+            var d = this;
+            this.dropdown = this.find(this.options.dropdownSelector);
+            this.offsetParent = this.dropdown.parents().filter(function () {
+                return -1 !==
+                    a.$.inArray(a.$(this).css("position"), ["relative", "fixed", "absolute"])
+            }).slice(0, 1);
+            this.centered = this.dropdown.hasClass("uk-dropdown-center");
+            this.justified = this.options.justify ? a.$(this.options.justify) : !1;
+            this.boundary = a.$(this.options.boundary);
+            this.boundary.length || (this.boundary = a.$win);
+            this.dropdown.hasClass("uk-dropdown-up") && (this.options.pos = "top-left");
+            this.dropdown.hasClass("uk-dropdown-flip") && (this.options.pos = this.options.pos.replace("left", "right"));
+            this.dropdown.hasClass("uk-dropdown-center") &&
+            (this.options.pos = this.options.pos.replace(/(left|right)/, "center"));
+            this.element.attr("aria-haspopup", "true");
+            this.element.attr("aria-expanded", this.element.hasClass("uk-open"));
+            "click" == this.options.mode || a.support.touch ? this.on("click.uk.dropdown", function (b) {
+                    var e = a.$(b.target);
+                    e.parents(d.options.dropdownSelector).length || ((e.is("a[href='#']") || e.parent().is("a[href='#']") || d.dropdown.length && !d.dropdown.is(":visible")) && b.preventDefault(), e.blur());
+                    d.element.hasClass("uk-open") ? (!d.dropdown.find(b.target).length ||
+                        e.is(".uk-dropdown-close") || e.parents(".uk-dropdown-close").length) && d.hide() : d.show()
+                }) : this.on("mouseenter", function () {
+                    d.trigger("pointerenter.uk.dropdown", [d]);
+                    d.remainIdle && clearTimeout(d.remainIdle);
+                    c && clearTimeout(c);
+                    b && b == d || (c = b && b != d ? setTimeout(function () {
+                            c = setTimeout(d.show.bind(d), d.options.delay)
+                        }, d.options.hoverDelayIdle) : setTimeout(d.show.bind(d), d.options.delay))
+                }).on("mouseleave", function () {
+                    c && clearTimeout(c);
+                    d.remainIdle = setTimeout(function () {
+                        b && b == d && d.hide()
+                    }, d.options.remaintime);
+                    d.trigger("pointerleave.uk.dropdown", [d])
+                }).on("click", function (e) {
+                    var c = a.$(e.target);
+                    return d.remainIdle && clearTimeout(d.remainIdle), b && b == d ? ((!d.dropdown.find(e.target).length || c.is(".uk-dropdown-close") || c.parents(".uk-dropdown-close").length) && d.hide(), void 0) : ((c.is("a[href='#']") || c.parent().is("a[href='#']")) && e.preventDefault(), d.show(), void 0)
+                })
+        }, show: function () {
+            a.$html.off("click.outer.dropdown");
+            b && b != this && b.hide(!0);
+            c && clearTimeout(c);
+            this.trigger("beforeshow.uk.dropdown", [this]);
+            this.checkDimensions();
+            this.element.addClass("uk-open");
+            this.element.attr("aria-expanded", "true");
+            this.trigger("show.uk.dropdown", [this]);
+            a.Utils.checkDisplay(this.dropdown, !0);
+            b = this;
+            this.registerOuterClick()
+        }, hide: function (a) {
+            this.trigger("beforehide.uk.dropdown", [this, a]);
+            this.element.removeClass("uk-open");
+            this.remainIdle && clearTimeout(this.remainIdle);
+            this.remainIdle = !1;
+            this.element.attr("aria-expanded", "false");
+            this.trigger("hide.uk.dropdown", [this, a]);
+            b == this && (b = !1)
+        }, registerOuterClick: function () {
+            var d = this;
+            a.$html.off("click.outer.dropdown");
+            setTimeout(function () {
+                a.$html.on("click.outer.dropdown", function (e) {
+                    c && clearTimeout(c);
+                    a.$(e.target);
+                    b != d || d.element.find(e.target).length || (d.hide(!0), a.$html.off("click.outer.dropdown"))
+                })
+            }, 10)
+        }, checkDimensions: function () {
+            if (this.dropdown.length) {
+                this.dropdown.removeClass("uk-dropdown-top uk-dropdown-bottom uk-dropdown-left uk-dropdown-right uk-dropdown-stack").css({
+                    "top-left": "",
+                    left: "",
+                    "margin-left": "",
+                    "margin-right": ""
+                });
+                this.justified && this.justified.length && this.dropdown.css("min-width", "");
+                var b, c = a.$.extend({}, this.offsetParent.offset(), {
+                    width: this.offsetParent[0].offsetWidth,
+                    height: this.offsetParent[0].offsetHeight
+                });
+                b = this.options.offset;
+                var p = this.dropdown, h = (p.show().offset() || {
+                    left: 0,
+                    top: 0
+                }, p.outerWidth()), m = p.outerHeight(), r = this.boundary.width(), n = (this.boundary[0] !== window && this.boundary.offset() ? this.boundary.offset() : {
+                        top: 0,
+                        left: 0
+                    }, this.options.pos), t = {
+                    "bottom-left": {top: 0 + c.height + b, left: 0},
+                    "bottom-right": {top: 0 + c.height + b, left: 0 + c.width - h},
+                    "bottom-center": {
+                        top: 0 + c.height +
+                        b, left: 0 + c.width / 2 - h / 2
+                    },
+                    "top-left": {top: 0 - m - b, left: 0},
+                    "top-right": {top: 0 - m - b, left: 0 + c.width - h},
+                    "top-center": {top: 0 - m - b, left: 0 + c.width / 2 - h / 2},
+                    "left-top": {top: 0, left: 0 - h - b},
+                    "left-bottom": {top: 0 + c.height - m, left: 0 - h - b},
+                    "left-center": {top: 0 + c.height / 2 - m / 2, left: 0 - h - b},
+                    "right-top": {top: 0, left: 0 + c.width + b},
+                    "right-bottom": {top: 0 + c.height - m, left: 0 + c.width + b},
+                    "right-center": {top: 0 + c.height / 2 - m / 2, left: 0 + c.width + b}
+                }, q = {};
+                if (b = n.split("-"), q = t[n] ? t[n] : t["bottom-left"], this.justified && this.justified.length) f(p.css({left: 0}),
+                    this.justified, r); else if (!0 !== this.options.preventflip) {
+                    var u;
+                    switch (this.checkBoundary(c.left + q.left, c.top + q.top, h, m, r)) {
+                        case "x":
+                            "x" !== this.options.preventflip && (u = g[n] || "right-top");
+                            break;
+                        case "y":
+                            "y" !== this.options.preventflip && (u = e[n] || "top-left");
+                            break;
+                        case "xy":
+                            this.options.preventflip || (u = d[n] || "right-bottom")
+                    }
+                    u && (b = u.split("-"), q = t[u] ? t[u] : t["bottom-left"], this.checkBoundary(c.left + q.left, c.top + q.top, h, m, r) && (b = n.split("-"), q = t[n] ? t[n] : t["bottom-left"]))
+                }
+                h > r && (p.addClass("uk-dropdown-stack"),
+                    this.trigger("stack.uk.dropdown", [this]));
+                p.css(q).css("display", "").addClass("uk-dropdown-" + b[0])
+            }
+        }, checkBoundary: function (b, d, e, c, g) {
+            var f = "";
+            return (0 > b || b - a.$win.scrollLeft() + e > g) && (f += "x"), (0 > d - a.$win.scrollTop() || d - a.$win.scrollTop() + c > window.innerHeight) && (f += "y"), f
+        }
+    });
+    a.component("dropdownOverlay", {
+        defaults: {justify: !1, cls: "", duration: 200}, boot: function () {
+            a.ready(function (b) {
+                a.$("[data-uk-dropdown-overlay]", b).each(function () {
+                    var b = a.$(this);
+                    b.data("dropdownOverlay") || a.dropdownOverlay(b, a.Utils.options(b.attr("data-uk-dropdown-overlay")))
+                })
+            })
+        },
+        init: function () {
+            var d = this;
+            this.justified = this.options.justify ? a.$(this.options.justify) : !1;
+            this.overlay = this.element.find("uk-dropdown-overlay");
+            this.overlay.length || (this.overlay = a.$('<div class="uk-dropdown-overlay"></div>').appendTo(this.element));
+            this.overlay.addClass(this.options.cls);
+            this.on({
+                "beforeshow.uk.dropdown": function (a, b) {
+                    d.dropdown = b;
+                    d.justified && d.justified.length && f(d.overlay.css({
+                        display: "block",
+                        "margin-left": "",
+                        "margin-right": ""
+                    }), d.justified, d.justified.outerWidth())
+                }, "show.uk.dropdown": function () {
+                    var b =
+                        d.dropdown.dropdown.outerHeight(!0);
+                    d.dropdown.element.removeClass("uk-open");
+                    d.overlay.stop().css("display", "block").animate({height: b}, d.options.duration, function () {
+                        d.dropdown.dropdown.css("visibility", "");
+                        d.dropdown.element.addClass("uk-open");
+                        a.Utils.checkDisplay(d.dropdown.dropdown, !0)
+                    });
+                    d.pointerleave = !1
+                }, "hide.uk.dropdown": function () {
+                    d.overlay.stop().animate({height: 0}, d.options.duration)
+                }, "pointerenter.uk.dropdown": function () {
+                    clearTimeout(d.remainIdle)
+                }, "pointerleave.uk.dropdown": function () {
+                    d.pointerleave = !0
+                }
+            });
+            this.overlay.on({
+                mouseenter: function () {
+                    d.remainIdle && (clearTimeout(d.dropdown.remainIdle), clearTimeout(d.remainIdle))
+                }, mouseleave: function () {
+                    d.pointerleave && b && (d.remainIdle = setTimeout(function () {
+                        b && b.hide()
+                    }, b.options.remaintime))
+                }
+            })
+        }
+    })
+})(UIkit);
+(function (a) {
+    var f = [];
+    a.component("gridMatchHeight", {
+        defaults: {target: !1, row: !0, ignorestacked: !1}, boot: function () {
+            a.ready(function (c) {
+                a.$("[data-uk-grid-match]", c).each(function () {
+                    var b = a.$(this);
+                    b.data("gridMatchHeight") || a.gridMatchHeight(b, a.Utils.options(b.attr("data-uk-grid-match")))
+                })
+            })
+        }, init: function () {
+            var c = this;
+            this.columns = this.element.children();
+            this.elements = this.options.target ? this.find(this.options.target) : this.columns;
+            this.columns.length && (a.$win.on("load resize orientationchange",
+                function () {
+                    var b = function () {
+                        c.match()
+                    };
+                    return a.$(function () {
+                        b()
+                    }), a.Utils.debounce(b, 50)
+                }()), a.$html.on("changed.uk.dom", function () {
+                c.columns = c.element.children();
+                c.elements = c.options.target ? c.find(c.options.target) : c.columns;
+                c.match()
+            }), this.on("display.uk.check", function () {
+                this.element.is(":visible") && this.match()
+            }.bind(this)), f.push(this))
+        }, match: function () {
+            var c = this.columns.filter(":visible:first");
+            if (c.length)return 100 <= Math.ceil(100 * parseFloat(c.css("width")) / parseFloat(c.parent().css("width"))) && !this.options.ignorestacked ? this.revert() : a.Utils.matchHeights(this.elements, this.options), this
+        }, revert: function () {
+            return this.elements.css("min-height", ""), this
+        }
+    });
+    a.component("gridMargin", {
+        defaults: {cls: "uk-grid-margin", rowfirst: "uk-row-first"}, boot: function () {
+            a.ready(function (c) {
+                a.$("[data-uk-grid-margin]", c).each(function () {
+                    var b = a.$(this);
+                    b.data("gridMargin") || a.gridMargin(b, a.Utils.options(b.attr("data-uk-grid-margin")))
+                })
+            })
+        }, init: function () {
+            a.stackMargin(this.element, this.options)
+        }
+    })
+})(UIkit);
+(function (a) {
+    function f(b, e) {
+        return e ? ("object" == typeof b ? (b = b instanceof jQuery ? b : a.$(b), b.parent().length && (e.persist = b, e.persist.data("modalPersistParent", b.parent()))) : b = "string" == typeof b || "number" == typeof b ? a.$("<div></div>").html(b) : a.$("<div></div>").html("UIkit.modal Error: Unsupported data type: " + typeof b), b.appendTo(e.element.find(".uk-modal-dialog")), e) : void 0
+    }
+
+    var c, b = !1, g = 0, e = a.$html;
+    a.component("modal", {
+        defaults: {keyboard: !0, bgclose: !0, minScrollHeight: 150, center: !1, modal: !0}, scrollable: !1,
+        transition: !1, hasTransitioned: !0, init: function () {
+            if (c || (c = a.$("body")), this.element.length) {
+                var b = this;
+                this.paddingdir = "padding-" + ("left" == a.langdirection ? "right" : "left");
+                this.dialog = this.find(".uk-modal-dialog");
+                this.active = !1;
+                this.element.attr("aria-hidden", this.element.hasClass("uk-open"));
+                this.on("click", ".uk-modal-close", function (a) {
+                    a.preventDefault();
+                    b.hide()
+                }).on("click", function (e) {
+                    a.$(e.target)[0] == b.element[0] && b.options.bgclose && b.hide()
+                })
+            }
+        }, toggle: function () {
+            return this[this.isActive() ?
+                "hide" : "show"]()
+        }, show: function () {
+            if (this.element.length) {
+                var d = this;
+                if (!this.isActive())return this.options.modal && b && b.hide(!0), this.element.removeClass("uk-open").show(), this.resize(), this.options.modal && (b = this), this.active = !0, g++, a.support.transition ? (this.hasTransitioned = !1, this.element.one(a.support.transition.end, function () {
+                        d.hasTransitioned = !0
+                    }).addClass("uk-open")) : this.element.addClass("uk-open"), e.addClass("uk-modal-page").height(), this.element.attr("aria-hidden", "false"), this.element.trigger("show.uk.modal"),
+                    a.Utils.checkDisplay(this.dialog, !0), this
+            }
+        }, hide: function (b) {
+            if (!b && a.support.transition && this.hasTransitioned) {
+                var e = this;
+                this.one(a.support.transition.end, function () {
+                    e._hide()
+                }).removeClass("uk-open")
+            } else this._hide();
+            return this
+        }, resize: function () {
+            var a = c.width();
+            if (this.scrollbarwidth = window.innerWidth - a, c.css(this.paddingdir, this.scrollbarwidth), this.element.css("overflow-y", this.scrollbarwidth ? "scroll" : "auto"), !this.updateScrollable() && this.options.center) {
+                var a = this.dialog.outerHeight(), b =
+                    parseInt(this.dialog.css("margin-top"), 10) + parseInt(this.dialog.css("margin-bottom"), 10);
+                a + b < window.innerHeight ? this.dialog.css({top: window.innerHeight / 2 - a / 2 - b}) : this.dialog.css({top: ""})
+            }
+        }, updateScrollable: function () {
+            var a = this.dialog.find(".uk-overflow-container:visible:first");
+            if (a.length) {
+                a.css("height", 0);
+                var b = Math.abs(parseInt(this.dialog.css("margin-top"), 10)), e = this.dialog.outerHeight(), b = window.innerHeight - 2 * (20 > b ? 20 : b) - e;
+                return a.css({"max-height": b < this.options.minScrollHeight ? "" : b, height: ""}),
+                    !0
+            }
+            return !1
+        }, _hide: function () {
+            this.active = !1;
+            0 < g ? g-- : g = 0;
+            this.element.hide().removeClass("uk-open");
+            this.element.attr("aria-hidden", "true");
+            g || (e.removeClass("uk-modal-page"), c.css(this.paddingdir, ""));
+            b === this && (b = !1);
+            this.trigger("hide.uk.modal")
+        }, isActive: function () {
+            return this.active
+        }
+    });
+    a.component("modalTrigger", {
+        boot: function () {
+            a.$html.on("click.modal.uikit", "[data-uk-modal]", function (b) {
+                var e = a.$(this);
+                (e.is("a") && b.preventDefault(), e.data("modalTrigger")) || a.modalTrigger(e, a.Utils.options(e.attr("data-uk-modal"))).show()
+            });
+            a.$html.on("keydown.modal.uikit", function (a) {
+                b && 27 === a.keyCode && b.options.keyboard && (a.preventDefault(), b.hide())
+            });
+            a.$win.on("resize orientationchange", a.Utils.debounce(function () {
+                b && b.resize()
+            }, 150))
+        }, init: function () {
+            var b = this;
+            this.options = a.$.extend({target: b.element.is("a") ? b.element.attr("href") : !1}, this.options);
+            this.modal = a.modal(this.options.target, this.options);
+            this.on("click", function (a) {
+                a.preventDefault();
+                b.show()
+            });
+            this.proxy(this.modal, "show hide isActive")
+        }
+    });
+    a.modal.dialog = function (b,
+                               e) {
+        var c = a.modal(a.$(a.modal.dialog.template).appendTo("body"), e);
+        return c.on("hide.uk.modal", function () {
+            c.persist && (c.persist.appendTo(c.persist.data("modalPersistParent")), c.persist = !1);
+            c.element.remove()
+        }), f(b, c), c
+    };
+    a.modal.dialog.template = '<div class="uk-modal"><div class="uk-modal-dialog" style="min-height:0;"></div></div>';
+    a.modal.alert = function (b, e) {
+        e = a.$.extend(!0, {bgclose: !1, keyboard: !1, modal: !1, labels: a.modal.labels}, e);
+        var c = a.modal.dialog(['<div class="uk-margin uk-modal-content">' + String(b) +
+        "</div>", '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-button-primary uk-modal-close">' + e.labels.Ok + "</button></div>"].join(""), e);
+        return c.on("show.uk.modal", function () {
+            setTimeout(function () {
+                c.element.find("button:first").focus()
+            }, 50)
+        }), c.show()
+    };
+    a.modal.confirm = function (b, e, c) {
+        var g = 1 < arguments.length && arguments[arguments.length - 1] ? arguments[arguments.length - 1] : {};
+        e = a.$.isFunction(e) ? e : function () {
+            };
+        c = a.$.isFunction(c) ? c : function () {
+            };
+        var g = a.$.extend(!0, {
+            bgclose: !1, keyboard: !1,
+            modal: !1, labels: a.modal.labels
+        }, a.$.isFunction(g) ? {} : g), h = a.modal.dialog(['<div class="uk-margin uk-modal-content">' + String(b) + "</div>", '<div class="uk-modal-footer uk-text-right"><button class="uk-button js-modal-confirm-cancel">' + g.labels.Cancel + '</button> <button class="uk-button uk-button-primary js-modal-confirm">' + g.labels.Ok + "</button></div>"].join(""), g);
+        return h.element.find(".js-modal-confirm, .js-modal-confirm-cancel").on("click", function () {
+            a.$(this).is(".js-modal-confirm") ? e() : c();
+            h.hide()
+        }),
+            h.on("show.uk.modal", function () {
+                setTimeout(function () {
+                    h.element.find(".js-modal-confirm").focus()
+                }, 50)
+            }), h.show()
+    };
+    a.modal.prompt = function (b, e, c, g) {
+        c = a.$.isFunction(c) ? c : function () {
+            };
+        g = a.$.extend(!0, {bgclose: !1, keyboard: !1, modal: !1, labels: a.modal.labels}, g);
+        var h = a.modal.dialog([b ? '<div class="uk-modal-content uk-form">' + String(b) + "</div>" : "", '<div class="uk-margin-small-top uk-modal-content uk-form"><p><input type="text" class="uk-width-1-1"></p></div>', '<div class="uk-modal-footer uk-text-right"><button class="uk-button uk-modal-close">' +
+        g.labels.Cancel + '</button> <button class="uk-button uk-button-primary js-modal-ok">' + g.labels.Ok + "</button></div>"].join(""), g), f = h.element.find("input[type='text']").val(e || "").on("keyup", function (a) {
+            13 == a.keyCode && h.element.find(".js-modal-ok").trigger("click")
+        });
+        return h.element.find(".js-modal-ok").on("click", function () {
+            !1 !== c(f.val()) && h.hide()
+        }), h.on("show.uk.modal", function () {
+            setTimeout(function () {
+                f.focus()
+            }, 50)
+        }), h.show()
+    };
+    a.modal.blockUI = function (b, e) {
+        var c = a.modal.dialog("" + ('<div class="uk-margin uk-modal-content">' +
+            String(b || '<div class="uk-text-center">...</div>') + "</div>"), a.$.extend({
+            bgclose: !1,
+            keyboard: !1,
+            modal: !1
+        }, e));
+        return c.content = c.element.find(".uk-modal-content:first"), c.show()
+    };
+    a.modal.labels = {Ok: "Ok", Cancel: "Cancel"}
+})(UIkit);
+(function (a) {
+    function f(c) {
+        c = a.$(c);
+        var b = "auto";
+        if (c.is(":visible")) b = c.outerHeight(); else {
+            var g = {
+                position: c.css("position"),
+                visibility: c.css("visibility"),
+                display: c.css("display")
+            }, b = c.css({position: "absolute", visibility: "hidden", display: "block"}).outerHeight();
+            c.css(g)
+        }
+        return b
+    }
+
+    a.component("nav", {
+        defaults: {toggle: ">li.uk-parent > a[href='#']", lists: ">li.uk-parent > ul", multiple: !1},
+        boot: function () {
+            a.ready(function (c) {
+                a.$("[data-uk-nav]", c).each(function () {
+                    var b = a.$(this);
+                    b.data("nav") || a.nav(b,
+                        a.Utils.options(b.attr("data-uk-nav")))
+                })
+            })
+        },
+        init: function () {
+            var c = this;
+            this.on("click.uk.nav", this.options.toggle, function (b) {
+                b.preventDefault();
+                b = a.$(this);
+                c.open(b.parent()[0] == c.element[0] ? b : b.parent("li"))
+            });
+            this.find(this.options.lists).each(function () {
+                var b = a.$(this), g = b.parent(), e = g.hasClass("uk-active");
+                b.wrap('<div style="overflow:hidden;height:0;position:relative;"></div>');
+                g.data("list-container", b.parent()[e ? "removeClass" : "addClass"]("uk-hidden"));
+                g.attr("aria-expanded", g.hasClass("uk-open"));
+                e && c.open(g, !0)
+            })
+        },
+        open: function (c, b) {
+            var g = this, e = this.element, d = a.$(c), k = d.data("list-container");
+            this.options.multiple || e.children(".uk-open").not(c).each(function () {
+                var b = a.$(this);
+                b.data("list-container") && b.data("list-container").stop().animate({height: 0}, function () {
+                    a.$(this).parent().removeClass("uk-open").end().addClass("uk-hidden")
+                })
+            });
+            d.toggleClass("uk-open");
+            d.attr("aria-expanded", d.hasClass("uk-open"));
+            k && (d.hasClass("uk-open") && k.removeClass("uk-hidden"), b ? (k.stop().height(d.hasClass("uk-open") ?
+                    "auto" : 0), d.hasClass("uk-open") || k.addClass("uk-hidden"), this.trigger("display.uk.check")) : k.stop().animate({height: d.hasClass("uk-open") ? f(k.find("ul:first")) : 0}, function () {
+                    d.hasClass("uk-open") ? k.css("height", "") : k.addClass("uk-hidden");
+                    g.trigger("display.uk.check")
+                }))
+        }
+    })
+})(UIkit);
+(function (a) {
+    var f = window.scrollX, c = window.scrollY, b = (a.$win, a.$doc, a.$html), g = {
+        show: function (e) {
+            if (e = a.$(e), e.length) {
+                var d = a.$("body"), g = e.find(".uk-offcanvas-bar:first"), l = "right" == a.langdirection, p = (g.hasClass("uk-offcanvas-bar-flip") ? -1 : 1) * (l ? -1 : 1), h = window.innerWidth - d.width();
+                f = window.pageXOffset;
+                c = window.pageYOffset;
+                e.addClass("uk-active");
+                d.css({width: window.innerWidth - h, height: window.innerHeight}).addClass("uk-offcanvas-page");
+                d.css(l ? "margin-right" : "margin-left", (l ? -1 : 1) * g.outerWidth() *
+                    p).width();
+                b.css("margin-top", -1 * c);
+                g.addClass("uk-offcanvas-bar-show");
+                this._initElement(e);
+                g.trigger("show.uk.offcanvas", [e, g]);
+                e.attr("aria-hidden", "false")
+            }
+        }, hide: function (e) {
+            var d = a.$("body"), g = a.$(".uk-offcanvas.uk-active"), l = "right" == a.langdirection, p = g.find(".uk-offcanvas-bar:first"), h = function () {
+                d.removeClass("uk-offcanvas-page").css({width: "", height: "", "margin-left": "", "margin-right": ""});
+                g.removeClass("uk-active");
+                p.removeClass("uk-offcanvas-bar-show");
+                b.css("margin-top", "");
+                window.scrollTo(f,
+                    c);
+                p.trigger("hide.uk.offcanvas", [g, p]);
+                g.attr("aria-hidden", "true")
+            };
+            g.length && (a.support.transition && !e ? (d.one(a.support.transition.end, function () {
+                    h()
+                }).css(l ? "margin-right" : "margin-left", ""), setTimeout(function () {
+                    p.removeClass("uk-offcanvas-bar-show")
+                }, 0)) : h())
+        }, _initElement: function (b) {
+            b.data("OffcanvasInit") || (b.on("click.uk.offcanvas swipeRight.uk.offcanvas swipeLeft.uk.offcanvas", function (b) {
+                var e = a.$(b.target);
+                if (b.type.match(/swipe/) || e.hasClass("uk-offcanvas-close") || !e.hasClass("uk-offcanvas-bar") && !e.parents(".uk-offcanvas-bar:first").length) b.stopImmediatePropagation(), g.hide()
+            }), b.on("click", "a[href*='#']", function () {
+                var b = a.$(this), e = b.attr("href");
+                "#" != e && (a.$doc.one("hide.uk.offcanvas", function () {
+                    var c;
+                    try {
+                        c = a.$(b[0].hash)
+                    } catch (g) {
+                        c = ""
+                    }
+                    c.length || (c = a.$('[name="' + b[0].hash.replace("#", "") + '"]'));
+                    c.length && a.Utils.scrollToElement ? a.Utils.scrollToElement(c, a.Utils.options(b.attr("data-uk-smooth-scroll") || "{}")) : window.location.href = e
+                }), g.hide())
+            }), b.data("OffcanvasInit", !0))
+        }
+    };
+    a.component("offcanvasTrigger",
+        {
+            boot: function () {
+                b.on("click.offcanvas.uikit", "[data-uk-offcanvas]", function (b) {
+                    b.preventDefault();
+                    b = a.$(this);
+                    b.data("offcanvasTrigger") || (a.offcanvasTrigger(b, a.Utils.options(b.attr("data-uk-offcanvas"))), b.trigger("click"))
+                });
+                b.on("keydown.uk.offcanvas", function (a) {
+                    27 === a.keyCode && g.hide()
+                })
+            }, init: function () {
+            var b = this;
+            this.options = a.$.extend({target: b.element.is("a") ? b.element.attr("href") : !1}, this.options);
+            this.on("click", function (a) {
+                a.preventDefault();
+                g.show(b.options.target)
+            })
+        }
+        });
+    a.offcanvas =
+        g
+})(UIkit);
+(function (a) {
+    function f(b, c, e) {
+        var d, f = a.$.Deferred(), l = b, p = b;
+        return e[0] === c[0] ? (f.resolve(), f.promise()) : ("object" == typeof b && (l = b[0], p = b[1] || b[0]), a.$body.css("overflow-x", "hidden"), d = function () {
+                c && c.hide().removeClass("uk-active " + p + " uk-animation-reverse");
+                e.addClass(l).one(a.support.animation.end, function () {
+                    e.removeClass("" + l).css({opacity: "", display: ""});
+                    f.resolve();
+                    a.$body.css("overflow-x", "");
+                    c && c.css({opacity: "", display: ""})
+                }.bind(this)).show()
+            }, e.css("animation-duration", this.options.duration + "ms"),
+                c && c.length ? (c.css("animation-duration", this.options.duration + "ms"), c.css("display", "none").addClass(p + " uk-animation-reverse").one(a.support.animation.end, function () {
+                        d()
+                    }.bind(this)).css("display", "")) : (e.addClass("uk-active"), d()), f.promise())
+    }
+
+    var c;
+    a.component("switcher", {
+        defaults: {connect: !1, toggle: ">*", active: 0, animation: !1, duration: 200, swiping: !0},
+        animating: !1,
+        boot: function () {
+            a.ready(function (b) {
+                a.$("[data-uk-switcher]", b).each(function () {
+                    var b = a.$(this);
+                    b.data("switcher") || a.switcher(b, a.Utils.options(b.attr("data-uk-switcher")))
+                })
+            })
+        },
+        init: function () {
+            var b = this;
+            if (this.on("click.uk.switcher", this.options.toggle, function (a) {
+                    a.preventDefault();
+                    b.show(this)
+                }), this.options.connect) {
+                this.connect = a.$(this.options.connect);
+                this.connect.find(".uk-active").removeClass(".uk-active");
+                this.connect.length && (this.connect.children().attr("aria-hidden", "true"), this.connect.on("click", "[data-uk-switcher-item]", function (d) {
+                    d.preventDefault();
+                    d = a.$(this).attr("data-uk-switcher-item");
+                    if (b.index != d)switch (d) {
+                        case "next":
+                        case "previous":
+                            b.show(b.index +
+                                ("next" == d ? 1 : -1));
+                            break;
+                        default:
+                            b.show(parseInt(d, 10))
+                    }
+                }), this.options.swiping && this.connect.on("swipeRight swipeLeft", function (a) {
+                    a.preventDefault();
+                    window.getSelection().toString() || b.show(b.index + ("swipeLeft" == a.type ? 1 : -1))
+                }));
+                var c = this.find(this.options.toggle), e = c.filter(".uk-active");
+                if (e.length) this.show(e, !1); else {
+                    if (!1 === this.options.active)return;
+                    e = c.eq(this.options.active);
+                    this.show(e.length ? e : c.eq(0), !1)
+                }
+                c.not(e).attr("aria-expanded", "false");
+                e.attr("aria-expanded", "true");
+                this.on("changed.uk.dom",
+                    function () {
+                        b.connect = a.$(b.options.connect)
+                    })
+            }
+        },
+        show: function (b, g) {
+            if (!this.animating) {
+                if (isNaN(b)) b = a.$(b); else {
+                    var e = this.find(this.options.toggle);
+                    b = 0 > b ? e.length - 1 : b;
+                    b = e.eq(e[b] ? b : 0)
+                }
+                var d = this, e = this.find(this.options.toggle), k = a.$(b), l = c[this.options.animation] || function (a, b) {
+                        if (!d.options.animation)return c.none.apply(d);
+                        var e = d.options.animation.split(",");
+                        return 1 == e.length && (e[1] = e[0]), e[0] = e[0].trim(), e[1] = e[1].trim(), f.apply(d, [e, a, b])
+                    };
+                !1 !== g && a.support.animation || (l = c.none);
+                k.hasClass("uk-disabled") ||
+                (e.attr("aria-expanded", "false"), k.attr("aria-expanded", "true"), e.filter(".uk-active").removeClass("uk-active"), k.addClass("uk-active"), this.options.connect && this.connect.length && (this.index = this.find(this.options.toggle).index(k), -1 == this.index && (this.index = 0), this.connect.each(function () {
+                    var b = a.$(this), b = a.$(b.children()), e = a.$(b.filter(".uk-active")), c = a.$(b.eq(d.index));
+                    d.animating = !0;
+                    l.apply(d, [e, c]).then(function () {
+                        e.removeClass("uk-active");
+                        c.addClass("uk-active");
+                        e.attr("aria-hidden", "true");
+                        c.attr("aria-hidden", "false");
+                        a.Utils.checkDisplay(c, !0);
+                        d.animating = !1
+                    })
+                })), this.trigger("show.uk.switcher", [k]))
+            }
+        }
+    });
+    c = {
+        none: function () {
+            var b = a.$.Deferred();
+            return b.resolve(), b.promise()
+        }, fade: function (a, c) {
+            return f.apply(this, ["uk-animation-fade", a, c])
+        }, "slide-bottom": function (a, c) {
+            return f.apply(this, ["uk-animation-slide-bottom", a, c])
+        }, "slide-top": function (a, c) {
+            return f.apply(this, ["uk-animation-slide-top", a, c])
+        }, "slide-vertical": function (a, c) {
+            var e = ["uk-animation-slide-top", "uk-animation-slide-bottom"];
+            return a && a.index() > c.index() && e.reverse(), f.apply(this, [e, a, c])
+        }, "slide-left": function (a, c) {
+            return f.apply(this, ["uk-animation-slide-left", a, c])
+        }, "slide-right": function (a, c) {
+            return f.apply(this, ["uk-animation-slide-right", a, c])
+        }, "slide-horizontal": function (a, c) {
+            var e = ["uk-animation-slide-right", "uk-animation-slide-left"];
+            return a && a.index() > c.index() && e.reverse(), f.apply(this, [e, a, c])
+        }, scale: function (a, c) {
+            return f.apply(this, ["uk-animation-scale-up", a, c])
+        }
+    };
+    a.switcher.animations = c
+})(UIkit);
+(function (a) {
+    a.component("tab", {
+        defaults: {
+            target: ">li:not(.uk-tab-responsive, .uk-disabled)",
+            connect: !1,
+            active: 0,
+            animation: !1,
+            duration: 200,
+            swiping: !0
+        }, boot: function () {
+            a.ready(function (f) {
+                a.$("[data-uk-tab]", f).each(function () {
+                    var c = a.$(this);
+                    c.data("tab") || a.tab(c, a.Utils.options(c.attr("data-uk-tab")))
+                })
+            })
+        }, init: function () {
+            var f = this;
+            this.current = !1;
+            this.on("click.uk.tab", this.options.target, function (c) {
+                (c.preventDefault(), f.switcher && f.switcher.animating) || (c = f.find(f.options.target).not(this),
+                    c.removeClass("uk-active").blur(), f.trigger("change.uk.tab", [a.$(this).addClass("uk-active"), f.current]), f.current = a.$(this), f.options.connect || (c.attr("aria-expanded", "false"), a.$(this).attr("aria-expanded", "true")))
+            });
+            this.options.connect && (this.connect = a.$(this.options.connect));
+            this.responsivetab = a.$('<li class="uk-tab-responsive uk-active"><a></a></li>').append('<div class="uk-dropdown uk-dropdown-small"><ul class="uk-nav uk-nav-dropdown"></ul><div>');
+            this.responsivetab.dropdown = this.responsivetab.find(".uk-dropdown");
+            this.responsivetab.lst = this.responsivetab.dropdown.find("ul");
+            this.responsivetab.caption = this.responsivetab.find("a:first");
+            this.element.hasClass("uk-tab-bottom") && this.responsivetab.dropdown.addClass("uk-dropdown-up");
+            this.responsivetab.lst.on("click.uk.tab", "a", function (c) {
+                c.preventDefault();
+                c.stopPropagation();
+                c = a.$(this);
+                f.element.children("li:not(.uk-tab-responsive)").eq(c.data("index")).trigger("click")
+            });
+            this.on("show.uk.switcher change.uk.tab", function (a, b) {
+                f.responsivetab.caption.html(b.text())
+            });
+            this.element.append(this.responsivetab);
+            this.options.connect && (this.switcher = a.switcher(this.element, {
+                toggle: ">li:not(.uk-tab-responsive)",
+                connect: this.options.connect,
+                active: this.options.active,
+                animation: this.options.animation,
+                duration: this.options.duration,
+                swiping: this.options.swiping
+            }));
+            a.dropdown(this.responsivetab, {mode: "click", preventflip: "y"});
+            f.trigger("change.uk.tab", [this.element.find(this.options.target).not(".uk-tab-responsive").filter(".uk-active")]);
+            this.check();
+            a.$win.on("resize orientationchange",
+                a.Utils.debounce(function () {
+                    f.element.is(":visible") && f.check()
+                }, 100));
+            this.on("display.uk.check", function () {
+                f.element.is(":visible") && f.check()
+            })
+        }, check: function () {
+            var f = this.element.children("li:not(.uk-tab-responsive)").removeClass("uk-hidden");
+            if (!f.length)return this.responsivetab.addClass("uk-hidden"), void 0;
+            var c, b, g = f.eq(0).offset().top + Math.ceil(f.eq(0).height() / 2), e = !1;
+            if (this.responsivetab.lst.empty(), f.each(function () {
+                    a.$(this).offset().top > g && (e = !0)
+                }), e)for (var d = 0; d < f.length; d++)c = a.$(f.eq(d)),
+                c.find("a"), "none" == c.css("float") || c.attr("uk-dropdown") || (c.hasClass("uk-disabled") || (b = c[0].outerHTML.replace("<a ", '<a data-index="' + d + '" '), this.responsivetab.lst.append(b)), c.addClass("uk-hidden"));
+            this.responsivetab[this.responsivetab.lst.children("li").length ? "removeClass" : "addClass"]("uk-hidden")
+        }
+    })
+})(UIkit);
+(function (a) {
+    a.component("cover", {
+        defaults: {automute: !0}, boot: function () {
+            a.ready(function (f) {
+                a.$("[data-uk-cover]", f).each(function () {
+                    var c = a.$(this);
+                    c.data("cover") || a.cover(c, a.Utils.options(c.attr("data-uk-cover")))
+                })
+            })
+        }, init: function () {
+            if (this.parent = this.element.parent(), a.$win.on("load resize orientationchange", a.Utils.debounce(function () {
+                    this.check()
+                }.bind(this), 100)), this.on("display.uk.check", function () {
+                    this.element.is(":visible") && this.check()
+                }.bind(this)), this.check(), this.element.is("iframe") &&
+                this.options.automute) {
+                var f = this.element.attr("src");
+                this.element.attr("src", "").on("load", function () {
+                    this.contentWindow.postMessage('{ "event": "command", "func": "mute", "method":"setVolume", "value":0}', "*")
+                }).attr("src", [f, -1 < f.indexOf("?") ? "&" : "?", "enablejsapi=1&api=1"].join(""))
+            }
+        }, check: function () {
+            this.element.css({width: "", height: ""});
+            this.dimension = {w: this.element.width(), h: this.element.height()};
+            this.element.attr("width") && !isNaN(this.element.attr("width")) && (this.dimension.w = this.element.attr("width"));
+            this.element.attr("height") && !isNaN(this.element.attr("height")) && (this.dimension.h = this.element.attr("height"));
+            this.ratio = this.dimension.w / this.dimension.h;
+            var a, c, b = this.parent.width(), g = this.parent.height();
+            b / this.ratio < g ? (a = Math.ceil(g * this.ratio), c = g) : (a = b, c = Math.ceil(b / this.ratio));
+            this.element.css({width: a, height: c})
+        }
+    })
+})(UIkit);
+!function (a) {
+    var f;
+    window.UIkit && (f = a(UIkit));
+    "function" == typeof define && define.amd && define("uikit-parallax", ["uikit"], function () {
+        return f || a(UIkit)
+    })
+}(function (a) {
+    function f(b, d, c) {
+        var e, g, f, k, l, v, w, x = new Image;
+        return g = b.element.css({
+            "background-size": "cover",
+            "background-repeat": "no-repeat"
+        }), e = g.css("background-image").replace(/^url\(/g, "").replace(/\)$/g, "").replace(/("|')/g, ""), k = function () {
+            var a = g.innerWidth(), e = g.innerHeight(), k = "bg" == d ? c.diff : c.diff / 100 * e;
+            return e += k, a += Math.ceil(k * l), a - k <
+            f.w && e < f.h ? b.element.css({"background-size": "auto"}) : (e > a / l ? (v = Math.ceil(e * l), w = e, e > window.innerHeight && (v *= 1.2, w *= 1.2)) : (v = a, w = Math.ceil(a / l)), g.css({"background-size": v + "px " + w + "px"}).data("bgsize", {
+                    w: v,
+                    h: w
+                }), void 0)
+        }, x.onerror = function () {
+        }, x.onload = function () {
+            f = {w: x.width, h: x.height};
+            l = x.width / x.height;
+            a.$win.on("load resize orientationchange", a.Utils.debounce(function () {
+                k()
+            }, 50));
+            k()
+        }, x.src = e, !0
+    }
+
+    function c(a) {
+        var b;
+        return (b = /#([0-9a-fA-F]{2})([0-9a-fA-F]{2})([0-9a-fA-F]{2})/.exec(a)) ? [parseInt(b[1],
+                16), parseInt(b[2], 16), parseInt(b[3], 16), 1] : (b = /#([0-9a-fA-F])([0-9a-fA-F])([0-9a-fA-F])/.exec(a)) ? [17 * parseInt(b[1], 16), 17 * parseInt(b[2], 16), 17 * parseInt(b[3], 16), 1] : (b = /rgb\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*\)/.exec(a)) ? [parseInt(b[1]), parseInt(b[2]), parseInt(b[3]), 1] : (b = /rgba\(\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9]{1,3})\s*,\s*([0-9\.]*)\s*\)/.exec(a)) ? [parseInt(b[1], 10), parseInt(b[2], 10), parseInt(b[3], 10), parseFloat(b[4])] : l[a] || [255, 255, 255, 0]
+    }
+
+    var b = [], g = !1, e = 0,
+        d = window.innerHeight, k = function () {
+            e = a.$win.scrollTop();
+            window.requestAnimationFrame(function () {
+                for (var a = 0; a < b.length; a++)b[a].process()
+            })
+        };
+    a.component("parallax", {
+        defaults: {velocity: .5, target: !1, viewport: !1, media: !1}, boot: function () {
+            g = function () {
+                var a, b = document.createElement("div"), d = {
+                    WebkitTransform: "-webkit-transform",
+                    MSTransform: "-ms-transform",
+                    MozTransform: "-moz-transform",
+                    Transform: "transform"
+                };
+                document.body.insertBefore(b, null);
+                for (var c in d)void 0 !== b.style[c] && (b.style[c] = "translate3d(1px,1px,1px)",
+                    a = window.getComputedStyle(b).getPropertyValue(d[c]));
+                return document.body.removeChild(b), void 0 !== a && 0 < a.length && "none" !== a
+            }();
+            a.$doc.on("scrolling.uk.document", k);
+            a.$win.on("load resize orientationchange", a.Utils.debounce(function () {
+                d = window.innerHeight;
+                k()
+            }, 50));
+            a.ready(function (b) {
+                a.$("[data-uk-parallax]", b).each(function () {
+                    var b = a.$(this);
+                    b.data("parallax") || a.parallax(b, a.Utils.options(b.attr("data-uk-parallax")))
+                })
+            })
+        }, init: function () {
+            this.base = this.options.target ? a.$(this.options.target) : this.element;
+            this.props = {};
+            this.velocity = this.options.velocity || 1;
+            var d = ["target", "velocity", "viewport", "plugins", "media"];
+            Object.keys(this.options).forEach(function (a) {
+                if (-1 === d.indexOf(a)) {
+                    var b, c, e, g, f = String(this.options[a]).split(",");
+                    a.match(/color/i) ? (b = f[1] ? f[0] : this._getStartValue(a), c = f[1] ? f[1] : f[0], b || (b = "rgba(255,255,255,0)")) : (b = parseFloat(f[1] ? f[0] : this._getStartValue(a)), c = parseFloat(f[1] ? f[1] : f[0]), g = c > b ? c - b : b - c, e = c > b ? 1 : -1);
+                    this.props[a] = {start: b, end: c, dir: e, diff: g}
+                }
+            }.bind(this));
+            b.push(this)
+        },
+        process: function () {
+            if (this.options.media)switch (typeof this.options.media) {
+                case "number":
+                    if (window.innerWidth < this.options.media)return !1;
+                    break;
+                case "string":
+                    if (window.matchMedia && !window.matchMedia(this.options.media).matches)return !1
+            }
+            var a = this.percentageInViewport();
+            !1 !== this.options.viewport && (a = 0 === this.options.viewport ? 1 : a / this.options.viewport);
+            this.update(a)
+        }, percentageInViewport: function () {
+            var a, b, c, g = this.base.offset().top, f = this.base.outerHeight();
+            return g > e + d ? c = 0 : e > g + f ? c = 1 : d > g + f ? c = (d >
+                            e ? e : e - d) / (g + f) : (a = e + d - g, b = Math.round(a / ((d + f) / 100)), c = b / 100), c
+        }, update: function (a) {
+            var b, d, e = {transform: ""}, k = a * (1 - (this.velocity - this.velocity * a));
+            0 > k && (k = 0);
+            1 < k && (k = 1);
+            (void 0 === this._percent || this._percent != k) && (Object.keys(this.props).forEach(function (l) {
+                switch (b = this.props[l], 0 === a ? d = b.start : 1 === a ? d = b.end : void 0 !== b.diff && (d = b.start + b.diff * k * b.dir), "bg" != l && "bgp" != l || this._bgcover || (this._bgcover = f(this, l, b)), l) {
+                    case "x":
+                        e.transform += g ? " translate3d(" + d + "px, 0, 0)" : " translateX(" + d + "px)";
+                        break;
+                    case "xp":
+                        e.transform += g ? " translate3d(" + d + "%, 0, 0)" : " translateX(" + d + "%)";
+                        break;
+                    case "y":
+                        e.transform += g ? " translate3d(0, " + d + "px, 0)" : " translateY(" + d + "px)";
+                        break;
+                    case "yp":
+                        e.transform += g ? " translate3d(0, " + d + "%, 0)" : " translateY(" + d + "%)";
+                        break;
+                    case "rotate":
+                        e.transform += " rotate(" + d + "deg)";
+                        break;
+                    case "scale":
+                        e.transform += " scale(" + d + ")";
+                        break;
+                    case "bg":
+                        e["background-position"] = "50% " + d + "px";
+                        break;
+                    case "bgp":
+                        e["background-position"] = "50% " + d + "%";
+                        break;
+                    case "color":
+                    case "background-color":
+                    case "border-color":
+                        var q =
+                            b.start, u = b.end, v = k, q = c(q), u = c(u), v = v || 0, v = "rgba(" + parseInt(q[0] + v * (u[0] - q[0]), 10) + "," + parseInt(q[1] + v * (u[1] - q[1]), 10) + "," + parseInt(q[2] + v * (u[2] - q[2]), 10) + "," + (q && u ? parseFloat(q[3] + v * (u[3] - q[3])) : 1) + ")";
+                        e[l] = v;
+                        break;
+                    default:
+                        e[l] = d
+                }
+            }.bind(this)), this.element.css(e), this._percent = k)
+        }, _getStartValue: function (a) {
+            var b = 0;
+            switch (a) {
+                case "scale":
+                    b = 1;
+                    break;
+                default:
+                    b = this.element.css(a)
+            }
+            return b || 0
+        }
+    });
+    var l = {
+        black: [0, 0, 0, 1],
+        blue: [0, 0, 255, 1],
+        brown: [165, 42, 42, 1],
+        cyan: [0, 255, 255, 1],
+        fuchsia: [255, 0, 255, 1],
+        gold: [255,
+            215, 0, 1],
+        green: [0, 128, 0, 1],
+        indigo: [75, 0, 130, 1],
+        khaki: [240, 230, 140, 1],
+        lime: [0, 255, 0, 1],
+        magenta: [255, 0, 255, 1],
+        maroon: [128, 0, 0, 1],
+        navy: [0, 0, 128, 1],
+        olive: [128, 128, 0, 1],
+        orange: [255, 165, 0, 1],
+        pink: [255, 192, 203, 1],
+        purple: [128, 0, 128, 1],
+        violet: [128, 0, 128, 1],
+        red: [255, 0, 0, 1],
+        silver: [192, 192, 192, 1],
+        white: [255, 255, 255, 1],
+        yellow: [255, 255, 0, 1],
+        transparent: [255, 255, 255, 0]
+    };
+    return a.parallax
+});
+!function (a) {
+    var f;
+    window.UIkit && (f = a(UIkit));
+    "function" == typeof define && define.amd && define("uikit-sticky", ["uikit"], function () {
+        return f || a(UIkit)
+    })
+}(function (a) {
+    function f() {
+        var d = arguments.length ? arguments : g;
+        if (d.length && !(0 > c.scrollTop()))for (var e, f, p, h, m = c.scrollTop(), r = b.height(), n = c.height(), n = r - n, n = m > n ? n - m : 0, t = 0; t < d.length; t++)if (h = d[t], h.element.is(":visible") && !h.animate) {
+            if (h.check()) {
+                if (0 > h.top ? e = 0 : (p = h.element.outerHeight(), e = r - p - h.top - h.options.bottom - m - n, e = 0 > e ? e + h.top : h.top), h.boundary &&
+                    h.boundary.length) f = h.boundary.offset().top, f = h.boundtoparent ? r - (f + h.boundary.outerHeight()) + parseInt(h.boundary.css("padding-bottom")) : r - f - parseInt(h.boundary.css("margin-top")), e = m + p > r - f - (0 > h.top ? 0 : h.top) ? r - f - (m + p) : e;
+                if (h.currentTop != e) {
+                    if (h.element.css({
+                            position: "fixed",
+                            top: e,
+                            width: h.getWidthFrom.length ? h.getWidthFrom.width() : h.element.width()
+                        }), !h.init && (h.element.addClass(h.options.clsinit), location.hash && 0 < m && h.options.target)) f = a.$(location.hash), f.length && setTimeout(function (a, b) {
+                        return function () {
+                            b.element.width();
+                            var d = a.offset(), e = d.top + a.outerHeight(), c = b.element.offset(), f = b.element.outerHeight(), g = c.top + f;
+                            c.top < e && d.top < g && (m = d.top - f - b.options.target, window.scrollTo(0, m))
+                        }
+                    }(f, h), 0);
+                    h.element.addClass(h.options.clsactive).removeClass(h.options.clsinactive);
+                    h.element.trigger("active.uk.sticky");
+                    h.element.css("margin", "");
+                    h.options.animation && h.init && !a.Utils.isInView(h.wrapper) && h.element.addClass(h.options.animation);
+                    h.currentTop = e
+                }
+            } else null !== h.currentTop && h.reset();
+            h.init = !0
+        }
+    }
+
+    var c = a.$win, b = a.$doc, g =
+        [], e = 1;
+    return a.component("sticky", {
+        defaults: {
+            top: 0,
+            bottom: 0,
+            animation: "",
+            clsinit: "uk-sticky-init",
+            clsactive: "uk-active",
+            clsinactive: "",
+            getWidthFrom: "",
+            showup: !1,
+            boundary: !1,
+            media: !1,
+            target: !1,
+            disabled: !1
+        }, boot: function () {
+            a.$doc.on("scrolling.uk.document", function (a, b) {
+                b && b.dir && (e = b.dir.y, f())
+            });
+            a.$win.on("resize orientationchange", a.Utils.debounce(function () {
+                if (g.length) {
+                    for (var a = 0; a < g.length; a++)g[a].reset(!0);
+                    f()
+                }
+            }, 100));
+            a.ready(function (b) {
+                setTimeout(function () {
+                    a.$("[data-uk-sticky]", b).each(function () {
+                        var b =
+                            a.$(this);
+                        b.data("sticky") || a.sticky(b, a.Utils.options(b.attr("data-uk-sticky")))
+                    });
+                    f()
+                }, 0)
+            })
+        }, init: function () {
+            var d, f = this.options.boundary;
+            this.wrapper = this.element.wrap('<div class="uk-sticky-placeholder"></div>').parent();
+            this.computeWrapper();
+            this.element.css("margin", 0);
+            f && (!0 === f || "!" === f[0] ? (f = !0 === f ? this.wrapper.parent() : this.wrapper.closest(f.substr(1)), d = !0) : "string" == typeof f && (f = a.$(f)));
+            this.sticky = {
+                self: this,
+                options: this.options,
+                element: this.element,
+                currentTop: null,
+                wrapper: this.wrapper,
+                init: !1,
+                getWidthFrom: a.$(this.options.getWidthFrom || this.wrapper),
+                boundary: f,
+                boundtoparent: d,
+                top: 0,
+                calcTop: function () {
+                    var b = this.options.top;
+                    if (this.options.top && "string" == typeof this.options.top)if (this.options.top.match(/^(-|)(\d+)vh$/)) b = window.innerHeight * parseInt(this.options.top, 10) / 100; else {
+                        var d = a.$(this.options.top).first();
+                        d.length && d.is(":visible") && (b = -1 * (d.offset().top + d.outerHeight() - this.wrapper.offset().top))
+                    }
+                    this.top = b
+                },
+                reset: function (b) {
+                    this.calcTop();
+                    var d = function () {
+                        this.element.css({
+                            position: "",
+                            top: "", width: "", left: "", margin: "0"
+                        });
+                        this.element.removeClass([this.options.animation, "uk-animation-reverse", this.options.clsactive].join(" "));
+                        this.element.addClass(this.options.clsinactive);
+                        this.element.trigger("inactive.uk.sticky");
+                        this.currentTop = null;
+                        this.animate = !1
+                    }.bind(this);
+                    !b && this.options.animation && a.support.animation && !a.Utils.isInView(this.wrapper) ? (this.animate = !0, this.element.removeClass(this.options.animation).one(a.support.animation.end, function () {
+                            d()
+                        }).width(), this.element.addClass(this.options.animation +
+                            " uk-animation-reverse")) : d()
+                },
+                check: function () {
+                    if (this.options.disabled)return !1;
+                    if (this.options.media)switch (typeof this.options.media) {
+                        case "number":
+                            if (window.innerWidth < this.options.media)return !1;
+                            break;
+                        case "string":
+                            if (window.matchMedia && !window.matchMedia(this.options.media).matches)return !1
+                    }
+                    var d = c.scrollTop(), f = b.height() - window.innerHeight, f = d > f ? f - d : 0, f = this.wrapper.offset().top - this.top - f, d = d >= f;
+                    return d && this.options.showup && (1 == e && (d = !1), -1 == e && !this.element.hasClass(this.options.clsactive) &&
+                    a.Utils.isInView(this.wrapper) && (d = !1)), d
+                }
+            };
+            this.sticky.calcTop();
+            g.push(this.sticky)
+        }, update: function () {
+            f(this.sticky)
+        }, enable: function () {
+            this.options.disabled = !1;
+            this.update()
+        }, disable: function (a) {
+            this.options.disabled = !0;
+            this.sticky.reset(a)
+        }, computeWrapper: function () {
+            this.wrapper.css({
+                height: -1 == ["absolute", "fixed"].indexOf(this.element.css("position")) ? this.element.outerHeight() : "",
+                "float": "none" != this.element.css("float") ? this.element.css("float") : "",
+                margin: this.element.css("margin")
+            });
+            "fixed" ==
+            this.element.css("position") && this.element.css({width: this.sticky.getWidthFrom.length ? this.sticky.getWidthFrom.width() : this.element.width()})
+        }
+    }), a.sticky
+});
+!function (a) {
+    var f;
+    window.UIkit && (f = a(UIkit));
+    "function" == typeof define && define.amd && define("uikit-tooltip", ["uikit"], function () {
+        return f || a(UIkit)
+    })
+}(function (a) {
+    var f, c, b;
+    return a.component("tooltip", {
+        defaults: {
+            offset: 5,
+            pos: "top",
+            animation: !1,
+            delay: 0,
+            cls: "",
+            activeClass: "uk-active",
+            src: function (a) {
+                var b = a.attr("title");
+                return void 0 !== b && a.data("cached-title", b).removeAttr("title"), a.data("cached-title")
+            }
+        }, tip: "", boot: function () {
+            a.$html.on("mouseenter.tooltip.uikit focus.tooltip.uikit", "[data-uk-tooltip]",
+                function () {
+                    var b = a.$(this);
+                    b.data("tooltip") || (a.tooltip(b, a.Utils.options(b.attr("data-uk-tooltip"))), b.trigger("mouseenter"))
+                })
+        }, init: function () {
+            var b = this;
+            f || (f = a.$('<div class="uk-tooltip"></div>').appendTo("body"));
+            this.on({
+                focus: function () {
+                    b.show()
+                }, blur: function () {
+                    b.hide()
+                }, mouseenter: function () {
+                    b.show()
+                }, mouseleave: function () {
+                    b.hide()
+                }
+            })
+        }, show: function () {
+            if (this.tip = "function" == typeof this.options.src ? this.options.src(this.element) : this.options.src, c && clearTimeout(c), b && clearTimeout(b), "string" == typeof this.tip ? this.tip.length : 0) {
+                f.stop().css({top: -2E3, visibility: "hidden"}).removeClass(this.options.activeClass).show();
+                f.html('<div class="uk-tooltip-inner">' + this.tip + "</div>");
+                var g = this, e = a.$.extend({}, this.element.offset(), {
+                    width: this.element[0].offsetWidth,
+                    height: this.element[0].offsetHeight
+                }), d = f[0].offsetWidth, k = f[0].offsetHeight, l = "function" == typeof this.options.offset ? this.options.offset.call(this.element) : this.options.offset, p = "function" == typeof this.options.pos ? this.options.pos.call(this.element) :
+                    this.options.pos, h = p.split("-"), m = {
+                    display: "none",
+                    visibility: "visible",
+                    top: e.top + e.height + k,
+                    left: e.left
+                };
+                if ("fixed" == a.$html.css("position") || "fixed" == a.$body.css("position")) {
+                    var r = a.$("body").offset(), n = a.$("html").offset(), t = n.top + r.top;
+                    e.left -= n.left + r.left;
+                    e.top -= t
+                }
+                "left" != h[0] && "right" != h[0] || "right" != a.langdirection || (h[0] = "left" == h[0] ? "right" : "left");
+                l = {
+                    bottom: {top: e.top + e.height + l, left: e.left + e.width / 2 - d / 2},
+                    top: {top: e.top - k - l, left: e.left + e.width / 2 - d / 2},
+                    left: {
+                        top: e.top + e.height / 2 - k / 2, left: e.left -
+                        d - l
+                    },
+                    right: {top: e.top + e.height / 2 - k / 2, left: e.left + e.width + l}
+                };
+                a.$.extend(m, l[h[0]]);
+                2 == h.length && (m.left = "left" == h[1] ? e.left : e.left + e.width - d);
+                if (k = this.checkBoundary(m.left, m.top, d, k)) {
+                    switch (k) {
+                        case "x":
+                            p = 2 == h.length ? h[0] + "-" + (0 > m.left ? "left" : "right") : 0 > m.left ? "right" : "left";
+                            break;
+                        case "y":
+                            p = 2 == h.length ? (0 > m.top ? "bottom" : "top") + "-" + h[1] : 0 > m.top ? "bottom" : "top";
+                            break;
+                        case "xy":
+                            p = 2 == h.length ? (0 > m.top ? "bottom" : "top") + "-" + (0 > m.left ? "left" : "right") : 0 > m.left ? "right" : "left"
+                    }
+                    h = p.split("-");
+                    a.$.extend(m, l[h[0]]);
+                    2 == h.length && (m.left = "left" == h[1] ? e.left : e.left + e.width - d)
+                }
+                m.left -= a.$body.position().left;
+                c = setTimeout(function () {
+                    f.css(m).attr("class", ["uk-tooltip", "uk-tooltip-" + p, g.options.cls].join(" "));
+                    g.options.animation ? f.css({
+                            opacity: 0,
+                            display: "block"
+                        }).addClass(g.options.activeClass).animate({opacity: 1}, parseInt(g.options.animation, 10) || 400) : f.show().addClass(g.options.activeClass);
+                    c = !1;
+                    b = setInterval(function () {
+                        g.element.is(":visible") || g.hide()
+                    }, 150)
+                }, parseInt(this.options.delay, 10) || 0)
+            }
+        }, hide: function () {
+            if (!this.element.is("input") ||
+                this.element[0] !== document.activeElement)if (c && clearTimeout(c), b && clearTimeout(b), f.stop(), this.options.animation) {
+                var a = this;
+                f.fadeOut(parseInt(this.options.animation, 10) || 400, function () {
+                    f.removeClass(a.options.activeClass)
+                })
+            } else f.hide().removeClass(this.options.activeClass)
+        }, content: function () {
+            return this.tip
+        }, checkBoundary: function (b, e, d, c) {
+            var f = "";
+            return (0 > b || b - a.$win.scrollLeft() + d > window.innerWidth) && (f += "x"), (0 > e || e - a.$win.scrollTop() + c > window.innerHeight) && (f += "y"), f
+        }
+    }), a.tooltip
+});
+!function (a) {
+    var f;
+    window.UIkit && (f = a(UIkit));
+    "function" == typeof define && define.amd && define("uikit-notify", ["uikit"], function () {
+        return f || a(UIkit)
+    })
+}(function (a) {
+    var f = {}, c = {}, b = function (b, d) {
+        return "string" == a.$.type(b) && (b = {message: b}), d && (b = a.$.extend(b, "string" == a.$.type(d) ? {status: d} : d)), (new g(b)).show()
+    }, g = function (b) {
+        this.options = a.$.extend({}, g.defaults, b);
+        this.uuid = a.Utils.uid("notifymsg");
+        this.element = a.$('<div class="uk-notify-message"><a class="uk-close"></a><div></div></div>').data("notifyMessage",
+            this);
+        this.content(this.options.message);
+        this.options.status && (this.element.addClass("uk-notify-message-" + this.options.status), this.currentstatus = this.options.status);
+        this.group = this.options.group;
+        c[this.uuid] = this;
+        f[this.options.pos] || (f[this.options.pos] = a.$('<div class="uk-notify uk-notify-' + this.options.pos + '"></div>').appendTo("body").on("click", ".uk-notify-message", function () {
+            var b = a.$(this).data("notifyMessage");
+            b.element.trigger("manualclose.uk.notify", [b]);
+            b.close()
+        }))
+    };
+    return a.$.extend(g.prototype,
+        {
+            uuid: !1, element: !1, timout: !1, currentstatus: "", group: !1, show: function () {
+            if (!this.element.is(":visible")) {
+                var a = this;
+                f[this.options.pos].show().prepend(this.element);
+                var b = parseInt(this.element.css("margin-bottom"), 10);
+                return this.element.css({
+                    opacity: 0,
+                    "margin-top": -1 * this.element.outerHeight(),
+                    "margin-bottom": 0
+                }).animate({opacity: 1, "margin-top": 0, "margin-bottom": b}, function () {
+                    if (a.options.timeout) {
+                        var b = function () {
+                            a.close()
+                        };
+                        a.timeout = setTimeout(b, a.options.timeout);
+                        a.element.hover(function () {
+                                clearTimeout(a.timeout)
+                            },
+                            function () {
+                                a.timeout = setTimeout(b, a.options.timeout)
+                            })
+                    }
+                }), this
+            }
+        }, close: function (a) {
+            var b = this, g = function () {
+                b.element.remove();
+                f[b.options.pos].children().length || f[b.options.pos].hide();
+                b.options.onClose.apply(b, []);
+                b.element.trigger("close.uk.notify", [b]);
+                delete c[b.uuid]
+            };
+            this.timeout && clearTimeout(this.timeout);
+            a ? g() : this.element.animate({
+                    opacity: 0,
+                    "margin-top": -1 * this.element.outerHeight(),
+                    "margin-bottom": 0
+                }, function () {
+                    g()
+                })
+        }, content: function (a) {
+            var b = this.element.find(">div");
+            return a ? (b.html(a),
+                    this) : b.html()
+        }, status: function (a) {
+            return a ? (this.element.removeClass("uk-notify-message-" + this.currentstatus).addClass("uk-notify-message-" + a), this.currentstatus = a, this) : this.currentstatus
+        }
+        }), g.defaults = {
+        message: "", status: "", timeout: 5E3, group: null, pos: "top-center", onClose: function () {
+        }
+    }, a.notify = b, a.notify.message = g, a.notify.closeAll = function (a, b) {
+        var f;
+        if (a)for (f in c)a === c[f].group && c[f].close(b); else for (f in c)c[f].close(b)
+    }, b
+});
+!function (a) {
+    var f;
+    window.UIkit && (f = a(UIkit));
+    "function" == typeof define && define.amd && define("uikit-lightbox", ["uikit"], function () {
+        return f || a(UIkit)
+    })
+}(function (a) {
+    function f(b) {
+        return c ? (c.lightbox = b, c) : (c = a.$(['<div class="uk-modal">', '<div class="uk-modal-dialog uk-modal-dialog-lightbox uk-slidenav-position" style="margin-left:auto;margin-right:auto;width:200px;height:200px;top:' + Math.abs(window.innerHeight / 2 - 200) + 'px;">', '<a href="#" class="uk-modal-close uk-close uk-close-alt"></a><div class="uk-lightbox-content"></div><div class="uk-modal-spinner uk-hidden"></div></div></div>'].join("")).appendTo("body"),
+                c.dialog = c.find(".uk-modal-dialog:first"), c.content = c.find(".uk-lightbox-content:first"), c.loader = c.find(".uk-modal-spinner:first"), c.closer = c.find(".uk-close.uk-close-alt"), c.modal = a.modal(c, {modal: !1}), c.on("swipeRight swipeLeft", function (a) {
+                c.lightbox["swipeLeft" == a.type ? "next" : "previous"]()
+            }).on("click", "[data-lightbox-previous], [data-lightbox-next]", function (b) {
+                b.preventDefault();
+                c.lightbox[a.$(this).is("[data-lightbox-next]") ? "next" : "previous"]()
+            }), c.on("hide.uk.modal", function () {
+                c.content.html("")
+            }),
+                a.$win.on("load resize orientationchange", a.Utils.debounce(function () {
+                    c.is(":visible") && !a.Utils.isFullscreen() && c.lightbox.fitSize()
+                }.bind(this), 100)), c.lightbox = b, c)
+    }
+
+    var c, b = {};
+    return a.component("lightbox", {
+        defaults: {group: !1, duration: 400, keyboard: !0}, index: 0, items: !1, boot: function () {
+            a.$html.on("click", "[data-uk-lightbox]", function (b) {
+                b.preventDefault();
+                b = a.$(this);
+                b.data("lightbox") || a.lightbox(b, a.Utils.options(b.attr("data-uk-lightbox")));
+                b.data("lightbox").show(b)
+            });
+            a.$doc.on("keyup", function (a) {
+                if (c &&
+                    c.is(":visible") && c.lightbox.options.keyboard)switch (a.preventDefault(), a.keyCode) {
+                    case 37:
+                        c.lightbox.previous();
+                        break;
+                    case 39:
+                        c.lightbox.next()
+                }
+            })
+        }, init: function () {
+            var b = [];
+            if (this.index = 0, this.siblings = [], this.element && this.element.length) {
+                var c = this.options.group ? a.$(['[data-uk-lightbox*="' + this.options.group + '"]', "[data-uk-lightbox*='" + this.options.group + "']"].join()) : this.element;
+                c.each(function () {
+                    var c = a.$(this);
+                    b.push({
+                        source: c.attr("href"),
+                        title: c.attr("data-title") || c.attr("title"),
+                        type: c.attr("data-lightbox-type") ||
+                        "auto",
+                        link: c
+                    })
+                });
+                this.index = c.index(this.element);
+                this.siblings = b
+            } else this.options.group && this.options.group.length && (this.siblings = this.options.group);
+            this.trigger("lightbox-init", [this])
+        }, show: function (b) {
+            this.modal = f(this);
+            this.modal.dialog.stop();
+            this.modal.content.stop();
+            var c, d, k = this, l = a.$.Deferred();
+            b = b || 0;
+            "object" == typeof b && this.siblings.forEach(function (a, c) {
+                b[0] === a.link[0] && (b = c)
+            });
+            0 > b ? b = this.siblings.length - b : this.siblings[b] || (b = 0);
+            d = this.siblings[b];
+            c = {
+                lightbox: k,
+                source: d.source,
+                type: d.type,
+                index: b,
+                promise: l,
+                title: d.title,
+                item: d,
+                meta: {content: "", width: null, height: null}
+            };
+            this.index = b;
+            this.modal.content.empty();
+            this.modal.is(":visible") || (this.modal.content.css({
+                width: "",
+                height: ""
+            }).empty(), this.modal.modal.show());
+            this.modal.loader.removeClass("uk-hidden");
+            l.promise().done(function () {
+                k.data = c;
+                k.fitSize(c)
+            }).fail(function () {
+                c.meta.content = '<div class="uk-position-cover uk-flex uk-flex-middle uk-flex-center"><strong>Loading resource failed!</strong></div>';
+                c.meta.width = 400;
+                c.meta.height = 300;
+                k.data = c;
+                k.fitSize(c)
+            });
+            k.trigger("showitem.uk.lightbox", [c])
+        }, fitSize: function () {
+            var b = this, c = this.data, d = this.modal.dialog.outerWidth() - this.modal.dialog.width(), f = parseInt(this.modal.dialog.css("margin-top"), 10), l = parseInt(this.modal.dialog.css("margin-bottom"), 10), l = f + l, p = c.meta.content, f = b.options.duration;
+            1 < this.siblings.length && (p = [p, '<a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-previous uk-hidden-touch" data-lightbox-previous></a><a href="#" class="uk-slidenav uk-slidenav-contrast uk-slidenav-next uk-hidden-touch" data-lightbox-next></a>'].join(""));
+            var h, m, r = a.$("<div>&nbsp;</div>").css({
+                opacity: 0,
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                "max-width": b.modal.dialog.css("max-width"),
+                padding: b.modal.dialog.css("padding"),
+                margin: b.modal.dialog.css("margin")
+            }), n = c.meta.width, t = c.meta.height;
+            r.appendTo("body").width();
+            h = r.width();
+            m = window.innerHeight - l;
+            r.remove();
+            this.modal.dialog.find(".uk-modal-caption").remove();
+            c.title && (this.modal.dialog.append('<div class="uk-modal-caption">' + c.title + "</div>"), m -= this.modal.dialog.find(".uk-modal-caption").outerHeight());
+            h < c.meta.width && (t = Math.floor(h / n * t), n = h);
+            t > m && (t = Math.floor(m), n = Math.ceil(m / c.meta.height * c.meta.width));
+            this.modal.content.css("opacity", 0).width(n).html(p);
+            "iframe" == c.type && this.modal.content.find("iframe:first").height(t);
+            c = Math.floor(window.innerHeight / 2 - (t + d) / 2) - l;
+            0 > c && (c = 0);
+            this.modal.closer.addClass("uk-hidden");
+            b.modal.data("mwidth") == n && b.modal.data("mheight") == t && (f = 0);
+            this.modal.dialog.animate({width: n + d, height: t + d, top: c}, f, "swing", function () {
+                b.modal.loader.addClass("uk-hidden");
+                b.modal.content.css({width: ""}).animate({opacity: 1},
+                    function () {
+                        b.modal.closer.removeClass("uk-hidden")
+                    });
+                b.modal.data({mwidth: n, mheight: t})
+            })
+        }, next: function () {
+            this.show(this.siblings[this.index + 1] ? this.index + 1 : 0)
+        }, previous: function () {
+            this.show(this.siblings[this.index - 1] ? this.index - 1 : this.siblings.length - 1)
+        }
+    }), a.plugin("lightbox", "image", {
+        init: function (a) {
+            a.on("showitem.uk.lightbox", function (a, c) {
+                if ("image" == c.type || c.source && c.source.match(/\.(jpg|jpeg|png|gif|svg)$/i)) {
+                    var f = function (a, b, e) {
+                        c.meta = {
+                            content: '<img class="uk-responsive-width" width="' +
+                            b + '" height="' + e + '" src ="' + a + '">', width: b, height: e
+                        };
+                        c.type = "image";
+                        c.promise.resolve()
+                    };
+                    if (b[c.source]) f(c.source, b[c.source].width, b[c.source].height); else {
+                        var g = new Image;
+                        g.onerror = function () {
+                            c.promise.reject("Loading image failed")
+                        };
+                        g.onload = function () {
+                            b[c.source] = {width: g.width, height: g.height};
+                            f(c.source, b[c.source].width, b[c.source].height)
+                        };
+                        g.src = c.source
+                    }
+                }
+            })
+        }
+    }), a.plugin("lightbox", "youtube", {
+        init: function (a) {
+            var c = /(\/\/.*?youtube\.[a-z]+)\/watch\?v=([^&]+)&?(.*)/, d = /youtu\.be\/(.*)/;
+            a.on("showitem.uk.lightbox",
+                function (a, f) {
+                    var g, h, m = function (a, b, c) {
+                        f.meta = {
+                            content: '<iframe src="//www.youtube.com/embed/' + a + '" width="' + b + '" height="' + c + '" style="max-width:100%;"></iframe>',
+                            width: b,
+                            height: c
+                        };
+                        f.type = "iframe";
+                        f.promise.resolve()
+                    };
+                    if ((h = f.source.match(c)) && (g = h[2]), (h = f.source.match(d)) && (g = h[1]), g) {
+                        if (b[g]) m(g, b[g].width, b[g].height); else {
+                            var r = new Image, n = !1;
+                            r.onerror = function () {
+                                b[g] = {width: 640, height: 320};
+                                m(g, b[g].width, b[g].height)
+                            };
+                            r.onload = function () {
+                                120 == r.width && 90 == r.height ? n ? (b[g] = {width: 640, height: 320},
+                                            m(g, b[g].width, b[g].height)) : (n = !0, r.src = "//img.youtube.com/vi/" + g + "/0.jpg") : (b[g] = {
+                                        width: r.width,
+                                        height: r.height
+                                    }, m(g, r.width, r.height))
+                            };
+                            r.src = "//img.youtube.com/vi/" + g + "/maxresdefault.jpg"
+                        }
+                        a.stopImmediatePropagation()
+                    }
+                })
+        }
+    }), a.plugin("lightbox", "vimeo", {
+        init: function (c) {
+            var e, d = /(\/\/.*?)vimeo\.[a-z]+\/([0-9]+).*?/;
+            c.on("showitem.uk.lightbox", function (c, f) {
+                var g, h = function (a, b, c) {
+                    f.meta = {
+                        content: '<iframe src="//player.vimeo.com/video/' + a + '" width="' + b + '" height="' + c + '" style="width:100%;box-sizing:border-box;"></iframe>',
+                        width: b, height: c
+                    };
+                    f.type = "iframe";
+                    f.promise.resolve()
+                };
+                (e = f.source.match(d)) && (g = e[2], b[g] ? h(g, b[g].width, b[g].height) : a.$.ajax({
+                        type: "GET",
+                        url: "http://vimeo.com/api/oembed.json?url=" + encodeURI(f.source),
+                        jsonp: "callback",
+                        dataType: "jsonp",
+                        success: function (a) {
+                            b[g] = {width: a.width, height: a.height};
+                            h(g, b[g].width, b[g].height)
+                        }
+                    }), c.stopImmediatePropagation())
+            })
+        }
+    }), a.plugin("lightbox", "video", {
+        init: function (c) {
+            c.on("showitem.uk.lightbox", function (c, d) {
+                var f = function (a, b, c) {
+                    d.meta = {
+                        content: '<video class="uk-responsive-width" src="' +
+                        a + '" width="' + b + '" height="' + c + '" controls></video>', width: b, height: c
+                    };
+                    d.type = "video";
+                    d.promise.resolve()
+                };
+                if ("video" == d.type || d.source.match(/\.(mp4|webm|ogv)$/i))if (b[d.source]) f(d.source, b[d.source].width, b[d.source].height); else var g = a.$('<video style="position:fixed;visibility:hidden;top:-10000px;"></video>').attr("src", d.source).appendTo("body"), p = setInterval(function () {
+                    g[0].videoWidth && (clearInterval(p), b[d.source] = {
+                        width: g[0].videoWidth,
+                        height: g[0].videoHeight
+                    }, f(d.source, b[d.source].width,
+                        b[d.source].height), g.remove())
+                }, 20)
+            })
+        }
+    }), a.lightbox.create = function (b, c) {
+        if (b) {
+            var d = [];
+            return b.forEach(function (b) {
+                d.push(a.$.extend({
+                    source: "",
+                    title: "",
+                    type: "auto",
+                    link: !1
+                }, "string" == typeof b ? {source: b} : b))
+            }), a.lightbox(a.$.extend({}, c, {group: d}))
+        }
+    }, a.lightbox
+});
+function grin(a) {
+    var f;
+    a = " " + a + " ";
+    if (document.getElementById("comment") && "textarea" == document.getElementById("comment").type) f = document.getElementById("comment"); else return !1;
+    if (document.selection) f.focus(), sel = document.selection.createRange(), sel.text = a, f.focus(); else if (f.selectionStart || "0" == f.selectionStart) {
+        var c = f.selectionEnd, b = c;
+        f.value = f.value.substring(0, f.selectionStart) + a + f.value.substring(c, f.value.length);
+        b += a.length;
+        f.focus();
+        f.selectionStart = b;
+        f.selectionEnd = b
+    } else f.value += a, f.focus()
+}
+function e_click() {
+    $("#emojis_a").click(function () {
+        $("#emojis_list").css("left", "30vw");
+        $("#emojis_list").css("opacity", "0");
+        $("#emojis_list").show();
+        $("#emojis_list").animate({left: "0", opacity: "1"})
+    });
+    $("#emojis_list td").click(function () {
+        $(this).parent().parent().parent().parent().fadeOut()
+    })
+}
+function fen_qzhai() {
+    if ("0" == $(".favorite").attr("cl")) {
+        for (var a = 100, f = 1; 8 > f; f++)$(".fen li:nth-child(" + f + ")").css("transform", "rotate(" + a + "deg)"), $(".fen li:nth-child(" + f + ")").children().children().css("transform", "rotate(-" + a + "deg)"), $(".fen li:nth-child(" + f + ")").children().animate({fontSize: "1.4rem"}, 100, function () {
+            $(this).css("opacity", "1");
+            $(this).css("transform", "translate3d(0px, 90px, 0px)")
+        }), a += 25;
+        $(".favorite").attr("cl", "1");
+        $("#index").mousemove(function (a) {
+            var b = (event || a).clientX - this.offsetLeft,
+                f = $(this).width() / 2;
+            b < f ? $(".fen li").children().animate({}, function () {
+                    $(this).css("transform", "translate3d(" + .102 * -(f - b) + "px, 90px, 0px)")
+                }) : b > f && $(".fen li").children().animate({}, function () {
+                    $(this).css("transform", "translate3d(" + .04 * b + "px, 90px, 0px)")
+                })
+        }).mouseout(function () {
+            $(".fen li").children().animate({}, function () {
+                $(this).css("transform", "translate3d(0px, 90px, 0px)")
+            })
+        })
+    } else if ("1" == $(".favorite").attr("cl")) {
+        a = 100;
+        for (f = 1; 8 > f; f++)$(".fen li:nth-child(" + f + ")").children().animate({}, 400,
+            function () {
+                $(this).css("transform", "translate3d(0px, 0px, 0px)");
+                $(this).css("opacity", "0")
+            }), a += 25;
+        $(".favorite").attr("cl", "0")
+    }
+}
+$.fn.postLike = function () {
+    if ($(this).hasClass("done")) $(this).animate({opacity: "0"}, 200), $(this).css("color", "#dd0055"), $(this).animate({opacity: "1"}), $(this).children("i").animate({fontSize: "1.3rem"}, 200, fen_qzhai()), $(this).children("i").animate({fontSize: "2.3rem"}, 150), $(this).children("i").animate({fontSize: "1.7rem"}, 150), $(this).children("i").animate({fontSize: "2rem"}, 100); else {
+        $(this).addClass("done");
+        var a = $(this).data("id"), f = $(this).data("action"), c = $(this).children("i");
+        $.post(ajaxhome + "/wp-admin/admin-ajax.php",
+            {action: "bigfa_like", um_id: a, um_action: f}, function (a) {
+                $(c).attr("title", a + "\u4eba\u559c\u6b22")
+            });
+        $(this).animate({opacity: "0"}, 200);
+        $(this).css("color", "#dd0055");
+        $(this).animate({opacity: "1"});
+        $(this).children("i").animate({fontSize: "1.3rem"}, 200, function () {
+            $(".em03").animate({opacity: ".87", top: "-36px", left: "10px", fontSize: ".5rem"}, function () {
+                $(".em02").animate({opacity: ".69", top: "-29px", left: "22px", fontSize: ".7rem"}, 200);
+                $(".em02").animate({opacity: "0", fontSize: "1rem"});
+                $(".em04").animate({
+                    opacity: ".94",
+                    top: "-22px", left: "-25px", fontSize: ".7rem"
+                }, 400);
+                $(".em04").animate({opacity: "0", fontSize: "1rem"})
+            });
+            $(".em03").animate({opacity: "0", fontSize: "1rem"});
+            $(".em01").animate({opacity: ".49", top: "-35px", left: "-30px", fontSize: ".8rem"}, 500);
+            $(".em01").animate({opacity: "0", fontSize: "1rem"});
+            $(".em05").animate({opacity: ".74", top: "-20px", left: "-21px", fontSize: ".9rem"}, 200);
+            $(".em05").animate({opacity: "0", fontSize: "1rem"})
+        });
+        $(this).children("i").animate({fontSize: "2.3rem"}, 150);
+        $(this).children("i").animate({fontSize: "1.7rem"},
+            150, fen_qzhai());
+        $(this).children("i").animate({fontSize: "2rem"}, 100);
+        return !1
+    }
+};
+$(document).on("click", ".favorite i", function () {
+    $(this).parent().postLike()
+});
+$(window).scroll(function () {
+    50 < $(this).scrollTop() ? $(".top").fadeIn() : $(".top").fadeOut();
+    $(this).scrollTop() >= $(document).height() - $(window).height() ? $(".icon_link").css("bottom", "20px") : $(".icon_link").css("bottom", "-80px")
+});
+$(function () {
+    $("#op_m").click(function () {
+        "lock" != $("#op_hed").attr("lock") ? ($("#op_hed").attr("lock", "lock"), $("#op_hed").animate({
+                right: "250px",
+                left: "-250px"
+            }), $(".op").animate({width: "260px"}), $("#op_m").removeClass("uk-icon-music"), $("#op_m").addClass("uk-icon-close")) : "lock" == $("#op_hed").attr("lock") && ($("#op_hed").attr("lock", "open"), $("#op_hed").animate({
+                right: "0px",
+                left: "0px"
+            }), $(".op").animate({width: "80%"}), $("#op_m").removeClass("uk-icon-close"), $("#op_m").addClass("uk-icon-music"))
+    });
+    $("#s_s a").click(function () {
+        "#" != $(this).attr("href") && $("#s_s").click()
+    })
+});
+function archive() {
+    $(".car-collapse").find(".car-monthlisting").hide();
+    $(".car-collapse").find(".car-monthlisting:first").show();
+    $(".car-collapse").find(".car-yearmonth").click(function () {
+        $(this).next("ul").slideToggle();
+        $(this).parent("div").next("ul").slideToggle()
+    });
+    $(".car-collapse").find(".car-toggler").click(function () {
+        "\u5c55\u5f00\u6240\u6709\u6708\u4efd" == jQuery(this).text() ? ($(this).parent(".car-container").find(".car-monthlisting").show(), $(this).text("\u6298\u53e0\u6240\u6709\u6708\u4efd")) :
+            ($(this).parent(".car-container").find(".car-monthlisting").hide(), $(this).text("\u5c55\u5f00\u6240\u6709\u6708\u4efd"));
+        return !1
+    })
+}
+function comments() {
+    $("#submit").click(function () {
+        $("#comment").focus(function () {
+            $(this).removeClass("uk-form-danger");
+            $("#comment").attr("placeholder", "\u5185\u5bb9...")
+        });
+        $("#author").focus(function () {
+            $(this).removeClass("uk-form-danger");
+            $(this).attr("placeholder", "\u6635\u79f0*")
+        });
+        $("#email").focus(function () {
+            $(this).removeClass("uk-form-danger");
+            $(this).attr("placeholder", "\u90ae\u7bb1*")
+        });
+        if ("" == $("#comment").val())return $("#comment").addClass("uk-form-danger"), $("#comment").attr("placeholder",
+            "\u5185\u5bb9\u4e0d\u80fd\u4e3a\u7a7a"), UIkit.notify("<i class='uk-icon-remove'></i> \u5185\u5bb9\u4e0d\u80fd\u4e3a\u7a7a", {
+            pos: "bottom-right",
+            status: "danger"
+        }), !1;
+        if ("" == $("#author").val())return $("#author").addClass("uk-form-danger"), $("#author").attr("placeholder", "\u6635\u79f0\u4e0d\u80fd\u4e3a\u7a7a"), UIkit.notify("<i class='uk-icon-remove'></i> \u6635\u79f0\u4e0d\u80fd\u4e3a\u7a7a", {
+            pos: "bottom-right",
+            status: "danger"
+        }), !1;
+        if ("" == $("#email").val())return $("#email").addClass("uk-form-danger"),
+            $("#email").attr("placeholder", "\u90ae\u7bb1\u4e0d\u80fd\u4e3a\u7a7a"), UIkit.notify("<i class='uk-icon-remove'></i> \u90ae\u7bb1\u4e0d\u80fd\u4e3a\u7a7a", {
+            pos: "bottom-right",
+            status: "danger"
+        }), !1
+    });
+    $("article.uk-comment").mousemove(function () {
+        $(this).children("h6").children("span").show()
+    }).mouseout(function () {
+        $(this).children("h6").children("span").hide()
+    })
+}
+function link_target() {
+    $("#link_qzhai").children().children().attr("target", "_blank")
+}
+var ajaxcontent = "content", ajaxsearch_class = "s", ajaxloading_error_code = '<div id="index" class="bs" style="width:100%; height:80vh"><h4>\u52a0\u8f7d\u5931\u8d25</h4> <article id="article" class="uk-article"><p>\u52a0\u8f7d\u5931\u8d25 ...</p></article></div>', ajaxreloadDocumentReady = !1, ajaxtrack_analytics = !1, ajaxscroll_top = !0, ajaxisLoad = !1, ajaxstarted = !1, ajaxsearchPath = null, ajaxua = jQuery.browser;
+jQuery(document).ready(function () {
+    ajaxloadPageInit("");
+    $("#article img").parent("a").attr("data-uk-lightbox", "{group:'group_qzhai'}");
+    archive();
+    comments();
+    UIkit.sticky($("#ulsid"), {});
+    $(".rewards").click(function () {
+        UIkit.modal("#reward").show()
+    });
+    link_target();
+    e_click();
+    app()
+});
+window.onpopstate = function (a) {
+    !0 === ajaxstarted && 1 == ajaxcheck_ignore(document.location.toString()) && ajaxloadPage(document.location.toString(), 1)
+};
+function ajaxloadPageInit(a) {
+    jQuery(a + "a").click(function (a) {
+        if (0 <= this.href.indexOf(ajaxhome) && 1 == ajaxcheck_ignore(this.href)) {
+            a.preventDefault();
+            this.blur();
+            try {
+                ajaxclick_code(this)
+            } catch (c) {
+            }
+            ajaxloadPage(this.href)
+        }
+    });
+    jQuery("." + ajaxsearch_class).each(function (a) {
+        jQuery(this).attr("action") && (ajaxsearchPath = jQuery(this).attr("action"), jQuery(this).submit(function () {
+            submitSearch(jQuery(this).serialize());
+            return !1
+        }))
+    });
+    jQuery("." + ajaxsearch_class).attr("action")
+}
+function ajaxloadPage(a, f, c) {
+    ajaxisLoad || (1 == ajaxscroll_top && jQuery("html,body").animate({scrollTop: 0}, 1500), ajaxstarted = ajaxisLoad = !0, nohttp = a.replace("http://", "").replace("https://", ""), firstsla = nohttp.indexOf("/"), pathpos = a.indexOf(nohttp), path = a.substring(pathpos + firstsla), 1 != f && "function" == typeof window.history.pushState && history.pushState({foo: 1E3 + 1001 * Math.random()}, "ajax page loaded...", path), jQuery("#" + ajaxcontent), jQuery("#" + ajaxcontent).append(ajaxloading_code), jQuery("#index").children().fadeTo("slow",
+        0, function () {
+        }), jQuery("#" + ajaxcontent).fadeTo("slow", 1, function () {
+        jQuery("#" + ajaxcontent).fadeIn("slow", function () {
+            jQuery.ajax({
+                type: "GET", url: a, data: c, cache: !1, dataType: "html", success: function (a) {
+                    ajaxisLoad = !1;
+                    datax = a.split("<title>");
+                    titlesx = a.split("</title>");
+                    if (2 == datax.length || 2 == titlesx.length) a = a.split("<title>")[1], titles = a.split("</title>")[0], jQuery(document).attr("title", jQuery("<div/>").html(titles).text());
+                    1 == ajaxtrack_analytics && "undefined" != typeof _gaq && (c = "undefined" == typeof c ? "" :
+                        "?" + c, _gaq.push(["_trackPageview", path + c]));
+                    a = a.split('id="' + ajaxcontent + '"')[1];
+                    a = a.substring(a.indexOf(">") + 1);
+                    for (var f = 1, e = ""; 0 < f;) {
+                        temp = a.split("</div>")[0];
+                        i = 0;
+                        for (pos = temp.indexOf("<div"); -1 != pos;)i++, pos = temp.indexOf("<div", pos + 1);
+                        f = f + i - 1;
+                        e = e + a.split("</div>")[0] + "</div>";
+                        a = a.substring(a.indexOf("</div>") + 6)
+                    }
+                    document.getElementById(ajaxcontent).innerHTML = e;
+                    jQuery("#" + ajaxcontent).css("position", "absolute");
+                    jQuery("#" + ajaxcontent).css("left", "20000px");
+                    jQuery("#" + ajaxcontent).show();
+                    ajaxloadPageInit("#" +
+                        ajaxcontent + " ");
+                    1 == ajaxreloadDocumentReady && jQuery(document).trigger("ready");
+                    try {
+                        ajaxreload_code()
+                    } catch (d) {
+                    }
+                    jQuery("#index").children().hide();
+                    jQuery("#" + ajaxcontent).css("position", "");
+                    jQuery("#" + ajaxcontent).css("left", "");
+                    jQuery("#index").children().fadeIn()
+                }, error: function (a, c, e) {
+                    ajaxisLoad = !1;
+                    document.title = "Error loading requested page!";
+                    document.getElementById(ajaxcontent).innerHTML = ajaxloading_error_code
+                }
+            })
+        })
+    }))
+}
+function submitSearch(a) {
+    ajaxisLoad || ajaxloadPage(ajaxsearchPath, 0, a)
+}
+function ajaxcheck_ignore(a) {
+    for (var f in ajaxignore)if (0 <= a.indexOf(ajaxignore[f]))return !1;
+    return !0
+}
+function ajaxreload_code() {
+    $("#article img").parent("a").attr("data-uk-lightbox", "{group:'group_qzhai'}");
+    archive();
+    comments();
+    UIkit.sticky($("#ulsid"), {});
+    $(".rewards").click(function () {
+        UIkit.modal("#reward").show()
+    });
+    link_target();
+    e_click();
+    app()
+}
+function ajaxclick_code(a) {
+    jQuery("ul.nav li").each(function () {
+        jQuery(this).removeClass(" uk-active")
+    });
+    jQuery(a).parents("li").addClass("uk-active")
+};
+//# sourceMappingURL=blog.js.map

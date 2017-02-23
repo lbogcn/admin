@@ -6,9 +6,13 @@ requirejs.config({
         'utils': '/js/utils',
         'ajax': '/js/ajax',
 
+        // UE 编辑器
         'ueditor': '/plugins/ueditor/ueditor.requirejs.min',
         'ueditor-lang': '/plugins/ueditor/lang/zh-cn/zh-cn',
-        'zeroclipboard': '/plugins/ueditor/third-party/zeroclipboard/ZeroClipboard.min'
+        'zeroclipboard': '/plugins/ueditor/third-party/zeroclipboard/ZeroClipboard.min',
+
+        'datetimepicker': '/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
+        'datetimepicker-lang': '/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN'
     },
     shim: {
         'bootstrap': {
@@ -21,8 +25,11 @@ requirejs.config({
         'ueditor': {
             deps: ['/plugins/ueditor/ueditor.config.js']
         },
-        'ueditor-lang':{
+        'ueditor-lang': {
             deps: ['ueditor']
+        },
+        'datetimepicker-lang': {
+            deps: ['datetimepicker']
         }
     }
 });

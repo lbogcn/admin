@@ -33,6 +33,7 @@
                     <th>作者</th>
                     <th>类型</th>
                     <th>状态</th>
+                    <th>创作时间</th>
                     <th>创建时间</th>
                     <th>操作</th>
                 </tr>
@@ -94,6 +95,7 @@ require(['jquery', 'restful'], function($, restful) {
         $tr.append('<td>' + obj.author + '</td>');
         $tr.append('<td>' + obj.type_text + '</td>');
         $tr.append($('<td></td>').append($statusLabel));
+        $tr.append('<td>' + obj.write_time.toString().substr(0, 10) + '</td>');
         $tr.append('<td>' + obj.created_at + '</td>');
         $tr.append($option);
 

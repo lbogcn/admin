@@ -64,7 +64,9 @@
     </nav>
 
     <div id="page-wrapper">
-        @yield('page-wrapper')
+        <div class="container-fluid">
+            @yield('page-wrapper')
+        </div>
     </div>
 </div>
 
