@@ -75,7 +75,6 @@ class ColumnController extends Controller
     private function detailList($column, $page)
     {
         $pageSize = 15;
-
         $paginate = ArticleColumnsRelation::getColumnArticles($column->id, $page, $pageSize);
         $articles = array();
 

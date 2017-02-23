@@ -18,7 +18,7 @@ class HomeController extends Controller
     {
         $key = CacheName::PAGE_HOME[0];
 
-        if (!\Cache::has($key)) {
+        if (!\Cache::has($key) || config('app.debug')) {
             $data = array(
                 'pageName' => get_option('blog_subtitle'),
                 'articles' => Article::getHomeArticles(),

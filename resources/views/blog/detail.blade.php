@@ -6,7 +6,7 @@
             <h1 class="uk-article-title">{{$article['title']}}</h1>
             <a href="javascript:void(0);">{{$article['author']}}</a>
             <time class="uk-article-meta">
-                <i class="uk-icon-calendar"></i>{{mb_substr($article['created_at'], 0, 10)}}
+                <i class="uk-icon-calendar"></i>{{mb_substr($article['write_time'], 0, 10)}}
             </time>
             <br>
             @foreach($article['contents'] as $content)

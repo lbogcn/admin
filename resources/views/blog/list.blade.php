@@ -9,7 +9,7 @@
                     <h1><a href="{{url('blog/' . $article['id'])}}">{{$article['title']}}</a></h1>
                     <p>
                         {{$article['excerpt']}}
-                        <time><br>{{mb_substr($article['created_at'], 0, 10)}}</time>
+                        <time><br>{{mb_substr($article['write_time'], 0, 10)}}</time>
                     </p>
                 </article>
             @empty

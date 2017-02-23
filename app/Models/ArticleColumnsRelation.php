@@ -32,9 +32,10 @@ class ArticleColumnsRelation extends \Eloquent
             return $page;
         });
 
-        return self::with('article')
+        return self::with(array('article' => function($query) {
+                $query->orderBy('write_time', 'desc');
+            }))
             ->where('column_id', $columnId)
-            ->orderBy('article_id', 'desc')
             ->paginate($pageSize);
     }
 

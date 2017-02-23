@@ -17,12 +17,12 @@ class BlogController extends Controller
     {
         $key = CacheName::PAGE_BLOG_LIST[0];
 
-        if (!\Cache::has($key)) {
+        if (!\Cache::has($key) || config('app.debug')) {
             $articles = Article::getAllArticles();
             $groups = array();
 
             foreach ($articles as $article) {
-                $date = mb_substr($article['created_at'], 0, 7);
+                $date = mb_substr($article['write_time'], 0, 7);
                 if (!isset($groups[$date])) {
                     $groups[$date] = array();
                 }
@@ -54,7 +54,7 @@ class BlogController extends Controller
         $key = \Cache::getPrefix() . CacheName::PAGE_ARTICLE[0];
         $redis = \RedisClient::connection();
 
-        if (!$redis->hexists($key, $id)) {
+        if (!$redis->hexists($key, $id) || config('app.debug')) {
             $article = Article::with('contents', 'tags')
                 ->where('status', Article::STATUS_RELEASE)
                 ->findOrFail($id);
