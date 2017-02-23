@@ -17,7 +17,7 @@ class BlogController extends Controller
     {
         $key = CacheName::PAGE_BLOG_LIST[0];
 
-        if (!\Cache::has($key)) {
+        if (!\Cache::has($key) || config('app.debug')) {
             $articles = Article::getAllArticles();
             $groups = array();
 
@@ -54,7 +54,7 @@ class BlogController extends Controller
         $key = \Cache::getPrefix() . CacheName::PAGE_ARTICLE[0];
         $redis = \RedisClient::connection();
 
-        if (!$redis->hexists($key, $id)) {
+        if (!$redis->hexists($key, $id) || config('app.debug')) {
             $article = Article::with('contents', 'tags')
                 ->where('status', Article::STATUS_RELEASE)
                 ->findOrFail($id);
