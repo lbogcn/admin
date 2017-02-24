@@ -19,7 +19,7 @@
             <div class="panel panel-default" id="profile">
                 <div class="row">
                     <div class="col-xs-8 col-xs-offset-2">
-                        <img src="{{get_option('avatar')}}" class="img-circle img-responsive">
+                        <img src="{{get_option('avatar')}}" class="img-circle img-responsive center-block avatar">
                     </div>
                 </div>
 
@@ -56,6 +56,13 @@
                             <a href="{{$nav['url']}}" class="list-group-item">{{$nav['column_name']}}</a>
                         @endif
                     @endforeach
+                </div>
+            </div>
+
+            <div class="row copyright hidden-xs">
+                <div class="col-xs-12">
+                    <p class="text-center">&copy; lenbo {{date('Y')}}</p>
+                    <p class="text-center">{{get_option('icp_number')}}</p>
                 </div>
             </div>
         </div>
