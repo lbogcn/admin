@@ -24,4 +24,5 @@ elixir(function(mix) {
 
     mix.styles('sb-admin-2.css');
     mix.styles('style.css');
+    mix.less('blog/style.less', 'public/css/style.css');
 });
