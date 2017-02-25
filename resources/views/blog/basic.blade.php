@@ -82,7 +82,7 @@
 
         {{--右侧广告--}}
         <div class="col-md-2 hidden-sm hidden-xs">
-            右侧广告
+            {{--右侧广告--}}
         </div>
     </div>
 </div>
