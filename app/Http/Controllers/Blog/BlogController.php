@@ -19,24 +19,14 @@ class BlogController extends Controller
 
         if (!\Cache::has($key) || config('app.debug')) {
             $articles = Article::getAllArticles();
-            $groups = array();
-
-            foreach ($articles as $article) {
-                $date = mb_substr($article['write_time'], 0, 7);
-                if (!isset($groups[$date])) {
-                    $groups[$date] = array();
-                }
-
-                $groups[$date][] = $article;
-            }
 
             $data = array(
-                'pageName' => '文章',
-                'total' => count($articles),
-                'groups' => $groups
+                'pageName' => '所有文章',
+                'articles' => $articles,
+                'title' => '所有文章'
             );
 
-            $page = view('blog.group', $data)->render();
+            $page = view('blog.list', $data)->render();
 
             \Cache::forever($key, $page);
         }

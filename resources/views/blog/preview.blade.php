@@ -1,25 +1,29 @@
 @extends('blog.basic')
 
 @section('container')
-    <div id="index" class="bs">
-        <article id="article" class="uk-article">
-            <h1 class="uk-article-title">{{$article['title']}}</h1>
-            <time class="uk-article-meta"><i class="uk-icon-calendar"></i>{{date('Y-m-d H:i:s')}}
-            </time>
-            <br>
-            {!! $article['content'] !!}
+    <div class="panel panel-default" id="center">
+        <div class="panel-body">
+            <div id="article">
+                <h1 class="title">{{$article['title']}}</h1>
+                <p>
+                    <a href="javascript:void(0);" class="author">{{$article['author']}}</a>
+                    <time class="time">{{date('Y-m-d')}}</time>
+                </p>
+                <br>
 
-            <div class="tags uk-clearfix">
-                @if(isset($article['tag']) && count($article['tag']) > 0)
-                <div class="tags uk-float-left">
-                    <i class="uk-icon-tags"></i>
-                    @foreach($article['tag'] as $tag)
-                        <a href="javascript:void(0);" rel="tag">{{$tag}}</a>
-                    @endforeach
+                <div class="content">
+                    {!! $article['content'] !!}
                 </div>
+
+                @if(isset($article['tag']) && count($article['tag']) > 0)
+                    <div class="tags">
+                        <span class="glyphicon glyphicon-tags"></span>
+                        @foreach($article['tag'] as $tag)
+                            <a href="javascript:void(0);" class="tag">{{$tag}}</a>
+                        @endforeach
+                    </div>
                 @endif
-                <div class="uk-float-right"></div>
             </div>
-        </article>
+        </div>
     </div>
 @endsection

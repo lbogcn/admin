@@ -1,13 +1,17 @@
 @import "overwrite";
 
+html,
+body{
+  background: #f5f5f5;
+}
+
 #main{
   margin-top: 30px;
 
   #profile{
-    padding-top: 15px;
-
     .avatar{
       max-height: 120px;
+      margin-top: 15px;
     }
 
     .btn-stat{
@@ -55,6 +59,107 @@
         color: #fff;
         transform: translate(0,0);
         transition:all .2s ease-in 0s;
+      }
+    }
+  }
+
+  #center{
+    .header {
+      font-size: 16px;
+      margin: 10px;
+      color: #aaa;
+    }
+
+    .article{
+      border-bottom: 1px #eee solid;
+      padding-bottom: 25px;
+      padding-top: 5px;
+
+      &:last-child{
+        border-bottom: 0;
+      }
+
+      &>.title>a{
+        color: #333;
+
+        &:hover{
+          color: #005ab2;
+          text-decoration: none;
+        }
+      }
+
+      &>.excerpt{
+        font-size: 14px;
+        margin: 0;
+        opacity: .8;
+        line-height: 24px;
+        letter-spacing: 1px;
+      }
+
+      &>.time{
+        line-height: 35px;
+        opacity: .6;
+        font-size: 14px;
+      }
+    }
+
+    #article{
+      .title{
+        font-size: 24px;
+        line-height: 30px;
+      }
+
+      .time{
+        font-size: 12px;
+        line-height: 18px;
+        color: #999;
+      }
+
+      .content>p{
+        font-size: 15px;
+        line-height: 1.8em;
+        margin-bottom: 20px;
+        letter-spacing: 1px;
+      }
+
+      .tags{
+        margin-top: 30px;
+
+        .tag,
+        .glyphicon{
+          color: #777;
+          padding-right: 5px;
+        }
+      }
+    }
+
+    &>.panel-body{
+      min-height: 450px;
+
+      .column{
+        color: #777;
+        padding: 0 10px;
+        line-height: 30px;
+      }
+
+      #tags {
+        text-align: center;
+
+        .tag{
+          padding: 10px 15px;
+          color: #999;
+          border-radius:5px;
+
+          &:hover{
+            background-color: #44cef6;
+            border-color: #fff;
+            z-index: 2;
+            color: #fff;
+            transform: translate(0,0);
+            transition:all .2s ease-in 0s;
+            text-decoration: none;
+          }
+        }
       }
     }
   }
