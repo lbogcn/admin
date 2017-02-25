@@ -18,7 +18,6 @@ elixir(function(mix) {
     mix.scripts('require-config.js');
     mix.scripts('utils.js');
     mix.scripts('ajax.js');
-    mix.scripts('blog.js');
     mix.scripts('admin/sb-admin-2.js', 'public/js/admin');
     mix.scripts('admin/restful.js', 'public/js/admin');
 
