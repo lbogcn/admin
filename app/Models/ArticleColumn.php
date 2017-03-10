@@ -28,7 +28,7 @@ class ArticleColumn extends \Eloquent
     const TYPE_PAGE = 2;
 
     protected $fillable = [
-        'column_name', 'type', 'alias', 'weight', 'is_show'
+        'column_name', 'type', 'alias', 'weight', 'is_show', 'parent_id'
     ];
 
     protected $appends = [

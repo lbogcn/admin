@@ -12,12 +12,18 @@ class ColumnController extends Controller
 
     /**
      * 列表
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
+        $where = array();
+        if ($request->has('parent_id')) {
+            $where['parent_id'] = (int)$request->input('parent_id');
+        }
+
         $data = array(
-            'paginate' => ArticleColumn::paginate(),
+            'paginate' => ArticleColumn::where($where)->paginate(),
         );
 
         return view('admin.article-manage.column.index', $data);
@@ -36,9 +42,10 @@ class ColumnController extends Controller
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
             'is_show' => ['required', 'in:1,2'],
             'type' => ['required', 'in:1,2'],
+            'parent_id' => ['required', 'numeric', 'min:0'],
         ));
 
-        ArticleColumn::store($request->only(['column_name', 'alias', 'weight', 'is_show', 'type']));
+        ArticleColumn::store($request->only(['column_name', 'alias', 'weight', 'is_show', 'type', 'parent_id']));
 
         return ApiResponse::buildFromArray();
     }
@@ -57,9 +64,10 @@ class ColumnController extends Controller
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
             'is_show' => ['required', 'in:1,2'],
             'type' => ['required', 'in:1,2'],
+            'parent_id' => ['required', 'numeric', 'min:0'],
         ));
 
-        $data = $request->only(['column_name', 'alias', 'weight', 'is_show', 'type']);
+        $data = $request->only(['column_name', 'alias', 'weight', 'is_show', 'type', 'parent_id']);
 
         ArticleColumn::updateById($id, $data);
 

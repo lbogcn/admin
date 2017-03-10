@@ -28,6 +28,7 @@
                 <thead>
                 <tr>
                     <th>ID</th>
+                    <th>父ID</th>
                     <th>别名</th>
                     <th>栏目名称</th>
                     <th>类型</th>
@@ -61,6 +62,19 @@
                 </div>
                 <div class="modal-body">
                     <form class="form-horizontal">
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">父级</label>
+                            <div class="col-sm-9">
+                                <select name="parent_id" class="form-control">
+                                    <option value="0">0-顶级</option>
+                                    <option value="{{Request::input('parent_id', 0)}}">{{Request::input('parent_id', 0)}}-当前</option>
+                                    @foreach ($paginate as $column)
+                                        <option value="{{$column->id}}">{{$column->id}}-{{$column->column_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label class="col-xs-3 control-label">别名</label>
                             <div class="col-sm-9">
@@ -126,6 +140,7 @@ require(['jquery', 'restful'], function($, restful) {
         });
 
         $modal.find('.modal-title').html(title);
+        $modal.find('[name=parent_id]').find('option[value=' + defObj.parent_id + ']').attr('selected', true);
         $modal.find('[name=column_name]').val(defObj.column_name || '');
         $modal.find('[name=type]').find('option[value=' + defObj.type + ']').attr('selected', true);
         $modal.find('[name=alias]').val(defObj.alias || '');
@@ -169,11 +184,13 @@ require(['jquery', 'restful'], function($, restful) {
     $.each(data, function(i, obj) {
         var $tr = $('<tr></tr>');
         var $option = $('<td>\
+                <a href="?parent_id=' + obj.id + '">子栏目</a>\
                 <a href="javascript:void(0);" class="btn-edit">编辑</a>\
                 <a href="javascript:void(0);" class="btn-delete">删除</a>\
                 </td>');
 
         $tr.append('<td>' + obj.id + '</td>');
+        $tr.append('<td>' + obj.parent_id + '</td>');
         $tr.append('<td>' + obj.alias + '</td>');
         $tr.append('<td>' + obj.column_name + '</td>');
         $tr.append('<td>' + obj.type_text + '</td>');
