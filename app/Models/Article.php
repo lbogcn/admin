@@ -200,6 +200,7 @@ class Article extends \Eloquent
         return self::where('status', self::STATUS_RELEASE)
             ->where('type', self::TYPE_ARTICLE)
             ->orderBy('write_time', 'desc')
+            ->orderBy('id', 'desc')
             ->limit($pageSize)
             ->get();
     }
@@ -213,6 +214,7 @@ class Article extends \Eloquent
         return self::where('status', self::STATUS_RELEASE)
             ->where('type', self::TYPE_ARTICLE)
             ->orderBy('write_time', 'desc')
+            ->orderBy('id', 'desc')
             ->get();
     }
 
