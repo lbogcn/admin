@@ -20,6 +20,7 @@ elixir(function(mix) {
     mix.scripts('ajax.js');
     mix.scripts('admin/sb-admin-2.js', 'public/js/admin');
     mix.scripts('admin/restful.js', 'public/js/admin');
+    mix.scripts('admin/article.js', 'public/js/admin');
 
     mix.styles('sb-admin-2.css');
     mix.styles('style.css');

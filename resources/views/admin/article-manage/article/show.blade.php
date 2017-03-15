@@ -82,7 +82,39 @@
                                     <div class="form-group">
                                         <div class="pull-left"><label class="control-label">写作时间</label></div>
                                         <div class="col-xs-8">
-                                            <input class="form_datetime form-control" name="write_time" type="text" value="{{mb_substr($model->write_time, 0, 10)}}" readonly style="width: 100px;">
+                                            <input class="form_datetime form-control datetimepicker" name="write_time" type="text" value="{{mb_substr($model->write_time, 0, 10)}}" readonly style="width: 100px;">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="pull-left"><label class="control-label">封面</label></div>
+                                        <div class="col-xs-8">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="cover_type" value="1" checked>无
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="cover_type" value="2">小图
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="cover_type" value="3">大图
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="hide" id="cover-box">
+                                        <div class="form-group">
+                                            <div class="pull-left"><label class="control-label">&nbsp;</label></div>
+                                            <div class="col-xs-10">
+                                                <button class="btn btn-default" id="btn-cover-choose" type="button">从正文中选择</button>
+                                                <button class="btn btn-default" id="btn-cover-upload" type="button">重新上传</button>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="pull-left"><label class="control-label">&nbsp;</label></div>
+                                            <div class="col-xs-10">
+                                                <img src="" class="img-responsive">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -156,102 +188,16 @@
 <script type="text/plain" id="uploadToken">{{$uploadToken}}</script>
 <script type="text/plain" id="jsonTags">{!! json_encode(array_column($model->tags->toArray(), 'tag')) !!}</script>
 <script>
-    require(['jquery', 'restful', 'ueditor', 'zeroclipboard', 'datetimepicker', 'datetimepicker-lang', 'ueditor-lang'], function($, restful, UE, zcl) {
-        window.ZeroClipboard = zcl;
-        window.uploadToken = '{{$uploadToken}}';
-        var ue = UE.getEditor('editor');
-
-        $('[name=write_time]').datetimepicker({
-            format: 'yyyy-mm-dd',
-            language: 'zh-CN',
-            minView: 2,
-            maxView: 'year',
-            autoclose: true,
-            todayBtn: true,
-            todayHighlight: true,
-            weekStart: 0
-        });
-
-        // 添加标签
-        function addTag(tag) {
-            if (!tag) {
-                return;
-            }
-
-            var exists = false;
-            $('.tag', '#tagBox').each(function() {
-                if ($(this).data('tag') == tag) {
-                    exists = true;
-                    return false;
-                }
-            });
-
-            if (!exists) {
-                var $tag = $('<div class="tag pull-left" style="margin-right: 5px;">\
-                    <span class="glyphicon glyphicon-remove-sign"></span>\
-                    <a href="javascript:void(0);"></a>\
-                    <input type="hidden" name="tag[]" role="tag">\
-                    </div>');
-
-                $tag.attr('data-tag', tag).data('tag', tag);
-                $tag.find('a').html(tag);
-                $tag.find('[role=tag]').val(tag);
-                $('#tagBox').append($tag);
-                $tag.find('.glyphicon-remove-sign').click(function() {
-                    $tag.remove();
-                });
-            }
-        }
-
-        // 添加标签按钮
-        $('#btnAddTag').click(function() {
-            var tags = $('#iptTags').val().split(',');
-            $('#iptTags').val('');
-            for (var i in tags) {
-                addTag(tags[i]);
-            }
-        });
-
-        // 显示隐藏常用标签
-        $('#btnAllTagBox').click(function() {
-            if ($('#allTagBox').hasClass('hide')) {
-                $('#allTagBox').removeClass('hide');
-            } else {
-                $('#allTagBox').addClass('hide');
-            }
-        });
-
-        // 选择常用标签
-        $('.tag', '#allTagBox').click(function() {
-            addTag($(this).html());
-        });
-
+    require(['jquery', 'restful', 'article'], function($, restful, article) {
         // 提交
         $('#btnSubmit').click(function() {
             restful.put('/article-manage/article/{{$model->id}}', $('#dataForm').serialize());
         });
 
-        // 预览
-        $('#btnPreview').click(function() {
-            var $form = $('<form class="hide" action="/article-manage/article/preview" target="_blank" method="post">\
-                    <input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">\
-                </form>');
-
-            $.each($('#dataForm').serializeArray(), function(i, obj) {
-                var $input = $('<input type="text">');
-                $input.val(obj.value);
-                $input.attr('name', obj.name);
-                $form.append($input);
-            });
-
-            $('body').append($form);
-            $form.submit();
-            $form.remove();
-        });
-
+        // 加载已选标签
         var tags = JSON.parse($('#jsonTags').html());
         for (var i in tags) {
-            addTag(tags[i]);
+            article.addTag(tags[i]);
         }
     });
 </script>
