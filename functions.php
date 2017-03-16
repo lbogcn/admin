@@ -23,3 +23,15 @@ function cdn($path) {
 
     return '//' . config('domain.cdn') . $separator . $path;
 }
+
+/**
+ * 生成字符串摘要
+ * @param $str
+ * @param $len
+ * @return string
+ */
+function str_excerpt($str, $len) {
+    $str = trim(strip_tags($str));
+
+    return str_limit($str, $len);
+}
