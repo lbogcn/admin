@@ -58,6 +58,8 @@ class ArticleController extends Controller
     {
         $status = implode(',', [Article::STATUS_RELEASE, Article::STATUS_DRAFT]);
         $type = implode(',', [Article::TYPE_ARTICLE, Article::TYPE_PAGE]);
+        $coverType = implode(',', [Article::COVER_TYPE_NONE, Article::COVER_TYPE_SMALL, Article::COVER_TYPE_BIG]);
+        $coverUrlRequire = implode(',', [Article::COVER_TYPE_SMALL, Article::COVER_TYPE_BIG]);
         $this->validate($request, array(
             'title' => ['required', 'max:30'],
             'author' => ['required', 'max:12'],
@@ -66,10 +68,12 @@ class ArticleController extends Controller
             'type' => ['required', "in:{$type}"],
             'tag' => ['array'],
             'column' => ['array'],
-            'write_time' => ['required', 'date_format:Y-m-d']
+            'write_time' => ['required', 'date_format:Y-m-d'],
+            'cover_type' => ['required', "in:{$coverType}"],
+            'cover_url' => ["required_if:cover_type,{$coverUrlRequire}"]
         ));
 
-        $data = $request->only(['title', 'status', 'type', 'author', 'write_time']);
+        $data = $request->only(['title', 'status', 'type', 'author', 'write_time', 'cover_type', 'cover_url']);
         $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
         $data['excerpt'] = str_excerpt($request->input('content'), 250);
         $column = $request->input('column');
@@ -140,6 +144,8 @@ class ArticleController extends Controller
         $model = Article::findOrFail($id);
         $status = implode(',', [Article::STATUS_RELEASE, Article::STATUS_DRAFT]);
         $type = implode(',', [Article::TYPE_ARTICLE, Article::TYPE_PAGE]);
+        $coverType = implode(',', [Article::COVER_TYPE_NONE, Article::COVER_TYPE_SMALL, Article::COVER_TYPE_BIG]);
+        $coverUrlRequire = implode(',', [Article::COVER_TYPE_SMALL, Article::COVER_TYPE_BIG]);
         $this->validate($request, array(
             'title' => ['required', 'max:30'],
             'author' => ['required', 'max:12'],
@@ -148,10 +154,12 @@ class ArticleController extends Controller
             'type' => ['required', "in:{$type}"],
             'tag' => ['array'],
             'column' => ['array'],
-            'write_time' => ['required', 'date_format:Y-m-d']
+            'write_time' => ['required', 'date_format:Y-m-d'],
+            'cover_type' => ['required', "in:{$coverType}"],
+            'cover_url' => ["required_if:cover_type,{$coverUrlRequire}"]
         ));
 
-        $data = $request->only(['title', 'status', 'type', 'author', 'write_time']);
+        $data = $request->only(['title', 'status', 'type', 'author', 'write_time', 'cover_type', 'cover_url']);
         $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
         $data['excerpt'] = str_excerpt($request->input('content'), 250);
         $column = $request->input('column');

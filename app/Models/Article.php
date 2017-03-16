@@ -24,8 +24,17 @@ class Article extends \Eloquent
     /** 类型-页面 */
     const TYPE_PAGE = 2;
 
+    /** 封面类型-无 */
+    const COVER_TYPE_NONE = 1;
+
+    /** 封面类型-小图 */
+    const COVER_TYPE_SMALL = 2;
+
+    /** 封面类型-大图 */
+    const COVER_TYPE_BIG = 3;
+
     protected $fillable = [
-        'title', 'user_id', 'author', 'status', 'type', 'excerpt', 'author', 'write_time'
+        'title', 'user_id', 'author', 'status', 'type', 'excerpt', 'author', 'write_time', 'cover_type', 'cover_url'
     ];
 
     /** 需要额外显示的字段 @var array */

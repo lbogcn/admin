@@ -4,13 +4,7 @@
 
 @section('head-extend')
     <link href="{{cdn('plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
-    <style>
-        .tag .glyphicon{top: 2px; color: #337ab7; cursor: pointer}
-        .tag .glyphicon:hover,
-        .tag .glyphicon:focus{color: #ff3d36;}
-        .tag a:hover,
-        .tag a:focus{text-decoration: none;}
-    </style>
+    <link rel="stylesheet" href="{{cdn('css/admin/article.css')}}">
 @endsection
 
 @section('page-wrapper')
@@ -113,7 +107,8 @@
                                         <div class="form-group">
                                             <div class="pull-left"><label class="control-label">&nbsp;</label></div>
                                             <div class="col-xs-10">
-                                                <img src="" class="img-responsive">
+                                                <img src="" class="img-responsive img-rounded" id="img-cover-url">
+                                                <input type="hidden" name="cover_url">
                                             </div>
                                         </div>
                                     </div>

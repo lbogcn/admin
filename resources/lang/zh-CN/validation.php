@@ -98,8 +98,8 @@ return [
     |
     */
     'custom'               => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'cover_url' => [
+            'required_if' => '请上传封面',
         ],
     ],
     /*
@@ -151,6 +151,7 @@ return [
         'role'                  => '角色',
         'pid'                   => '父ID',
         'column_name'           => '栏目名称',
-
+        'cover_type'            => '封面类型',
+        'cover_url'             => '封面图片',
     ],
 ];

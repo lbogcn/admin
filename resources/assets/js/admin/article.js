@@ -31,24 +31,8 @@ define(['jquery', 'ueditor', 'zeroclipboard', 'datetimepicker', 'datetimepicker-
     }
 
     var obj = {
-        init: function() {
-            window.ZeroClipboard = zcl;
-            window.uploadToken = $('#uploadToken').html();
-            // 初始化编辑器
-            var ue = UE.getEditor('editor');
-
-            // 日期控件
-            $('.datetimepicker').datetimepicker({
-                format: 'yyyy-mm-dd',
-                language: 'zh-CN',
-                minView: 2,
-                maxView: 'year',
-                autoclose: true,
-                todayBtn: true,
-                todayHighlight: true,
-                weekStart: 0
-            });
-
+        // 标签操作
+        tagOption: function() {
             // 添加标签按钮
             $('#btnAddTag').click(function() {
                 var tags = $('#iptTags').val().split(',');
@@ -71,8 +55,9 @@ define(['jquery', 'ueditor', 'zeroclipboard', 'datetimepicker', 'datetimepicker-
             $('.tag', '#allTagBox').click(function() {
                 addTag($(this).html());
             });
-
-            // 预览
+        },
+        // 预览
+        preview: function() {
             $('#btnPreview').click(function() {
                 var $form = $('<form class="hide" action="/article-manage/article/preview" target="_blank" method="post">\
                     <input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">\
@@ -89,12 +74,25 @@ define(['jquery', 'ueditor', 'zeroclipboard', 'datetimepicker', 'datetimepicker-
                 $form.submit();
                 $form.remove();
             });
+        },
+        // 封面操作
+        coverOption: function(ue) {
+            var self = this;
 
             // 封面选择
             $('input[name=cover_type]').click(function() {
                 if ($(this).val() == 1) {
                     $('#cover-box').addClass('hide');
+
+                    $('#img-cover-url').attr('src', '');
+                    $('[name=cover_url]').val('');
                 } else {
+                    if ($(this).val() == 2) {
+                        $('#img-cover-url').addClass('small').removeClass('big');
+                    } else {
+                        $('#img-cover-url').addClass('big').removeClass('small');
+                    }
+
                     $('#cover-box').removeClass('hide');
                 }
             });
@@ -106,27 +104,80 @@ define(['jquery', 'ueditor', 'zeroclipboard', 'datetimepicker', 'datetimepicker-
                                         <div class="modal-content">\
                                           <div class="modal-header">\
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
-                                            <h4 class="modal-title">请选择图片</h4>\
+                                            <h4 class="modal-title">请选择</h4>\
                                           </div>\
                                           <div class="modal-body">\
+                                            <div class="row"><div class="col-xs-12 modal-images-list"></div></div>\
                                           </div>\
                                           <div class="modal-footer">\
-                                            <button type="button" class="btn btn-primary">确定</button>\
+                                            <button type="button" class="btn btn-primary btn-ok">确定</button>\
                                           </div>\
                                         </div>\
                                       </div>\
                                     </div>');
+                var $list = $modal.find('.modal-images-list');
+                var srcs = [];
 
                 $(ue.getContent()).find('img').each(function() {
-
-                    console.log($(this).attr('src'));
+                    if ($.inArray($(this).attr('src'), srcs) < 0) {
+                        srcs.push($(this).attr('src'));
+                    }
                 });
+
+                $.each(srcs, function(i, src) {
+                    var $li = $('<div class="modal-images-item"><img></div>');
+
+                    $li.children('img').attr('src', src);
+
+                    $li.click(function() {
+                        $list.find('.modal-images-item').removeClass('active');
+                        $(this).addClass('active');
+                    });
+
+                    $list.append($li);
+                });
+
+                $modal.find('.btn-ok').click(function() {
+                    self.loadCover($list.find('.active img').attr('src'));
+                    $modal.modal('toggle').on('hidden.bs.modal', function() {
+                        $modal.remove();
+                    });
+                });
+
+                $modal.modal();
             });
 
             // 重新上传
             $('#btn-cover-upload').click(function() {
                 console.log('重新上传');
             });
+        },
+        // 加载封面
+        loadCover: function(src) {
+            $('#img-cover-url').attr('src', src);
+            $('[name=cover_url]').val(src);
+        },
+        init: function() {
+            window.ZeroClipboard = zcl;
+            window.uploadToken = $('#uploadToken').html();
+            // 初始化编辑器
+            var ue = UE.getEditor('editor');
+
+            // 日期控件
+            $('.datetimepicker').datetimepicker({
+                format: 'yyyy-mm-dd',
+                language: 'zh-CN',
+                minView: 2,
+                maxView: 'year',
+                autoclose: true,
+                todayBtn: true,
+                todayHighlight: true,
+                weekStart: 0
+            });
+
+            this.tagOption();
+            this.preview();
+            this.coverOption(ue);
         },
         addTag: addTag
    };
