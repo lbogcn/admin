@@ -1,4 +1,4 @@
-define(['jquery', 'ueditor', 'zeroclipboard', 'datetimepicker', 'datetimepicker-lang', 'ueditor-lang', 'bootstrap'], function($, UE, zcl) {
+define(['jquery', 'ueditor', 'zeroclipboard', 'ajax', 'datetimepicker', 'datetimepicker-lang', 'ueditor-lang', 'bootstrap'], function($, UE, zcl, ajax) {
     // 添加标签
     function addTag(tag) {
         if (!tag) {
@@ -149,7 +149,44 @@ define(['jquery', 'ueditor', 'zeroclipboard', 'datetimepicker', 'datetimepicker-
 
             // 重新上传
             $('#btn-cover-upload').click(function() {
-                console.log('重新上传');
+                var $form = $('<form><input type="file" accept="image/*" name="file"><input type="hidden" name="token"></form>');
+                $form.find('[name=token]').val($('#uploadToken').html());
+                $('body').append($form);
+
+                $form.find('[name=file]').on('change', function() {
+                    var form = $form[0];
+
+                    $.ajax({
+                        url: 'http://up-z2.qiniu.com/',
+                        type: 'POST',
+                        data: new FormData(form),
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        beforeSend: function() {
+                            ajax.loading();
+                        },
+                        complete: function() {
+                            $form.remove();
+                            ajax.removeLoading();
+                        },
+                        success: function(resp) {
+                            if(resp.state == 'SUCCESS' && resp.url) {
+                                self.loadCover(resp.url);
+                            } else {
+                                console.log(resp);
+
+                                alert(resp.state);
+                            }
+                        },
+                        error: function(xhr) {
+                            console.log(xhr);
+
+                            alert('上传失败');
+                        }
+                    });
+                }).click();
+
             });
         },
         // 加载封面

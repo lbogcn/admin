@@ -194,6 +194,11 @@
         for (var i in tags) {
             article.addTag(tags[i]);
         }
+
+        // 封面显示
+        $('#img-cover-url').attr('src', '{{$model->cover_url}}');
+        $('[name=cover_url]').val('{{$model->cover_url}}');
+        $('[name=cover_type][value="{{$model->cover_type}}"]').attr('checked', true).click();
     });
 </script>
 @endsection

@@ -33,6 +33,8 @@ define(['jquery'], function($) {
         });
     }
 
+    var $backDrop;
+
     return {
         apiGet: function(url, params) {
             return handle(url, params);
@@ -49,6 +51,21 @@ define(['jquery'], function($) {
         apiDelete: function(url, params) {
             return handle(url, params, 'DELETE');
         },
-        handle: handle
+        handle: handle,
+        loading: function() {
+            $backDrop = $('<div class="modal-backdrop fade in" style="z-index: 9999;"></div>\
+                <div style="position: fixed;top: 50%; left: 50%; background: #FFF; border: 1px #000 solid;z-index: 10000; padding: 5px;">\
+                    <img src="/images/loading.gif" alt="loading">加载中...\
+                </div>\
+                ');
+
+            // 使当前激活的元素失去焦点，防止按住空格后，多次点击
+            document.activeElement.blur();
+
+            $('body').append($backDrop);
+        },
+        removeLoading: function() {
+            $backDrop.remove();
+        }
     };
 });
