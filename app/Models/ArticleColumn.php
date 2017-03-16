@@ -62,7 +62,17 @@ class ArticleColumn extends \Eloquent
      */
     public static function getTotal()
     {
-        return count(self::homeColumns());
+        $count = 0;
+
+        foreach (self::homeColumns() as $homeColumn) {
+            if ($homeColumn['type'] == self::TYPE_PAGE) {
+                continue;
+            }
+
+            $count++;
+        }
+
+        return $count;
     }
 
     /**

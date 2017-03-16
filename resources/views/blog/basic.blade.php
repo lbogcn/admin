@@ -40,7 +40,7 @@
                         <div class="col-xs-2 text-center btn-stat">
                             <span>{{$stat['columnTotal']}}</span>
                             <span><i class="glyphicon glyphicon-book" aria-hidden="true"></i></span>
-                            <a href="{{url('column')}}" class="link" data-toggle="tooltip" data-placement="bottom" title="分类"></a>
+                            <a href="{{url('column')}}" class="link" data-toggle="tooltip" data-placement="bottom" title="栏目"></a>
                         </div>
                         <div class="col-xs-2 text-center btn-stat">
                             <span>{{$stat['tagTotal']}}</span>
