@@ -7,11 +7,31 @@
         </div>
         <div class="panel-body">
             @forelse($articles as $article)
-                <article class="article">
-                    <h3 class="title"><a href="{{url('blog/' . $article['id'])}}">{{$article['title']}}</a></h3>
-                    <p class="excerpt">{{$article['excerpt']}}</p>
-                    <p class="time">{{mb_substr($article['write_time'], 0, 10)}}</p>
-                </article>
+                <div class="media article">
+
+                @if ($article['cover_type'] == 2)
+                    {{--小图--}}
+                    <div class="media-left media-middle">
+                        <a href="{{url('blog/' . $article['id'])}}">
+                            <img class="cover-small media-object img-rounded" src="{{$article['cover_url']}}">
+                        </a>
+                    </div>
+                @elseif ($article['cover_type'] == 3)
+                    {{--大图--}}
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <a href="{{url('blog/' . $article['id'])}}">
+                                <img class="cover-big media-object img-rounded" src="{{$article['cover_url']}}">
+                            </a>
+                        </div>
+                    </div>
+                @endif
+                    <div class="media-body">
+                        <h3 class="title"><a href="{{url('blog/' . $article['id'])}}">{{$article['title']}}</a></h3>
+                        <p class="excerpt">{{$article['excerpt']}}</p>
+                        <p class="time">{{mb_substr($article['write_time'], 0, 10)}}</p>
+                    </div>
+                </div>
             @empty
                 <p class="_404">没发现什么...</p>
             @endforelse

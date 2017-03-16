@@ -75,7 +75,7 @@ class ArticleController extends Controller
 
         $data = $request->only(['title', 'status', 'type', 'author', 'write_time', 'cover_type', 'cover_url']);
         $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
-        $data['excerpt'] = str_excerpt($request->input('content'), 250);
+        $data['excerpt'] = str_limit($request->input('content'), 250);
         $column = $request->input('column');
         $tag = $request->input('tag');
         $content = $request->input('content');
@@ -161,7 +161,7 @@ class ArticleController extends Controller
 
         $data = $request->only(['title', 'status', 'type', 'author', 'write_time', 'cover_type', 'cover_url']);
         $data['user_id'] = \Auth::guard()->user()->getAuthIdentifier();
-        $data['excerpt'] = str_excerpt($request->input('content'), 250);
+        $data['excerpt'] = str_limit($request->input('content'), 250);
         $column = $request->input('column');
         $tag = $request->input('tag');
         $content = $request->input('content');
