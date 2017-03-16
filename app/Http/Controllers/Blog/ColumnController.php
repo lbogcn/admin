@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Controller;
+use App\Models\Article;
 use App\Models\ArticleColumn;
-use App\Models\ArticleColumnsRelation;
 use Illuminate\Http\Request;
 
 class ColumnController extends Controller
@@ -51,10 +51,7 @@ class ColumnController extends Controller
      */
     private function detailPage($column)
     {
-        /** @var ArticleColumnsRelation $relation */
-        $relation = ArticleColumnsRelation::getFirstOrFailColumnArticles($column->id);
-        $article = $relation->article;
-        $article->load('tags');
+        $article = Article::getFirstOrFailColumnArticles($column->id);
 
         $data = array(
             'article' => $article,
@@ -75,15 +72,10 @@ class ColumnController extends Controller
     private function detailList($column, $page)
     {
         $pageSize = 15;
-        $paginate = ArticleColumnsRelation::getColumnArticles($column->id, $page, $pageSize);
-        $articles = array();
-
-        foreach ($paginate as $item) {
-            $articles[] = $item['article'];
-        }
+        $paginate = Article::getColumnArticles($column->id, $page, $pageSize);
 
         $data = array(
-            'articles' => $articles,
+            'articles' => $paginate,
             'pageName' => $column->column_name,
             'paginate' => $paginate->render(),
             'title' => $column->column_name

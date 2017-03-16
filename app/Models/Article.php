@@ -4,6 +4,8 @@ namespace App\Models;
 
 use App\Components\CacheName;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\JoinClause;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
  * @property int status
@@ -70,10 +72,10 @@ class Article extends \Eloquent
         return \DB::transaction(function() use ($data, $column, $tag, $content) {
             $model = self::create($data);
 
-            list($contents, $columns, $tags) = $this->getRelationsData($model->id, $content, $column, $tag);
+            list($contents, $columns, $tags) = $this->getRelationsData($model->id, $content, $column, $tag, $data['write_time']);
 
             $model->contents()->saveMany($contents);
-            $model->columns()->saveMany($columns);
+            $model->columns()->attach($columns);
             $model->tags()->saveMany($tags);
 
             return $model;
@@ -93,14 +95,14 @@ class Article extends \Eloquent
         return \DB::transaction(function () use ($data, $column, $tag, $content) {
             $this->update($data);
 
-            list($contents, $columns, $tags) = $this->getRelationsData($this->id, $content, $column, $tag);
+            list($contents, $columns, $tags) = $this->getRelationsData($this->id, $content, $column, $tag, $data['write_time']);
 
             $this->tags()->delete();
             $this->contents()->delete();
             $this->columns()->detach();
 
             $this->contents()->saveMany($contents);
-            $this->columns()->saveMany($columns);
+            $this->columns()->attach($columns);
             $this->tags()->saveMany($tags);
 
             return $this;
@@ -113,9 +115,10 @@ class Article extends \Eloquent
      * @param $content
      * @param $column
      * @param $tag
+     * @param $writeTime
      * @return array
      */
-    private function getRelationsData($id, $content, $column, $tag)
+    private function getRelationsData($id, $content, $column, $tag, $writeTime)
     {
         $contents = array();
         if (!empty($content)) {
@@ -124,7 +127,12 @@ class Article extends \Eloquent
 
         $columns = array();
         if (!empty($column)) {
-            $columns = ArticleColumn::whereIn('id', $column)->get();
+            $rows = ArticleColumn::select('id')->whereIn('id', $column)->get();
+            foreach ($rows as $row) {
+                $columns[$row['id']] = array(
+                    'write_time' => $writeTime
+                );
+            }
         }
 
         $tags = array();
@@ -212,6 +220,54 @@ class Article extends \Eloquent
             ->orderBy('id', 'desc')
             ->limit($pageSize)
             ->get();
+    }
+
+    /**
+     * 获取指定栏目文章
+     * @param $columnId
+     * @param $page
+     * @param $pageSize
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public static function getColumnArticles($columnId, $page, $pageSize)
+    {
+        LengthAwarePaginator::currentPageResolver(function() use ($page) {
+            return $page;
+        });
+
+        $relationTable = (new ArticleColumnsRelation())->getTable();
+        $selfTable = (new self)->getTable();
+
+        return self::select("{$selfTable}.*")
+            ->join($relationTable, function(JoinClause $join) use ($columnId) {
+                $join->on('article_id', '=', 'id')->where('column_id', $columnId);
+            })
+            ->where('type', self::TYPE_ARTICLE)
+            ->where('status', self::STATUS_RELEASE)
+            ->orderBy('write_time', 'desc')
+            ->orderBy('id', 'desc')
+            ->paginate($pageSize);
+    }
+
+    /**
+     * 获取指定栏目的第一篇文章，若不存在，抛出异常
+     * @param $columnId
+     * @return \Illuminate\Database\Eloquent\Model|static
+     */
+    public static function getFirstOrFailColumnArticles($columnId)
+    {
+        $relationTable = (new ArticleColumnsRelation())->getTable();
+        $selfTable = (new self)->getTable();
+
+        return self::select("{$selfTable}.*")
+            ->join($relationTable, function(JoinClause $join) use ($columnId) {
+                $join->on('article_id', '=', 'id')->where('column_id', $columnId);
+            })
+            ->with('tags')
+            ->where('status', self::STATUS_RELEASE)
+            ->where('type', self::TYPE_PAGE)
+            ->orderBy('id', 'desc')
+            ->firstOrFail();
     }
 
     /**
