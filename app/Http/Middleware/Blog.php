@@ -70,7 +70,7 @@ class Blog
     private function shareStat()
     {
         $articleTotal = Article::getTotal();
-        $columnTotal = ArticleColumn::getTotal();
+        $columnTotal = ArticleColumn::getListTotal();
         $tagTotal = ArticleTag::getTotal();
 
         $stat = array(

@@ -57,22 +57,31 @@ class ArticleColumn extends \Eloquent
     }
 
     /**
-     * 获取栏目总数
-     * @return int
+     * 获取所有列表栏目
+     * @return array
      */
-    public static function getTotal()
+    public static function getListColumns()
     {
-        $count = 0;
+        $columns = array();
 
         foreach (self::homeColumns() as $homeColumn) {
             if ($homeColumn['type'] == self::TYPE_PAGE) {
                 continue;
             }
 
-            $count++;
+            $columns[] = $homeColumn;
         }
 
-        return $count;
+        return $columns;
+    }
+
+    /**
+     * 获取所有列表栏目总数
+     * @return int
+     */
+    public static function getListTotal()
+    {
+        return count(self::getListColumns());
     }
 
     /**

@@ -16,7 +16,7 @@ class ColumnController extends Controller
      */
     public function index()
     {
-        $columns = ArticleColumn::homeColumns();
+        $columns = ArticleColumn::getListColumns();
         $data = array(
             'pageName' => '栏目',
             'columns' => $columns,
