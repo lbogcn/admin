@@ -9,16 +9,19 @@
             @forelse($articles as $article)
                 <div class="media article">
 
-                @if ($article['cover_type'] == 2)
+                @if ($article['cover_type'] != 1)
+
                     {{--小图--}}
-                    <div class="media-left media-middle">
+                    @if ($article['cover_type'] == 2)
+                    <div class="media-left media-middle hidden-xs">
                         <a href="{{url('blog/' . $article['id'])}}">
                             <img class="cover-small media-object img-rounded" src="{{$article['cover_url']}}">
                         </a>
                     </div>
-                @elseif ($article['cover_type'] == 3)
+                    @endif
+
                     {{--大图--}}
-                    <div class="row">
+                    <div class="row @if ($article['cover_type'] == 2) visible-xs-block @endif">
                         <div class="col-xs-12">
                             <a href="{{url('blog/' . $article['id'])}}">
                                 <img class="cover-big media-object img-rounded" src="{{$article['cover_url']}}">
@@ -26,6 +29,7 @@
                         </div>
                     </div>
                 @endif
+
                     <div class="media-body">
                         <h3 class="title"><a href="{{url('blog/' . $article['id'])}}">{{$article['title']}}</a></h3>
                         <p class="excerpt">{{$article['excerpt']}}</p>
