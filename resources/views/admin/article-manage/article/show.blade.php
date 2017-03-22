@@ -35,13 +35,6 @@
                                 <script id="editor" name="content" type="text/plain" style="width:100%;height:500px;">@foreach($model->contents as $content){!! $content['content'] !!}@endforeach</script>
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <div class="col-xs-6">
-                                <button class="btn btn-primary" id="btnSubmit" type="button">提交</button>
-                                <button class="btn btn-default" id="btnPreview" type="button">预览</button>
-                            </div>
-                        </div>
                     </div>
 
                     <div class="col-xs-4" style="min-width: 272px;">
@@ -170,13 +163,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <button class="btn btn-primary" id="btnSubmit" type="button">提交</button>
+                                <button class="btn btn-default" id="btnPreview" type="button">预览</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </form>
         </div>
     </div>
-
-
 @endsection
 
 @section('body-extend')
