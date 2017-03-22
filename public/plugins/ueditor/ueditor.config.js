@@ -65,6 +65,7 @@
                 'redo', //重做
                 'simpleupload', //单图上传
                 'insertimage', //多图上传
+                'insertcode', //代码语言
 
                 'help', //帮助
 /*
@@ -94,7 +95,6 @@
                 'deletetable', //删除表格
                 'cleardoc', //清空文档
                 'insertparagraphbeforetable', //"表格前插入行"
-                'insertcode', //代码语言
                 'edittable', //表格属性
                 'edittd', //单元格属性
                 'emotion', //表情

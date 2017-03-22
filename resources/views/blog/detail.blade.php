@@ -1,5 +1,13 @@
 @extends('blog.basic')
 
+@section('head-extend')
+<script type="text/javascript" src="{{cdn('/plugins/ueditor/third-party/SyntaxHighlighter/shCore.js')}}"></script>
+<link rel="stylesheet" href="{{cdn('/plugins/ueditor/third-party/SyntaxHighlighter/shCoreDefault.css')}}">
+<script type="text/javascript">
+    SyntaxHighlighter.all();
+</script>
+@endsection
+
 @section('container')
     <div class="panel panel-default" id="center">
         <div class="panel-body">

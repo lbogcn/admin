@@ -127,12 +127,7 @@ class Article extends \Eloquent
 
         $columns = array();
         if (!empty($column)) {
-            $rows = ArticleColumn::select('id')->whereIn('id', $column)->get();
-            foreach ($rows as $row) {
-                $columns[$row['id']] = array(
-                    'write_time' => $writeTime
-                );
-            }
+            $columns = ArticleColumn::whereIn('id', $column)->get();
         }
 
         $tags = array();

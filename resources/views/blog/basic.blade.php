@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{cdn('css/style.css')}}" rel="stylesheet">
-
+    @yield('head-extend')
 </head>
 <body>
 
