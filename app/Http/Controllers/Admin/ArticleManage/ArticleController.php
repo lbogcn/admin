@@ -61,7 +61,7 @@ class ArticleController extends Controller
         $coverType = implode(',', [Article::COVER_TYPE_NONE, Article::COVER_TYPE_SMALL, Article::COVER_TYPE_BIG]);
         $coverUrlRequire = implode(',', [Article::COVER_TYPE_SMALL, Article::COVER_TYPE_BIG]);
         $this->validate($request, array(
-            'title' => ['required', 'max:30'],
+            'title' => ['required', 'max:100'],
             'author' => ['required', 'max:12'],
             'content' => ['required'],
             'status' => ['required', "in:{$status}"],
@@ -147,7 +147,7 @@ class ArticleController extends Controller
         $coverType = implode(',', [Article::COVER_TYPE_NONE, Article::COVER_TYPE_SMALL, Article::COVER_TYPE_BIG]);
         $coverUrlRequire = implode(',', [Article::COVER_TYPE_SMALL, Article::COVER_TYPE_BIG]);
         $this->validate($request, array(
-            'title' => ['required', 'max:30'],
+            'title' => ['required', 'max:100'],
             'author' => ['required', 'max:12'],
             'content' => ['required'],
             'status' => ['required', "in:{$status}"],
