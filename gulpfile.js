@@ -26,4 +26,7 @@ elixir(function(mix) {
     mix.styles('sb-admin-2.css');
     mix.styles('style.css');
     mix.less('blog/style.less', 'public/css/style.css');
+
+    mix.scripts('ueditor.requirejs.js', 'public/plugins/ueditor/ueditor.requirejs.min.js');
+    mix.scripts('ueditor.requirejs.js', 'public/plugins/ueditor/ueditor.requirejs.js');
 });
