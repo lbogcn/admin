@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <title>{{$pageName}} - {{get_option('blog_title')}}</title>
-    <meta name="keywords" content="{{$blogKeywords or get_option('blog_keywords')}}"/>
+    <meta name="keywords" content="@if(isset($blogKeywords)){{$blogKeywords}}@endif,{{get_option('blog_keywords')}}"/>
     <meta name="description" content="{{$blogDescription or get_option('blog_description')}}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
