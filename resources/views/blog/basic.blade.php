@@ -33,30 +33,32 @@
 
                     <div class="row">
                         <div class="col-xs-2 text-center col-xs-offset-3 btn-stat">
-                            <span>{{$stat['articleTotal']}}</span>
+                            <span>{{$stat['articleTotal'] or 0}}</span>
                             <span><i class="glyphicon glyphicon-file" aria-hidden="true"></i></span>
                             <a href="{{url('blog')}}" class="link" data-toggle="tooltip" data-placement="bottom" title="文章"></a>
                         </div>
                         <div class="col-xs-2 text-center btn-stat">
-                            <span>{{$stat['columnTotal']}}</span>
+                            <span>{{$stat['columnTotal'] or 0}}</span>
                             <span><i class="glyphicon glyphicon-book" aria-hidden="true"></i></span>
                             <a href="{{url('column')}}" class="link" data-toggle="tooltip" data-placement="bottom" title="栏目"></a>
                         </div>
                         <div class="col-xs-2 text-center btn-stat">
-                            <span>{{$stat['tagTotal']}}</span>
+                            <span>{{$stat['tagTotal'] or 0}}</span>
                             <span><i class="glyphicon glyphicon-tag" aria-hidden="true"></i></span>
                             <a href="{{url('tag')}}" class="link" data-toggle="tooltip" data-placement="bottom" title="标签"></a>
                         </div>
                     </div>
 
                     <div class="list-group" id="nav">
-                        @foreach($navs as $nav)
-                            @if($nav['active'])
-                                <a href="{{$nav['url']}}" class="list-group-item active">{{$nav['column_name']}}</a>
-                            @else
-                                <a href="{{$nav['url']}}" class="list-group-item">{{$nav['column_name']}}</a>
-                            @endif
-                        @endforeach
+                        @if(isset($navs))
+                            @foreach($navs as $nav)
+                                @if($nav['active'])
+                                    <a href="{{$nav['url']}}" class="list-group-item active">{{$nav['column_name']}}</a>
+                                @else
+                                    <a href="{{$nav['url']}}" class="list-group-item">{{$nav['column_name']}}</a>
+                                @endif
+                            @endforeach
+                        @endif
                     </div>
                 </div>
 
