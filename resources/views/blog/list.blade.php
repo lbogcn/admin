@@ -31,7 +31,7 @@
                 @endif
 
                     <div class="media-body">
-                        <h3 class="title"><a href="{{url('blog/' . $article['id'])}}">{{$article['title']}}</a></h3>
+                        <a href="{{url('blog/' . $article['id'])}}" class="title"><h3>{{$article['title']}}</h3></a>
                         <p class="excerpt">{{$article['excerpt']}}</p>
                         <p class="time">{{mb_substr($article['write_time'], 0, 10)}}</p>
                     </div>
