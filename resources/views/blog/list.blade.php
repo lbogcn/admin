@@ -3,7 +3,7 @@
 @section('container')
     <div class="panel panel-default" id="center">
         <div class="panel-heading">
-            <h3 class="header">{{$title}}</h3>
+            <h4 class="header">{{$title}}</h4>
         </div>
         <div class="panel-body">
             @forelse($articles as $article)
@@ -31,7 +31,7 @@
                 @endif
 
                     <div class="media-body">
-                        <a href="{{url('blog/' . $article['id'])}}" class="title"><h3>{{$article['title']}}</h3></a>
+                        <h1 class="title h3"><a href="{{url('blog/' . $article['id'])}}">{{$article['title']}}</a></h1>
                         <p class="excerpt">{{$article['excerpt']}}</p>
                         <p class="time">{{mb_substr($article['write_time'], 0, 10)}}</p>
                     </div>

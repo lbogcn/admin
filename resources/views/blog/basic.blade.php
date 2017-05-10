@@ -20,7 +20,7 @@
                 <div class="panel panel-default">
                     <div class="row">
                         <div class="col-xs-8 col-xs-offset-2">
-                            <img src="{{get_option('avatar')}}" class="img-circle img-responsive center-block avatar">
+                            <img src="{{get_option('avatar')}}" class="img-circle img-responsive center-block avatar" alt="{{get_option('blog_title')}}">
                         </div>
                     </div>
 

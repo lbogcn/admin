@@ -80,13 +80,15 @@ body{
       }
 
       .title{
-        color: #333;
-
-        h3{
-          font-size: 22px;
+        &,
+        a{
+          color: #333;
         }
 
-        &:hover{
+        &:hover,
+        &:focus,
+        a:hover,
+        a:focus{
           color: #005ab2;
           text-decoration: none;
         }

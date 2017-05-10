@@ -3,7 +3,7 @@
 @section('container')
     <div class="panel panel-default" id="center">
         <div class="panel-heading">
-            <h3 class="header">所有栏目</h3>
+            <h4 class="header">所有栏目</h4>
         </div>
         <div class="panel-body">
             @foreach($columns as $column)
