@@ -8,7 +8,7 @@
         <div class="panel-body">
             <div id="tags">
                 @foreach($tags as $tag)
-                    <a href="{{url('tag/' . urlencode($tag['tag']))}}" class="tag">{{$tag['tag']}}</a>
+                    <a href="{{url('tag/' . urlencode($tag['tag']))}}" class="tag" title="{{$tag['tag']}}">{{$tag['tag']}}</a>
                 @endforeach
             </div>
         </div>

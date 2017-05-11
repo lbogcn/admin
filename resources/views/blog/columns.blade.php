@@ -7,7 +7,7 @@
         </div>
         <div class="panel-body">
             @foreach($columns as $column)
-                <a href="{{url('column/' . urlencode($column['alias']))}}" class="column">{{$column['column_name']}}</a>
+                <a href="{{url('column/' . urlencode($column['alias']))}}" class="column" title="{{$column['column_name']}}">{{$column['column_name']}}</a>
             @endforeach
         </div>
     </div>

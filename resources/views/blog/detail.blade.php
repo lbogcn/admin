@@ -14,7 +14,7 @@
             <div id="article">
                 <h1 class="title">{{$article['title']}}</h1>
                 <p>
-                    <a href="javascript:void(0);" class="author">{{$article['author']}}</a>
+                    <a href="javascript:void(0);" class="author" title="{{$article['author']}}">{{$article['author']}}</a>
                     <time class="time">{{mb_substr($article['write_time'], 0, 10)}}</time>
                 </p>
                 <br>
@@ -29,7 +29,7 @@
                     <div class="tags">
                         <span class="glyphicon glyphicon-tags"></span>
                         @foreach($article['tags'] as $tag)
-                            <a href="{{url('tag/' . urlencode($tag['tag']))}}" class="tag">{{$tag['tag']}}</a>
+                            <a href="{{url('tag/' . urlencode($tag['tag']))}}" class="tag" title="{{$tag['tag']}}">{{$tag['tag']}}</a>
                         @endforeach
                     </div>
                 @endif

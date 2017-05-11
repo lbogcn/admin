@@ -20,7 +20,7 @@
                 <div class="panel panel-default">
                     <div class="row">
                         <div class="col-xs-8 col-xs-offset-2">
-                            <img src="{{get_option('avatar')}}" class="img-circle img-responsive center-block avatar" alt="{{get_option('blog_title')}}">
+                            <img src="{{get_option('avatar')}}" class="img-circle img-responsive center-block avatar" alt="{{get_option('blog_keywords')}}">
                         </div>
                     </div>
 
@@ -53,9 +53,9 @@
                         @if(isset($navs))
                             @foreach($navs as $nav)
                                 @if($nav['active'])
-                                    <a href="{{$nav['url']}}" class="list-group-item active">{{$nav['column_name']}}</a>
+                                    <a href="{{$nav['url']}}" class="list-group-item active" title="{{$nav['column_name']}}">{{$nav['column_name']}}</a>
                                 @else
-                                    <a href="{{$nav['url']}}" class="list-group-item">{{$nav['column_name']}}</a>
+                                    <a href="{{$nav['url']}}" class="list-group-item" title="{{$nav['column_name']}}">{{$nav['column_name']}}</a>
                                 @endif
                             @endforeach
                         @endif
