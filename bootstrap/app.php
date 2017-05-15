@@ -15,7 +15,8 @@ $app = new Illuminate\Foundation\Application(
     realpath(__DIR__.'/../')
 );
 
-$app->useEnvironmentPath('/home/www/');
+$app->useEnvironmentPath('/home/www/conf');
+$app->loadEnvironmentFrom('lbog.cn.ini');
 
 /*
 |--------------------------------------------------------------------------

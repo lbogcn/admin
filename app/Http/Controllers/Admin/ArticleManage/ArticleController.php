@@ -20,7 +20,7 @@ class ArticleController extends Controller
     public function index()
     {
         $data = array(
-            'paginate' => Article::paginate(),
+            'paginate' => Article::orderBy('is_top')->orderby('id', 'desc')->paginate(),
         );
 
         return view('admin.article-manage.article.index', $data);
@@ -206,6 +206,32 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         Article::del($id);
+        Article::clearCache();
+
+        return ApiResponse::buildFromArray();
+    }
+
+    /**
+     * 文章置顶
+     * @param $id
+     * @return ApiResponse
+     */
+    public function top($id)
+    {
+        Article::setTop($id);
+        Article::clearCache();
+
+        return ApiResponse::buildFromArray();
+    }
+
+    /**
+     * 取消文章置顶
+     * @param $id
+     * @return ApiResponse
+     */
+    public function untop($id)
+    {
+        Article::unsetTop($id);
         Article::clearCache();
 
         return ApiResponse::buildFromArray();

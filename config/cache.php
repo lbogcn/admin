@@ -86,6 +86,6 @@ return [
     |
     */
 
-    'prefix' => 'lbog',
+    'prefix' => env('CACHE_PREFIX', ''),
 
 ];

@@ -25,6 +25,8 @@ Route::group(['namespace' => 'Admin'], function() {
         Route::post('article-manage/article/preview', 'ArticleManage\ArticleController@preview');
         Route::patch('article-manage/comment/restore/{id}', 'ArticleManage\CommentController@restore');
         Route::patch('article-manage/comment/deny/{id}', 'ArticleManage\CommentController@deny');
+        Route::patch('article-manage/article/top/{id}', 'ArticleManage\ArticleController@top');
+        Route::patch('article-manage/article/untop/{id}', 'ArticleManage\ArticleController@untop');
         Route::resources(array(
             'article-manage/article' => 'ArticleManage\ArticleController',
             'article-manage/comment' => 'ArticleManage\CommentController',
@@ -33,6 +35,9 @@ Route::group(['namespace' => 'Admin'], function() {
 
         // 配置选项
         Route::resource('option', 'OptionController');
+
+        // 友情链接
+        Route::resource('link', 'LinkController');
 
         // 缓存管理
         Route::delete('cache', 'CacheController@destroy');

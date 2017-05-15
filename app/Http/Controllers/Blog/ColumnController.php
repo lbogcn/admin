@@ -5,53 +5,44 @@ namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\ArticleColumn;
-use Illuminate\Http\Request;
+use App\Models\ArticleColumnsRelation;
 
 class ColumnController extends Controller
 {
 
     /**
-     * 所有栏目
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
-    {
-        $columns = ArticleColumn::getListColumns();
-        $data = array(
-            'pageName' => '栏目',
-            'columns' => $columns,
-        );
-
-        return view('blog.columns', $data);
-    }
-
-    /**
-     * 栏目详情（显示栏目下的文章列表）
-     * @param Request $request
+     * 栏目详情
      * @param $alias
      * @return mixed
      */
-    public function detail(Request $request, $alias)
+    public function detail($alias)
     {
         /** @var ArticleColumn $column */
         $column = ArticleColumn::findByAliasOrFail($alias);
 
         if ($column->type == ArticleColumn::TYPE_PAGE) {
-            return $this->detailPage($column);
+            return $this->detailView($column);
         } else {
-            $page = $request->input('page');
-            return $this->detailList($column, $page);
+            return $this->listView($column);
         }
     }
 
     /**
-     * 页面详情
+     * 栏目详情页
      * @param ArticleColumn $column
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return string
      */
-    private function detailPage($column)
+    private function detailView($column)
     {
-        $article = Article::getFirstOrFailColumnArticles($column->id);
+        /** @var ArticleColumnsRelation $articleRelation */
+        $articleRelation = ArticleColumnsRelation::select('article_id')
+            ->where('column_id', $column->id)
+            ->orderBy('article_id', 'desc')
+            ->firstOrFail();
+
+        $article = Article::with('contents', 'tags', 'columns')
+            ->where('status', Article::STATUS_RELEASE)
+            ->findOrFail($articleRelation->article_id);
 
         $data = array(
             'article' => $article,
@@ -60,28 +51,22 @@ class ColumnController extends Controller
             'pageName' => $article['title']
         );
 
-        return view('blog.detail', $data);
+        return view('jiestyle2.column_detail', $data)->render();
     }
 
     /**
-     * 列表详情
+     * 栏目文章列表
      * @param ArticleColumn $column
-     * @param $page
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    private function detailList($column, $page)
+    private function listView($column)
     {
-        $pageSize = 15;
-        $paginate = Article::getColumnArticles($column->id, $page, $pageSize);
-
         $data = array(
-            'articles' => $paginate,
             'pageName' => $column->column_name,
-            'paginate' => $paginate->render(),
-            'title' => $column->column_name
+            'columnId' => $column->id,
         );
 
-        return view('blog.list', $data);
+        return view('jiestyle2.list', $data);
     }
 
 

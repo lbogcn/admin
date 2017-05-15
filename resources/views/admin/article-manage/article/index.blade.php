@@ -35,6 +35,7 @@
                     <th>状态</th>
                     <th>创作时间</th>
                     <th>创建时间</th>
+                    <th>置顶</th>
                     <th>操作</th>
                 </tr>
                 </thead>
@@ -87,6 +88,14 @@ require(['jquery', 'restful'], function($, restful) {
             $statusLabel.addClass('label-default');
         }
 
+        // 置顶操作
+        var $isTop = '<a href="javascript:void(0);" class="btn-top">置顶</a>';
+        var $isTopLabel = '';
+        if (obj.is_top == 1) {
+            $isTopLabel = $('<label class="label label-danger">置顶</label>')
+            $isTop = '<a href="javascript:void(0);" class="btn-untop">取消置顶</a>';
+        }
+
         $statusLabel.html(obj.status_text);
 
         $tr.append('<td>' + obj.id + '</td>');
@@ -94,15 +103,18 @@ require(['jquery', 'restful'], function($, restful) {
         $tr.append('<td>' + obj.title + '</td>');
         $tr.append('<td>' + obj.author + '</td>');
         $tr.append('<td>' + obj.type_text + '</td>');
-        $tr.append($('<td></td>').append($statusLabel));
+        $tr.append($('<td></td>').append($statusLabel, ' ', $isTopLabel));
         $tr.append('<td>' + obj.write_time.toString().substr(0, 10) + '</td>');
         $tr.append('<td>' + obj.created_at + '</td>');
+        $tr.append($('<td></td>').append($isTop));
         $tr.append($option);
 
-        $option.find('.btn-detail').click(function() {detail(obj.id)});
-        $option.find('.btn-up').click(function() {restful.patch('/article-manage/article/up/' + obj.id)});
-        $option.find('.btn-down').click(function() {restful.patch('/article-manage/article/down/' + obj.id)});
-        $option.find('.btn-delete').click(function() {restful.del('/article-manage/article/' + obj.id)});
+        $tr.find('.btn-detail').click(function() {detail(obj.id)});
+        $tr.find('.btn-up').click(function() {restful.patch('/article-manage/article/up/' + obj.id)});
+        $tr.find('.btn-down').click(function() {restful.patch('/article-manage/article/down/' + obj.id)});
+        $tr.find('.btn-delete').click(function() {restful.del('/article-manage/article/' + obj.id)});
+        $tr.find('.btn-top').click(function() {restful.patch('/article-manage/article/top/' + obj.id)});
+        $tr.find('.btn-untop').click(function() {restful.patch('/article-manage/article/untop/' + obj.id)});
         $tableBody.append($tr);
     });
 });

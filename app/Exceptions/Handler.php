@@ -49,7 +49,7 @@ class Handler extends ExceptionHandler
         // 博客404
         if ($request->server('HTTP_HOST') == config('domain.blog')) {
             if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
-                return \Response::view('blog.404')->setStatusCode(404);
+                return \Response::view('jiestyle2.404')->setStatusCode(404);
             }
         }
 

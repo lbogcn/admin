@@ -35,6 +35,12 @@ class Article extends \Eloquent
     /** 封面类型-大图 */
     const COVER_TYPE_BIG = 3;
 
+    /** 置顶 */
+    const IS_TOP = 1;
+
+    /** 不置顶 */
+    const UN_TOP = 2;
+
     protected $fillable = [
         'title', 'user_id', 'author', 'status', 'type', 'excerpt', 'author', 'write_time', 'cover_type', 'cover_url'
     ];
@@ -168,6 +174,26 @@ class Article extends \Eloquent
     }
 
     /**
+     * 置顶操作
+     * @param $id
+     * @return bool
+     */
+    public static function setTop($id)
+    {
+        return self::patch($id, array('is_top' => self::IS_TOP));
+    }
+
+    /**
+     * 取消置顶操作
+     * @param $id
+     * @return bool
+     */
+    public static function unsetTop($id)
+    {
+        return self::patch($id, array('is_top' => self::UN_TOP));
+    }
+
+    /**
      * 更新
      * @param $id
      * @param array $data
@@ -203,98 +229,92 @@ class Article extends \Eloquent
     }
 
     /**
-     * 获取首页文章
-     * @param $pageSize
-     * @return \Illuminate\Database\Eloquent\Collection|static[]
+     * 通过栏目ID获取文章列表
+     * @param int|null $columnId 栏目ID，若获取全部文章，传null
+     * @param int $pageSize
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function getHomeArticles($pageSize = 30)
+    public static function getColumnArticles($columnId, $pageSize = 30)
     {
-        return self::where('status', self::STATUS_RELEASE)
+        $query = self::select('articles.*')
+            ->join(ArticleColumnsRelation::TABLE_NAME, 'article_id', '=', 'id')
+            ->where('status', self::STATUS_RELEASE)
             ->where('type', self::TYPE_ARTICLE)
             ->orderBy('write_time', 'desc')
             ->orderBy('id', 'desc')
-            ->limit($pageSize)
-            ->get();
+            ->with('columns', 'tags');
+
+        if (!is_null($columnId)) {
+            $query->where('column_id', $columnId);
+        }
+
+        return $query->paginate($pageSize);
     }
 
     /**
-     * 获取指定栏目文章
-     * @param $columnId
-     * @param $page
-     * @param $pageSize
+     * 通过标签名称获取文章列表
+     * @param $tag
+     * @param int $pageSize
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public static function getColumnArticles($columnId, $page, $pageSize)
+    public static function getTagArticles($tag, $pageSize = 30)
     {
-        LengthAwarePaginator::currentPageResolver(function() use ($page) {
-            return $page;
-        });
-
-        $relationTable = (new ArticleColumnsRelation())->getTable();
-        $selfTable = (new self)->getTable();
-
-        return self::select("{$selfTable}.*")
-            ->join($relationTable, function(JoinClause $join) use ($columnId) {
-                $join->on('article_id', '=', 'id')->where('column_id', $columnId);
-            })
-            ->where('type', self::TYPE_ARTICLE)
-            ->where('status', self::STATUS_RELEASE)
+        $tabAt = (new ArticleTag())->getTable();
+        return self::select('articles.*')
+            ->join("{$tabAt}", 'article_id', '=', 'articles.id')
+            ->where("{$tabAt}.tag", $tag)
             ->orderBy('write_time', 'desc')
             ->orderBy('id', 'desc')
+            ->with('columns', 'tags')
             ->paginate($pageSize);
     }
 
     /**
-     * 获取指定栏目的第一篇文章，若不存在，抛出异常
-     * @param $columnId
-     * @return \Illuminate\Database\Eloquent\Model|static
-     */
-    public static function getFirstOrFailColumnArticles($columnId)
-    {
-        $relationTable = (new ArticleColumnsRelation())->getTable();
-        $selfTable = (new self)->getTable();
-
-        return self::select("{$selfTable}.*")
-            ->join($relationTable, function(JoinClause $join) use ($columnId) {
-                $join->on('article_id', '=', 'id')->where('column_id', $columnId);
-            })
-            ->with('tags')
-            ->where('status', self::STATUS_RELEASE)
-            ->where('type', self::TYPE_PAGE)
-            ->orderBy('id', 'desc')
-            ->firstOrFail();
-    }
-
-    /**
-     * 获取所有文章
+     * 通过栏目ID获取置顶文章列表
+     * @param int|null $columnId 栏目ID，若获取全部文章，传null
+     * @param int $count
      * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function getAllArticles()
+    public static function getColumnTopArticles($columnId, $count = 3)
     {
-        return self::where('status', self::STATUS_RELEASE)
+        $query = self::select('articles.*')
+            ->join(ArticleColumnsRelation::TABLE_NAME, 'article_id', '=', 'id')
+            ->where('status', self::STATUS_RELEASE)
             ->where('type', self::TYPE_ARTICLE)
+            ->where('is_top', '=', self::IS_TOP)
             ->orderBy('write_time', 'desc')
             ->orderBy('id', 'desc')
-            ->get();
+            ->limit($count);
+
+        if (!is_null($columnId)) {
+            $query->where('column_id', $columnId);
+        }
+
+        return $query->get();
     }
 
     /**
-     * 获取文章总数
-     * @return int
+     * 通过栏目ID获取高PV文章列表
+     * @param int|null $columnId 栏目ID，若获取全部文章，传null
+     * @param int $count
+     * @return \Illuminate\Database\Eloquent\Collection|static[]
      */
-    public static function getTotal()
+    public static function getHots($columnId, $count = 3)
     {
-        $key = CacheName::ARTICLE_TOTAL[0];
+        $query = self::select('articles.*')
+            ->join(ArticleColumnsRelation::TABLE_NAME, 'article_id', '=', 'id')
+            ->where('status', self::STATUS_RELEASE)
+            ->where('type', self::TYPE_ARTICLE)
+            ->orderBy('pv', 'desc')
+            ->orderBy('write_time', 'desc')
+            ->orderBy('id', 'desc')
+            ->limit($count);
 
-        if (!\Cache::has($key)) {
-            $total = self::where('status', self::STATUS_RELEASE)
-                ->where('type', self::TYPE_ARTICLE)
-                ->count();
-
-            \Cache::forever($key, $total);
+        if (!is_null($columnId)) {
+            $query->where('column_id', $columnId);
         }
 
-        return (int)\Cache::get($key);
+        return $query->get();
     }
 
     /**

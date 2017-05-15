@@ -76,15 +76,6 @@ class ArticleColumn extends \Eloquent
     }
 
     /**
-     * 获取所有列表栏目总数
-     * @return int
-     */
-    public static function getListTotal()
-    {
-        return count(self::getListColumns());
-    }
-
-    /**
      * 通过别名获取
      * @param $alias
      * @return \Illuminate\Database\Eloquent\Model|static

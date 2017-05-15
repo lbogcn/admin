@@ -10,31 +10,6 @@ class BlogController extends Controller
 {
 
     /**
-     * 所有文章
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function index()
-    {
-        $key = CacheName::PAGE_BLOG_LIST[0];
-
-        if (!\Cache::has($key) || config('app.debug')) {
-            $articles = Article::getAllArticles();
-
-            $data = array(
-                'pageName' => '所有文章',
-                'articles' => $articles,
-                'title' => '所有文章'
-            );
-
-            $page = view('blog.list', $data)->render();
-
-            \Cache::forever($key, $page);
-        }
-
-        return \Cache::get($key);
-    }
-
-    /**
      * 文章详情
      * @param $id
      * @return mixed
@@ -45,7 +20,7 @@ class BlogController extends Controller
         $redis = \RedisClient::connection();
 
         if (!$redis->hexists($key, $id) || config('app.debug')) {
-            $article = Article::with('contents', 'tags')
+            $article = Article::with('contents', 'tags', 'columns')
                 ->where('status', Article::STATUS_RELEASE)
                 ->findOrFail($id);
 
@@ -56,7 +31,7 @@ class BlogController extends Controller
                 'pageName' => $article['title']
             );
 
-            $page = view('blog.detail', $data)->render();
+            $page = view('jiestyle2.detail', $data)->render();
 
             $redis->hset($key, $id, $page);
         }

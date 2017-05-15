@@ -46,6 +46,11 @@ class CacheName
         '文章标签列表'
     ];
 
+    const STAT_PV = [
+        'stat_pv',
+        '统计-PV'
+    ];
+
     /**
      * 获取所有缓存key
      */

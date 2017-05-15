@@ -50,23 +50,6 @@ class ArticleTag extends \Eloquent
     }
 
     /**
-     * 获取标签总数
-     * @return int
-     */
-    public static function getTotal()
-    {
-        $key = CacheName::ARTICLE_TAG_TOTAL[0];
-
-        if (!\Cache::has($key)) {
-            $total = self::count(\DB::raw('distinct tag'));
-
-            \Cache::forever($key, $total);
-        }
-
-        return (int)\Cache::get($key);
-    }
-
-    /**
      * 获取所有标签
      * @return array
      */
@@ -81,24 +64,5 @@ class ArticleTag extends \Eloquent
         }
 
         return (array)\Cache::get($key);
-    }
-
-    /**
-     * 获取标签文章
-     * @param $tag
-     * @param $page
-     * @param $pageSize
-     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public static function getTagArticles($tag, $page, $pageSize)
-    {
-        LengthAwarePaginator::currentPageResolver(function() use ($page) {
-            return $page;
-        });
-
-        return self::with('article')
-            ->where('tag', $tag)
-            ->orderBy('article_id', 'desc')
-            ->paginate($pageSize);
     }
 }
