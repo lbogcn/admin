@@ -7,7 +7,7 @@
             @foreach($articles = getBlogTagArticles($tag) as $article)
                 <article class="article-list-2 clearfix">
                     <div class="post-time"><i class="fa fa-calendar"></i> {{mb_substr($article['write_time'], 0, 10)}}</div>
-                    <h1 class="post-title"><a href="http://tangjie.me/blog/134.html">{{$article['title']}}</a></h1>
+                    <h1 class="post-title"><a href="{{url('column/' . urlencode($column['alias']))}}">{{$article['title']}}</a></h1>
                     <div class="post-meta">
                         @if(count($article['columns']) > 0)
                         <span class="meta-span"><i class="fa fa-folder-open-o"></i>
