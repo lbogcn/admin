@@ -347,18 +347,4 @@ class Article extends \Eloquent
         }
     }
 
-    /**
-     * 清除文章相关缓存
-     */
-    public static function clearCache()
-    {
-        \Cache::forget(CacheName::PAGE_HOME[0]);
-        \Cache::forget(CacheName::PAGE_BLOG_LIST[0]);
-        \Cache::forget(CacheName::ARTICLE_TOTAL[0]);
-        \Cache::forget(CacheName::ARTICLE_TAG_TOTAL[0]);
-        \Cache::forget(CacheName::ARTICLE_TAGS[0]);
-        \Cache::forget(CacheName::PAGE_ARTICLE[0]);
-
-    }
-
 }

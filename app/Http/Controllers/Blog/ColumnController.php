@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Components\CacheName;
+use App\Components\SqlExplain;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\ArticleColumn;
@@ -17,20 +19,30 @@ class ColumnController extends Controller
      */
     public function detail($alias)
     {
-        /** @var ArticleColumn $column */
-        $column = ArticleColumn::findByAliasOrFail($alias);
+        $redis = \RedisClient::connection();
+        $key = config('cache.prefix') . ':' . CacheName::PAGE_COLUMN[0];
+        $hKey = md5($alias);
 
-        if ($column->type == ArticleColumn::TYPE_PAGE) {
-            return $this->detailView($column);
-        } else {
-            return $this->listView($column);
+        if (!$redis->hexists($key, $hKey) || config('app.debug')) {
+            /** @var ArticleColumn $column */
+            $column = ArticleColumn::findByAliasOrFail($alias);
+
+            if ($column->type == ArticleColumn::TYPE_PAGE) {
+                $page = $this->detailView($column);
+            } else {
+                $page = $this->listView($column);
+            }
+
+            $redis->hset($key, $hKey, $page->render());
         }
+SqlExplain::explain();
+        return $redis->hget($key, $hKey);
     }
 
     /**
      * 栏目详情页
      * @param ArticleColumn $column
-     * @return string
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     private function detailView($column)
     {
@@ -51,7 +63,7 @@ class ColumnController extends Controller
             'pageName' => $article['title']
         );
 
-        return view('jiestyle2.column_detail', $data)->render();
+        return view('jiestyle2.column_detail', $data);
     }
 
     /**

@@ -55,14 +55,6 @@ class ArticleTag extends \Eloquent
      */
     public static function getAllTag()
     {
-        $key = CacheName::ARTICLE_TAGS[0];
-
-        if (!\Cache::has($key)) {
-            $tags = self::groupBy('tag')->get()->toArray();
-
-            \Cache::forever($key, $tags);
-        }
-
-        return (array)\Cache::get($key);
+        return self::groupBy('tag')->get()->toArray();
     }
 }

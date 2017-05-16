@@ -42,37 +42,10 @@ class ArticleColumn extends \Eloquent
      */
     public static function homeColumns()
     {
-        $key = CacheName::HOME_ARTICLE_COLUMN[0];
-
-        if (!Cache::has($key)) {
-            $rows = self::where('is_show', self::IS_SHOW_TRUE)
-                ->orderBy('weight', 'desc')
-                ->get()
-                ->toArray();
-
-            Cache::forever($key, $rows);
-        }
-
-        return Cache::get($key);
-    }
-
-    /**
-     * 获取所有列表栏目
-     * @return array
-     */
-    public static function getListColumns()
-    {
-        $columns = array();
-
-        foreach (self::homeColumns() as $homeColumn) {
-            if ($homeColumn['type'] == self::TYPE_PAGE) {
-                continue;
-            }
-
-            $columns[] = $homeColumn;
-        }
-
-        return $columns;
+        return self::where('is_show', self::IS_SHOW_TRUE)
+            ->orderBy('weight', 'desc')
+            ->get()
+            ->toArray();
     }
 
     /**
@@ -95,8 +68,6 @@ class ArticleColumn extends \Eloquent
     {
         $model = ArticleColumn::create($data);
 
-        self::clearCache();
-
         return $model;
     }
 
@@ -112,8 +83,6 @@ class ArticleColumn extends \Eloquent
 
         $result = $model->update($data);
 
-        self::clearCache();
-
         return $result;
     }
 
@@ -127,8 +96,6 @@ class ArticleColumn extends \Eloquent
         $model = ArticleColumn::findOrFail($id);
 
         $result = $model->delete();
-
-        self::clearCache();
 
         return $result;
     }
@@ -153,15 +120,5 @@ class ArticleColumn extends \Eloquent
         } else {
             return '列表';
         }
-    }
-
-    /**
-     * 清理缓存
-     */
-    private static function clearCache()
-    {
-        $key = CacheName::HOME_ARTICLE_COLUMN[0];
-
-        Cache::forget($key);
     }
 }
