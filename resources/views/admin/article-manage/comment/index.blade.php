@@ -52,7 +52,7 @@
 @endsection
 
 @section('body-extend')
-<div class="hide" id="paginate">{!! $paginate->toJson() !!}</div>
+<script id="paginate" type="text/html">{!! $paginate->toJson() !!}</script>
 <script>
 require(['jquery', 'restful'], function($, restful) {
     // 加载数据
