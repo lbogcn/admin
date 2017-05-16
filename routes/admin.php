@@ -1,4 +1,8 @@
 <?php
+Route::get('a', function() {
+    return 'a';
+});
+Route::get('test', 'Admin\Permission\NodeController@import');
 
 Route::group(['namespace' => 'Admin'], function() {
 
@@ -44,6 +48,7 @@ Route::group(['namespace' => 'Admin'], function() {
         Route::get('cache', 'CacheController@index');
 
         // 权限管理
+        Route::patch('permission/node/import', 'Permission\NodeController@import');
         Route::resources(array(
             'permission/menu' => 'Permission\MenuController',
             'permission/user' => 'Permission\UserController',
