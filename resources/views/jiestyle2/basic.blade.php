@@ -49,6 +49,27 @@
 <script type="text/javascript" src="{{url('jiestyle2/js/skel.min.js')}}"></script>
 <script type="text/javascript" src="{{url('jiestyle2/js/util.min.js')}}"></script>
 <script type="text/javascript" src="{{url('jiestyle2/js/nav.js')}}"></script>
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?d0754ebee2c0ba0c2983368f42b0462c";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
 @yield("afterEnd")
 </body>
 </html>
