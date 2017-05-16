@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Components\CacheName;
-use App\Components\SqlExplain;
 use App\Http\Controllers\Controller;
 use App\Models\Article;
 use App\Models\ArticleColumn;
@@ -35,7 +34,7 @@ class ColumnController extends Controller
 
             $redis->hset($key, $hKey, $page->render());
         }
-SqlExplain::explain();
+
         return $redis->hget($key, $hKey);
     }
 

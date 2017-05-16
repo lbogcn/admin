@@ -2,25 +2,35 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Components\CacheName;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 
 class TagController extends Controller
 {
 
     /**
      * 标签详情
+     * @param Request $request
      * @param $tag
      * @return mixed
      */
-    public function detail($tag)
+    public function detail(Request $request, $tag)
     {
-        $data = array(
-            'pageName' => $tag,
-            'tag' => $tag,
-            'columnId' => null,
-        );
+        $hKey = (int)$request->input('page');
+        $redis = \RedisClient::connection();
+        $key = config('cache.prefix') . ':' . CacheName::PAGE_TAG[0];
+        if (!$redis->hexists($key, $hKey) || config('app.debug')) {
+            $data = array(
+                'pageName' => $tag,
+                'tag' => $tag,
+                'columnId' => null,
+            );
 
-        return view('jiestyle2.tag', $data);
+            $redis->hset($key, $hKey, view('jiestyle2.tag', $data)->render());
+        }
+
+        return $redis->hget($key, $hKey);
     }
 
 

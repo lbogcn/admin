@@ -9,7 +9,7 @@
                 @foreach($article['columns'] as $column)<a href="{{url('column/' . urlencode($column['alias']))}}" rel="category tag">{{$column['column_name']}}</a> @endforeach
             </span>
             <span>发布时间: {{mb_substr($article['write_time'], 0, 10)}}</span>
-            <span>阅读: {{getBlogPv($article['id'], $article['pv'])}}</span>
+            <span>阅读: <span id="pv">{{$article['pv']}}</span></span>
         </div>
         <div class="view-content">@foreach($article['contents'] as $content){!! $content['content'] !!}@endforeach</div>
         <section class="view-tag">
@@ -134,4 +134,4 @@
 
 @endsection
 
-@section("afterEnd")<script src="{{url('/stat/pv', $article['id'])}}"></script>@endsection
+@section("body-extend")<script src="{{url('/stat/pv', $article['id'])}}"></script>@endsection

@@ -16,19 +16,19 @@ class HomeController extends Controller
      */
     public function index(Request $request)
     {
-        $page = (int)$request->input('page');
+        $hKey = (int)$request->input('page');
         $redis = \RedisClient::connection();
         $key = config('cache.prefix') . ':' . CacheName::PAGE_HOME[0];
-        if (!$redis->hexists($key, $page) || config('app.debug')) {
+        if (!$redis->hexists($key, $hKey) || config('app.debug')) {
             $data = array(
                 'pageName' => '首页',
                 'columnId' => null
             );
 
-            $redis->hset($key, $page, view('jiestyle2.list', $data)->render());
+            $redis->hset($key, $hKey, view('jiestyle2.list', $data)->render());
         }
 
-        return $redis->hget($key, $page);
+        return $redis->hget($key, $hKey);
     }
 
 }

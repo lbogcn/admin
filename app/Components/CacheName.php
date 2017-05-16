@@ -12,7 +12,7 @@ class CacheName
     ];
 
     const PAGE_HOME = [
-        'page_article',
+        'page_home',
         '页面-首页'
     ];
 
@@ -24,6 +24,11 @@ class CacheName
     const PAGE_COLUMN = [
         'page_column',
         '页面-栏目详情'
+    ];
+
+    const PAGE_TAG = [
+        'page_tag',
+        '页面-标签页'
     ];
 
     const STAT_PV = [

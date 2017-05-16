@@ -70,6 +70,6 @@
         s.parentNode.insertBefore(bp, s);
     })();
 </script>
-@yield("afterEnd")
+@yield("body-extend")
 </body>
 </html>

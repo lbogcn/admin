@@ -19,7 +19,7 @@ class StatController extends Controller
         $redis = \RedisClient::connection();
         $key = \Cache::getPrefix() . CacheName::STAT_PV[0];
 
-        $count = $redis->hincrby($key, $id, 1);
+        $count = (int)$redis->hincrby($key, $id, 1);
         if ($count >= 100) {
             try {
                 /** @var Article $article */
@@ -34,7 +34,7 @@ class StatController extends Controller
             }
         }
 
-        return '';
+        return sprintf('document.getElementById("pv").innerHTML = parseInt(document.getElementById("pv").innerHTML) + %d', $count);
     }
 
 }
