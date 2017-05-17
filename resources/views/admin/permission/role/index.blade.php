@@ -180,6 +180,22 @@ require(['jquery', 'restful'], function($, restful) {
                     $container.append($cbox);
                 });
 
+                $label.click(function() {
+                    var self = $(this);
+                    var checked = false;
+                    var parent = self.parents('.form-group');
+
+                    if (typeof(self.data('checked')) == 'undefined') {
+                        checked = !!parent.find(':checkbox').attr('checked');
+                    } else {
+                        checked = !!self.data('checked');
+                    }
+
+
+                    parent.find(':checkbox').attr('checked', !checked);
+                    self.data('checked', !checked);
+                });
+
                 $formGroup.append($label, $container);
                 $form.append($formGroup);
             });
