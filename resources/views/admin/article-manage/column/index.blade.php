@@ -32,6 +32,7 @@
                     <th>别名</th>
                     <th>栏目名称</th>
                     <th>类型</th>
+                    <th>视图</th>
                     <th>权重</th>
                     <th>是否是示</th>
                     <th>创建时间</th>
@@ -95,7 +96,15 @@
                                 <select name="type" class="form-control">
                                     <option value="1">列表</option>
                                     <option value="2">页面</option>
+                                    <option value="3">自定义视图</option>
                                 </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-xs-3 control-label">视图名称</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="view" placeholder="类型为自定义视图时生效">
                             </div>
                         </div>
 
@@ -143,9 +152,19 @@ require(['jquery', 'restful'], function($, restful) {
         $modal.find('[name=parent_id]').find('option[value=' + defObj.parent_id + ']').attr('selected', true);
         $modal.find('[name=column_name]').val(defObj.column_name || '');
         $modal.find('[name=type]').find('option[value=' + defObj.type + ']').attr('selected', true);
+        $modal.find('[name=view]').val(defObj.view || '');
         $modal.find('[name=alias]').val(defObj.alias || '');
         $modal.find('[name=weight]').val(defObj.weight || '50');
         $modal.find('[name=is_show]').find('option[value=' + defObj.is_show + ']').attr('selected', true);
+
+        $modal.find('[name=type]').change(function() {
+            var $viewGroup = $modal.find('[name=view]').parents('.form-group');
+            if ($(this).find('option:selected').val() == 3) {
+                $viewGroup.show();
+            } else {
+                $viewGroup.hide();
+            }
+        }).change();
 
         $modal.modal();
 
@@ -194,6 +213,7 @@ require(['jquery', 'restful'], function($, restful) {
         $tr.append('<td>' + obj.alias + '</td>');
         $tr.append('<td>' + obj.column_name + '</td>');
         $tr.append('<td>' + obj.type_text + '</td>');
+        $tr.append('<td>' + obj.view + '</td>');
         $tr.append('<td>' + obj.weight + '</td>');
         $tr.append('<td>' + obj.is_show_text + '</td>');
         $tr.append('<td>' + obj.created_at + '</td>');
