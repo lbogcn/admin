@@ -1,8 +1,4 @@
 <?php
-Route::get('a', function() {
-    return 'a';
-});
-Route::get('test', 'Admin\Permission\NodeController@import');
 
 Route::group(['namespace' => 'Admin'], function() {
 
