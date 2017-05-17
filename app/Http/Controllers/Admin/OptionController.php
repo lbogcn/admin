@@ -7,6 +7,13 @@ use App\Http\Controllers\Controller;
 use App\Models\Option;
 use Illuminate\Http\Request;
 
+/**
+ * 选项配置
+ * @nodeTitle 选项配置
+ * @node index 列表
+ * @node store 保存
+ * @node update 更新
+ */
 class OptionController extends Controller
 {
 

@@ -5,9 +5,14 @@ namespace App\Http\Controllers\Admin;
 use App\Components\ApiResponse;
 use App\Components\CacheName;
 use App\Http\Controllers\Controller;
-use App\Models\Option;
 use Illuminate\Http\Request;
 
+/**
+ * 缓存管理
+ * @nodeTitle 缓存管理
+ * @node index 列表
+ * @node destroy 清除
+ */
 class CacheController extends Controller
 {
 

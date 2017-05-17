@@ -8,6 +8,12 @@ use App\Models\AdminNode;
 use App\Models\AdminRole;
 use Illuminate\Http\Request;
 
+/**
+ * 角色权限管理
+ * @nodeTitle 权限-角色权限管理
+ * @node index 列表
+ * @node store 保存或更新
+ */
 class RolePermissionController extends Controller
 {
 

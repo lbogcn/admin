@@ -9,10 +9,13 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 
 /**
- * Class NodeController
- * @package App\Http\Controllers\Admin\Permission
+ * 节点管理
+ * @nodeTitle 权限-节点管理
  * @node index 节点列表
  * @node store 保存节点
+ * @node update 更新节点
+ * @node destroy 删除节点
+ * @node import 一键导入自动更新节点
  */
 class NodeController extends Controller
 {
@@ -85,6 +88,9 @@ class NodeController extends Controller
         return ApiResponse::buildFromArray();
     }
 
+    /**
+     * 一键导入自动更新节点
+     */
     public function import()
     {
         /** @var \Illuminate\Routing\Route $route */
@@ -116,7 +122,7 @@ class NodeController extends Controller
 
                 if (starts_with($doc, '@node')) {
 
-                    @list($_, $method, $nodeName) = explode(' ', $doc);
+                    @list(, $method, $nodeName) = explode(' ', $doc);
 
                     if (!($method && $nodeName) || !$reflection->hasMethod($method)) {
                         continue;
@@ -127,7 +133,29 @@ class NodeController extends Controller
             }
         }
 
-        dd($nodes);
+        /** @var AdminNode $node */
+        $node = null;
+        foreach (AdminNode::get() as $node) {
+            if (isset($nodes[$node->route])) {
+                $node->node = $nodes[$node->route];
+                $node->saveOrFail();
+                unset($nodes[$node->route]);
+            }
+        }
+
+        if (count($nodes) > 0) {
+            $newNodes = array();
+            foreach ($nodes as $route => $node) {
+                $newNodes[] = array(
+                    'route' => $route,
+                    'node' => $node
+                );
+            }
+
+            AdminNode::insert($newNodes);
+        }
+
+        return ApiResponse::buildFromArray();
     }
 
 }

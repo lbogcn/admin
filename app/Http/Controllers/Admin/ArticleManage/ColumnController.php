@@ -7,6 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\ArticleColumn;
 use Illuminate\Http\Request;
 
+/**
+ * 栏目管理
+ * @nodeTitle 栏目管理
+ * @node index 列表
+ * @node store 保存
+ * @node update 更新
+ * @node destroy 删除
+ */
 class ColumnController extends Controller
 {
 
@@ -30,7 +38,7 @@ class ColumnController extends Controller
     }
 
     /**
-     * 新增
+     * 保存
      * @param Request $request
      * @return ApiResponse
      */

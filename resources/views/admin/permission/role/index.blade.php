@@ -159,14 +159,14 @@ require(['jquery', 'restful'], function($, restful) {
                 permissions = data.all,
                 checkeds = data.checked;
 
-            $.each(permissions, function(ctl, arr) {
+            $.each(permissions, function(ctl, ctlObj) {
                 var $formGroup = $('<div class="form-group"></div>'),
                     $label = $('<label class="col-xs-3 control-label" style="word-break:break-all;"></label>'),
                     $container = $('<div class="col-xs-9"></div>');
 
-                $label.html(ctl);
+                $label.html(ctlObj.title);
 
-                $.each(arr, function(i, obj) {
+                $.each(ctlObj.actions, function(i, obj) {
                     var checked = '';
 
                     if ($.inArray(obj.id, checkeds) >= 0) {

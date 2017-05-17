@@ -7,6 +7,14 @@ use App\Http\Controllers\Controller;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 
+/**
+ * 用户管理
+ * @nodeTitle 权限-用户管理
+ * @node index 列表
+ * @node store 保存
+ * @node update 更新
+ * @node destroy 删除
+ */
 class UserController extends Controller
 {
 
