@@ -58,6 +58,10 @@ class RbacService
                 }
             }
             if (empty($menu['child'])) {
+                if ($url == 'javascript:void(0);') {
+                    continue;
+                }
+
                 $html .= '<li><a href="' . $url . '">' . $menuIcon . ' ' . $name . '</a></li>';
             } else {
                 $html .= '<li>

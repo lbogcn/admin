@@ -153,5 +153,6 @@ return [
         'column_name'           => '栏目名称',
         'cover_type'            => '封面类型',
         'cover_url'             => '封面图片',
+        'keyword'               => '关键词',
     ],
 ];

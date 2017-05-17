@@ -38,6 +38,7 @@ Route::group(['namespace' => 'Admin'], function() {
 
         // 友情链接
         Route::resource('link', 'LinkController');
+        Route::resource('deny-keyword', 'DenyKeywordController');
 
         // 缓存管理
         Route::delete('cache', 'CacheController@destroy');
