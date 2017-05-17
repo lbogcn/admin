@@ -12,7 +12,9 @@ requirejs.config({
         'zeroclipboard': '/plugins/ueditor/third-party/zeroclipboard/ZeroClipboard.min',
 
         'datetimepicker': '/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
-        'datetimepicker-lang': '/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN'
+        'datetimepicker-lang': '/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN',
+
+        'icheck': '/plugins/icheck/icheck.min'
     },
     shim: {
         'bootstrap': {
@@ -30,6 +32,9 @@ requirejs.config({
         },
         'datetimepicker-lang': {
             deps: ['datetimepicker']
+        },
+        'icheck': {
+            deps: ['jquery']
         }
     }
 });

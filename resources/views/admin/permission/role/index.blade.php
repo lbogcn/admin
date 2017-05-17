@@ -4,6 +4,7 @@
 
 @section('head-extend')
     <link href="{{cdn('plugins/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
+    <link href="{{cdn('plugins/icheck/skins/square/blue.css')}}" rel="stylesheet">
 @endsection
 
 @section('page-wrapper')
@@ -107,7 +108,7 @@
 @section('body-extend')
 <script id="paginate" type="text/html">{!! $paginate->toJson() !!}</script>
 <script>
-require(['jquery', 'restful'], function($, restful) {
+require(['jquery', 'restful', 'icheck'], function($, restful) {
     // 显示modal
     function showModal(defObj, title) {
         defObj = defObj || {};
@@ -192,7 +193,11 @@ require(['jquery', 'restful'], function($, restful) {
                     }
 
 
-                    parent.find(':checkbox').attr('checked', !checked);
+                    if (checked) {
+                        parent.find(':checkbox').iCheck('uncheck');
+                    } else {
+                        parent.find(':checkbox').iCheck('check');
+                    }
                     self.data('checked', !checked);
                 });
 
@@ -206,6 +211,10 @@ require(['jquery', 'restful'], function($, restful) {
 
             $modal.find('.btn-submit').click(function() {
                 restful.post('/permission/role/' + id + '/permission', $form.serialize());
+            });
+
+            $form.find('input:checkbox').iCheck({
+                checkboxClass: 'icheckbox_square-blue'
             });
 
             $modal.modal();
