@@ -28,6 +28,8 @@ class ColumnController extends Controller
 
             if ($column->type == ArticleColumn::TYPE_PAGE) {
                 $page = $this->detailView($column);
+            } elseif ($column->type == ArticleColumn::TYPE_VIEW) {
+                $page = $this->viewView($column);
             } else {
                 $page = $this->listView($column);
             }
@@ -80,5 +82,14 @@ class ColumnController extends Controller
         return view('jiestyle2.list', $data);
     }
 
+    /**
+     * 视图
+     * @param $column
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    private function viewView($column)
+    {
+        return view($column->view, ['column' => $column]);
+    }
 
 }

@@ -94,8 +94,8 @@ class ColumnController extends Controller
             'alias' => ['required', "unique:article_columns,alias,{$id},id,deleted_at,NULL", 'max:10'],
             'column_name' => ['required', 'max:8'],
             'weight' => ['required', 'numeric', 'max:100', 'min:0'],
-            'is_show' => ['required', 'in:1,2,3'],
-            'type' => ['required', 'in:1,2'],
+            'is_show' => ['required', 'in:1,2'],
+            'type' => ['required', 'in:1,2,3'],
             'parent_id' => ['required', 'numeric', 'min:0'],
             'view' => ['required_if:type,3', 'max:100', 'view_exists'],
         ));
