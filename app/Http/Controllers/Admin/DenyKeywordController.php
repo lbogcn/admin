@@ -18,14 +18,7 @@ use Illuminate\Http\Request;
 class DenyKeywordController extends Controller
 {
 
-    /**
-     * DenyKeywordController constructor.
-     * @param Request $request
-     */
-    public function __construct(Request $request)
-    {
-        $this->trimInput(['keyword']);
-    }
+    protected $trimInputs = ['keyword'];
 
     /**
      * 列表

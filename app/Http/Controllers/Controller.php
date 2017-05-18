@@ -13,6 +13,19 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
+    /** 需要执行trim的参数 @var array */
+    protected $trimInputs = array();
+
+    /**
+     * Controller constructor.
+     */
+    public function __construct()
+    {
+        if (isset($this->trimInputs) && is_array($this->trimInputs)) {
+            $this->trimInput($this->trimInputs);
+        }
+    }
+
     /**
      * Create the response for when a request fails validation.
      * @param Request $request

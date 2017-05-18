@@ -27,8 +27,11 @@ class ArticleColumn extends \Eloquent
     /** 类型-页面 */
     const TYPE_PAGE = 2;
 
+    /** 类型-视图 */
+    const TYPE_VIEW = 3;
+
     protected $fillable = [
-        'column_name', 'type', 'alias', 'weight', 'is_show', 'parent_id'
+        'column_name', 'type', 'alias', 'weight', 'is_show', 'parent_id', 'view'
     ];
 
     protected $appends = [
@@ -115,10 +118,17 @@ class ArticleColumn extends \Eloquent
 
     public function getTypeTextAttribute()
     {
-        if (isset($this->attributes['type']) && $this->attributes['type'] == self::TYPE_PAGE) {
-            return '页面';
-        } else {
-            return '列表';
+        if (isset($this->attributes['type'])) {
+            switch ($this->attributes['type']) {
+                case self::TYPE_PAGE:
+                    return '页面';
+                case self::TYPE_LIST:
+                    return '列表';
+                case self::TYPE_VIEW:
+                    return '视图';
+            }
         }
+
+        return '列表';
     }
 }

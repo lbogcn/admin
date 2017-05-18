@@ -29,6 +29,7 @@ class AuthController extends Controller
                 'modifyPassword'
             ]
         ));
+        parent::__construct();
     }
 
     /**
