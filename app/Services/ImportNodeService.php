@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Models\AdminNode;
 use App\Providers\RouteServiceProvider;
+use ReflectionClass;
 
 class ImportNodeService
 {
@@ -32,21 +33,9 @@ class ImportNodeService
             }
 
             //通过反射获取类的注释
-            $reflection = new \ReflectionClass($ctl);
-            $docs = explode("\n", str_replace(["\r\n", "\r"], "\n", $reflection->getDocComment()));
-            foreach ($docs as $doc) {
-                $doc = preg_replace("/\s(?=\s)/", "\\1", trim($doc, " \t\n\r\0\x0B*"));
-
-                if (starts_with($doc, '@node')) {
-
-                    @list(, $method, $nodeName) = explode(' ', $doc);
-
-                    if (!($method && $nodeName) || !$reflection->hasMethod($method)) {
-                        continue;
-                    }
-
-                    $nodes[substr($ctl, strlen($namespace) + 1, strlen($ctl)) . '@' . $method] = $nodeName;
-                }
+            $nodeInfoHash = self::parseNode($ctl);
+            foreach ($nodeInfoHash['nodes'] as $node) {
+                $nodes[substr($ctl, strlen($namespace) + 1, strlen($ctl)) . '@' . $node['route']] = $node['node'];
             }
         }
 
@@ -71,6 +60,57 @@ class ImportNodeService
 
             AdminNode::insert($newNodes);
         }
+    }
+
+    /**
+     * 解析节点信息
+     * @param $class
+     * @return array
+     *  array(
+     *      'nodeTitle' => '节点控制器名称',
+     *      'nodes' => array(
+     *          array('route' => '路由，如：index', 'node' => '显示名称，如：列表'),
+     *          array('route' => '路由，如：store', 'node' => '显示名称，如：保存'),
+     *          array('route' => '路由，如：update', 'node' => '显示名称，如：更新'),
+     *      ),
+     *  )
+     */
+    public static function parseNode($class)
+    {
+        static $classMap = array();
+
+        if (!isset($classMap[$class])) {
+            $reflection = new ReflectionClass($class);
+            $docs = explode("\n", str_replace(["\r\n", "\r"], "\n", $reflection->getDocComment()));
+            $nodeHash = array(
+                'nodeTitle' => null,
+                'nodes' => []
+            );
+
+            foreach ($docs as $doc) {
+                $doc = preg_replace("/\s(?=\s)/", "\\1", trim($doc, " \t\n\r\0\x0B*"));
+
+                // 这里必需先判断@nodeTitle再判断@node，否则@nodeTitle会被认为是@node
+                if (starts_with($doc, '@nodeTitle')) {
+                    @list(, $nodeHash['nodeTitle']) = explode(' ', $doc);
+                } elseif (starts_with($doc, '@node')) {
+                    @list(, $method, $nodeName) = explode(' ', $doc);
+
+                    if (!($method && $nodeName) || !$reflection->hasMethod($method)) {
+                        continue;
+                    }
+
+                    $nodeHash['nodes'][] = array(
+                        'route' => $method,
+                        'node' => $nodeName
+                    );
+                }
+            }
+
+            $classMap[$class] = $nodeHash;
+        }
+
+        return $classMap[$class];
     }
 
 }

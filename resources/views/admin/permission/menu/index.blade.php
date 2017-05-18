@@ -94,7 +94,7 @@
                             <div class="col-sm-9">
                                 <select name="node_id" class="form-control">
                                 @foreach($permissions as $permission)
-                                    <option value="{{$permission->id}}">{{$permission->node}} - {{$permission->route}}</option>
+                                    <option value="{{$permission->id}}">{{$permission->node_detail}} - {{$permission->route}}</option>
                                 @endforeach
                                 </select>
                             </div>

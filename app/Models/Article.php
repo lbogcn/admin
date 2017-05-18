@@ -2,12 +2,10 @@
 
 namespace App\Models;
 
-use App\Components\CacheName;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\JoinClause;
-use Illuminate\Pagination\LengthAwarePaginator;
 
 /**
+ * @property int id
  * @property int status
  */
 class Article extends \Eloquent
@@ -76,6 +74,7 @@ class Article extends \Eloquent
     public function add(array $data, $column, $tag, $content)
     {
         return \DB::transaction(function() use ($data, $column, $tag, $content) {
+            /** @var static $model */
             $model = self::create($data);
 
             list($contents, $columns, $tags) = $this->getRelationsData($model->id, $content, $column, $tag, $data['write_time']);
@@ -329,7 +328,6 @@ class Article extends \Eloquent
             return '下线';
         }
     }
-
 
     /**
      * 类型文本

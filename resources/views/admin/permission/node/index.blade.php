@@ -141,7 +141,7 @@ require(['jquery', 'restful'], function($, restful) {
                 </td>');
 
         $tr.append('<td>' + obj.id + '</td>');
-        $tr.append('<td>' + obj.node + '</td>');
+        $tr.append('<td>' + obj.node_detail + '</td>');
         $tr.append('<td>' + obj.route + '</td>');
         $tr.append('<td>' + obj.created_at + '</td>');
         $tr.append($option);

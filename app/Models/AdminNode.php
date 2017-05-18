@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Providers\RouteServiceProvider;
+use App\Services\ImportNodeService;
 
 /**
  * @property int id
@@ -18,6 +19,9 @@ class AdminNode extends \Eloquent
      * @var array
      */
     protected $fillable = ['node', 'route'];
+
+    /** 需要额外显示的字段 @var array */
+    protected $appends = ['node_detail'];
 
     /**
      * 按路由控制器分组
@@ -100,6 +104,28 @@ class AdminNode extends \Eloquent
     public function menus()
     {
         return $this->hasMany(AdminMenu::class, 'node_id');
+    }
+
+    /**
+     * 节点详情
+     * @return string
+     */
+    public function getNodeDetailAttribute()
+    {
+        if (isset($this->attributes['node']) && isset($this->attributes['route'])) {
+            $namespace = app()->getProvider(RouteServiceProvider::class)->getNamespace();
+            @list($ctl) = explode('@', $this->attributes['route']);
+            $ctl = "{$namespace}\\{$ctl}";
+
+            if (class_exists($ctl)) {
+                $nodeTitle = ImportNodeService::parseNode($ctl)['nodeTitle'];
+                return "【{$nodeTitle}】{$this->attributes['node']}";
+            } else {
+                return $this->attributes['node'];
+            }
+        } else {
+            return '';
+        }
     }
 
 }
