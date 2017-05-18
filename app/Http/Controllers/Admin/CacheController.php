@@ -10,8 +10,8 @@ use Illuminate\Http\Request;
 /**
  * 缓存管理
  * @nodeTitle 缓存管理
- * @node index 列表
- * @node destroy 清除
+ * @nodeName index 列表
+ * @nodeName destroy 清除
  */
 class CacheController extends Controller
 {

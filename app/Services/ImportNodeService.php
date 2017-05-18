@@ -90,10 +90,9 @@ class ImportNodeService
             foreach ($docs as $doc) {
                 $doc = preg_replace("/\s(?=\s)/", "\\1", trim($doc, " \t\n\r\0\x0B*"));
 
-                // 这里必需先判断@nodeTitle再判断@node，否则@nodeTitle会被认为是@node
                 if (starts_with($doc, '@nodeTitle')) {
                     @list(, $nodeHash['nodeTitle']) = explode(' ', $doc);
-                } elseif (starts_with($doc, '@node')) {
+                } elseif (starts_with($doc, '@nodeName')) {
                     @list(, $method, $nodeName) = explode(' ', $doc);
 
                     if (!($method && $nodeName) || !$reflection->hasMethod($method)) {

@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 /**
  * 首页入口
  * @nodeTitle 首页入口
- * @node index 首页
- * @node ueditor UEditor控制器
+ * @nodeName index 首页
+ * @nodeName ueditor UEditor控制器
  */
 class HomeController extends Controller
 {

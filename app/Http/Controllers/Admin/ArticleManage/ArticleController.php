@@ -13,17 +13,17 @@ use Illuminate\Http\Request;
 /**
  * 文章管理
  * @nodeTitle 文章管理
- * @node index 列表
- * @node create 写文章
- * @node store 保存
- * @node show 详情编辑
- * @node preview 预览
- * @node update 更新
- * @node up 发布
- * @node down 下架
- * @node destroy 删除
- * @node top 置顶
- * @node untop 取消置顶
+ * @nodeName index 列表
+ * @nodeName create 写文章
+ * @nodeName store 保存
+ * @nodeName show 详情编辑
+ * @nodeName preview 预览
+ * @nodeName update 更新
+ * @nodeName up 发布
+ * @nodeName down 下架
+ * @nodeName destroy 删除
+ * @nodeName top 置顶
+ * @nodeName untop 取消置顶
  */
 class ArticleController extends Controller
 {

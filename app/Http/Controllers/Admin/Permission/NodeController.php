@@ -11,11 +11,11 @@ use Illuminate\Http\Request;
 /**
  * 节点管理
  * @nodeTitle 权限-节点管理
- * @node index 节点列表
- * @node store 保存节点
- * @node update 更新节点
- * @node destroy 删除节点
- * @node import 一键导入自动更新节点
+ * @nodeName index 节点列表
+ * @nodeName store 保存节点
+ * @nodeName update 更新节点
+ * @nodeName destroy 删除节点
+ * @nodeName import 一键导入自动更新节点
  */
 class NodeController extends Controller
 {

@@ -9,8 +9,8 @@ use Illuminate\Http\Request;
 /**
  * 鉴权
  * @nodeTitle 鉴权
- * @node modifyPasswordForm 修改密码页面
- * @node modifyPassword 修改密码逻辑
+ * @nodeName modifyPasswordForm 修改密码页面
+ * @nodeName modifyPassword 修改密码逻辑
  */
 class AuthController extends Controller
 {

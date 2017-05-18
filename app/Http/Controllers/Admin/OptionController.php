@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 /**
  * 选项配置
  * @nodeTitle 选项配置
- * @node index 列表
- * @node store 保存
- * @node update 更新
+ * @nodeName index 列表
+ * @nodeName store 保存
+ * @nodeName update 更新
  */
 class OptionController extends Controller
 {

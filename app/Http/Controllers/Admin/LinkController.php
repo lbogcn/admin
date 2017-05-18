@@ -5,16 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Components\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Models\Link;
-use App\Models\Option;
 use Illuminate\Http\Request;
 
 /**
  * 友情链接
  * @nodeTitle 友情链接
- * @node index 列表
- * @node store 保存
- * @node update 更新
- * @node destroy 删除
+ * @nodeName index 列表
+ * @nodeName store 保存
+ * @nodeName update 更新
+ * @nodeName destroy 删除
  */
 class LinkController extends Controller
 {

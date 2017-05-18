@@ -11,8 +11,8 @@ use Illuminate\Http\Request;
 /**
  * 用户角色管理
  * @nodeTitle 权限-用户角色管理
- * @node index 列表
- * @node store 保存或更新
+ * @nodeName index 列表
+ * @nodeName store 保存或更新
  */
 class UserRoleController extends Controller
 {

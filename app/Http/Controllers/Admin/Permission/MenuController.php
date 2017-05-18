@@ -11,10 +11,10 @@ use Illuminate\Http\Request;
 /**
  * 菜单管理
  * @nodeTitle 权限-菜单管理
- * @node index 列表
- * @node store 保存
- * @node update 更新
- * @node destroy 删除
+ * @nodeName index 列表
+ * @nodeName store 保存
+ * @nodeName update 更新
+ * @nodeName destroy 删除
  */
 class MenuController extends Controller
 {
