@@ -31,4 +31,18 @@ class Controller extends BaseController
             ->withInput($request->input())
             ->withErrors($errors, $this->errorBag());
     }
+
+    /**
+     * 将请求数据去除空格
+     * @param array $keys 指定需要去除空格的参数
+     */
+    protected function trimInput(array $keys)
+    {
+        $input = \Request::all();
+        array_walk($input, function(&$value, $key) use ($keys) {
+            if (is_string($value) && in_array($key, $keys)) {
+                \Request::merge([$key => trim($value)]);
+            }
+        });
+    }
 }

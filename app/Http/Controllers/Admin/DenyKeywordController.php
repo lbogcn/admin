@@ -18,13 +18,13 @@ use Illuminate\Http\Request;
 class DenyKeywordController extends Controller
 {
 
+    /**
+     * DenyKeywordController constructor.
+     * @param Request $request
+     */
     public function __construct(Request $request)
     {
-        if ($request->exists('keyword')) {
-            $keyword = trim($request->input('keyword'));
-            $request->request->set('keyword', $keyword);
-            $request->query->set('keyword', $keyword);
-        }
+        $this->trimInput(['keyword']);
     }
 
     /**
