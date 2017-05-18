@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 /**
  * 友情链接
+ * @menu index 友情链接
  * @nodeTitle 友情链接
  * @nodeName index 列表
  * @nodeName store 保存

@@ -8,6 +8,7 @@ use App\Models\ArticleComment;
 
 /**
  * 评论管理
+ * @menu index 评论列表
  * @nodeTitle 评论管理
  * @nodeName index 列表
  * @nodeName restore 恢复

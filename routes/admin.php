@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Admin'], function() {
 
         // 权限管理
         Route::patch('permission/node/import', 'Permission\NodeController@import');
+        Route::patch('permission/menu/import', 'Permission\MenuController@import');
         Route::resources(array(
             'permission/menu' => 'Permission\MenuController',
             'permission/user' => 'Permission\UserController',

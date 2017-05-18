@@ -2,14 +2,80 @@
 
 namespace App\Services;
 
+use App\Models\AdminMenu;
 use App\Models\AdminNode;
 use App\Providers\RouteServiceProvider;
 use ReflectionClass;
 
-class ImportNodeService
+/**
+ * 后台权限自动导入服务
+ * @see PermissionImportService::importNode() 导入节点
+ * @see PermissionImportService::importMenu() 导入菜单
+ */
+class PermissionImportService
 {
 
-    public function handle()
+    /**
+     * 导入菜单
+     */
+    public function importMenu()
+    {
+        /** @var \Illuminate\Routing\Route $route */
+        $route = null;
+        $menus = [];
+        $repeatCtls = [];
+        $namespace = app()->getProvider(RouteServiceProvider::class)->getNamespace();
+
+        foreach (\Route::getRoutes()->getRoutes() as $route) {
+            $action = $route->getAction();
+            if (!isset($action['controller'])) {
+                continue;
+            }
+
+            @list($ctl, $act) = explode('@', $action['controller']);
+            if (!($ctl && $act) || !class_exists($ctl)) {
+                continue;
+            }
+
+            if (isset($repeatCtls[$ctl])) {
+                continue;
+            }
+
+            //通过反射获取类的注释
+            $nodeInfoHash = self::parseNode($ctl);
+            if (is_array($nodeInfoHash['menu'])) {
+                $menus[substr($ctl, strlen($namespace) + 1, strlen($ctl)) . '@' . $nodeInfoHash['menu']['route']] = $nodeInfoHash['menu']['name'];
+            }
+        }
+
+        /** @var AdminMenu $menu */
+        $menu = null;
+        foreach (AdminMenu::get() as $menu) {
+            if (isset($menus[$menu->route])) {
+                $menu->name = $menus[$menu->route];
+                $menu->saveOrFail();
+                unset($menus[$menu->route]);
+            }
+        }
+
+        if (count($menus) > 0) {
+            $newMenus = array();
+            foreach ($menus as $route => $name) {
+                $newMenus[] = array(
+                    'pid' => 0,
+                    'route' => $route,
+                    'name' => $name,
+                );
+            }
+
+            AdminMenu::insert($newMenus);
+        }
+    }
+
+    /**
+     * 导入节点
+     */
+    public function importNode()
     {
         /** @var \Illuminate\Routing\Route $route */
         $route = null;
@@ -68,6 +134,7 @@ class ImportNodeService
      * @return array
      *  array(
      *      'nodeTitle' => '节点控制器名称',
+     *      'menu' => array('route' => '路由', 'name' => '菜单名称'),// 如果有配置菜单，返回关联数组，否则返回NULL
      *      'nodes' => array(
      *          array('route' => '路由，如：index', 'node' => '显示名称，如：列表'),
      *          array('route' => '路由，如：store', 'node' => '显示名称，如：保存'),
@@ -84,6 +151,7 @@ class ImportNodeService
             $docs = explode("\n", str_replace(["\r\n", "\r"], "\n", $reflection->getDocComment()));
             $nodeHash = array(
                 'nodeTitle' => null,
+                'menu' => null,
                 'nodes' => []
             );
 
@@ -102,6 +170,16 @@ class ImportNodeService
                     $nodeHash['nodes'][] = array(
                         'route' => $method,
                         'node' => $nodeName
+                    );
+                } elseif (starts_with($doc, '@menu')) {
+                    @list(, $method, $menuName) = explode(' ', $doc);
+                    if (!($method && $menuName) || !$reflection->hasMethod($method)) {
+                        continue;
+                    }
+
+                    $nodeHash['menu'] = array(
+                        'route' => $method,
+                        'name' => $menuName
                     );
                 }
             }

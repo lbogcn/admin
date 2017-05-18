@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 
 /**
  * 文章管理
+ * @menu index 文章列表
  * @nodeTitle 文章管理
  * @nodeName index 列表
  * @nodeName create 写文章

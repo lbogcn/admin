@@ -6,15 +6,18 @@ use App\Components\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Models\AdminMenu;
 use App\Models\AdminNode;
+use App\Services\PermissionImportService;
 use Illuminate\Http\Request;
 
 /**
  * 菜单管理
+ * @menu index 菜单管理
  * @nodeTitle 权限-菜单管理
  * @nodeName index 列表
  * @nodeName store 保存
  * @nodeName update 更新
  * @nodeName destroy 删除
+ * @nodeName import 一键导入未注册菜单
  */
 class MenuController extends Controller
 {
@@ -86,6 +89,18 @@ class MenuController extends Controller
     {
         $model = AdminMenu::findOrFail($id);
         $model->delete();
+
+        return ApiResponse::buildFromArray();
+    }
+
+    /**
+     * 一键导入未注册菜单
+     * @param PermissionImportService $service
+     * @return ApiResponse
+     */
+    public function import(PermissionImportService $service)
+    {
+        $service->importMenu();
 
         return ApiResponse::buildFromArray();
     }

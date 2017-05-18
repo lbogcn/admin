@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 /**
  * 首页入口
+ * @menu index 首页
  * @nodeTitle 首页入口
  * @nodeName index 首页
  * @nodeName ueditor UEditor控制器

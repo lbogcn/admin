@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 /**
  * 禁用词管理
+ * @menu index 禁用词管理
  * @nodeTitle 禁用词管理
  * @nodeName index 列表
  * @nodeName store 保存

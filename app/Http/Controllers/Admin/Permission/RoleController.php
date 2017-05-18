@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 /**
  * 角色管理
+ * @menu index 角色管理
  * @nodeTitle 权限-角色管理
  * @nodeName index 列表
  * @nodeName store 保存

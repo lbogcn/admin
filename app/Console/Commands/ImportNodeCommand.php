@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Services\ImportNodeService;
+use App\Services\PermissionImportService;
 use Illuminate\Console\Command;
 
 class ImportNodeCommand extends Command
@@ -23,11 +23,11 @@ class ImportNodeCommand extends Command
 
     /**
      * Execute the console command.
-     * @param ImportNodeService $service
+     * @param PermissionImportService $service
      */
-    public function handle(ImportNodeService $service)
+    public function handle(PermissionImportService $service)
     {
-        $service->handle();
+        $service->importNode();
         $this->info('导入成功');
     }
 }

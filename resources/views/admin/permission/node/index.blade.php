@@ -152,6 +152,7 @@ require(['jquery', 'restful'], function($, restful) {
         $tableBody.append($tr);
     });
 
+    // 一键更新
     $('#btn-import').click(function() {
         restful.patch('/permission/node/import')
     });

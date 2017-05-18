@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin\Permission;
 use App\Components\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Models\AdminNode;
-use App\Services\ImportNodeService;
+use App\Services\PermissionImportService;
 use Illuminate\Http\Request;
 
 /**
  * 节点管理
+ * @menu index 节点管理
  * @nodeTitle 权限-节点管理
  * @nodeName index 节点列表
  * @nodeName store 保存节点
@@ -90,12 +91,12 @@ class NodeController extends Controller
 
     /**
      * 一键导入自动更新节点
-     * @param ImportNodeService $importNodeService
+     * @param PermissionImportService $service
      * @return ApiResponse
      */
-    public function import(ImportNodeService $importNodeService)
+    public function import(PermissionImportService $service)
     {
-        $importNodeService->handle();
+        $service->importNode();
 
         return ApiResponse::buildFromArray();
     }

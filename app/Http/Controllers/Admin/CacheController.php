@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 /**
  * 缓存管理
+ * @menu index 缓存管理
  * @nodeTitle 缓存管理
  * @nodeName index 列表
  * @nodeName destroy 清除

@@ -16,6 +16,7 @@
     <div class="row">
         <div class="col-xs-2 col-xs-offset-10">
             <div class="btn-group pull-right">
+                <button class="btn btn-info" id="btn-import">一键导入未注册菜单</button>
                 <button class="btn btn-success" id="btn-add">新增</button>
             </div>
 
@@ -186,6 +187,11 @@ require(['jquery', 'restful'], function($, restful) {
         $option.find('.btn-copy').click(function() {add(obj)});
         $option.find('.btn-delete').click(function() {restful.del('/permission/menu/' + obj.id)});
         $tableBody.append($tr);
+    });
+
+    // 一键更新
+    $('#btn-import').click(function() {
+        restful.patch('/permission/menu/import')
     });
 });
 </script>
