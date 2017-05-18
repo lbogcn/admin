@@ -120,7 +120,7 @@ class RbacService
         if (empty($menus)) {
             $menus = $this->loadPermissions()->load(array(
                 'permissions.menus' => function($query) {
-                    $query->from(\DB::raw(AdminMenu::tableName() . ' force index (`node_id`)'));// 强制使用索引
+                    $query->from(\DB::raw('admin_menus force index (`node_id`)'));// 强制使用索引
                 }
             ));
         }

@@ -7,7 +7,7 @@ namespace App\Models;
  * @property string route
  * @property string name
  */
-class AdminMenu extends Model
+class AdminMenu extends \Eloquent
 {
 
     /**
