@@ -26,4 +26,7 @@ Route::group(['namespace' => 'Blog'], function() {
 
     // 统计
     Route::get('stat/pv/{article_id}', 'StatController@pv');
+
+    // 发布留言
+    Route::post('message', 'MessageController@store');
 });

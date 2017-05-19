@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
+/**
+ * @property int id
+ */
 class User extends Authenticatable
 {
     /**
@@ -12,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'nickname', 'email', 'password',
     ];
 
     /**
@@ -23,4 +26,21 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * 通过email查找用户，若用户不存在，则创建该用户
+     * @param $email
+     * @param $column
+     * @return User
+     */
+    public static function findByEmailOrCreate($email, $column)
+    {
+        $user = self::where('email', $email)->first();
+
+        if (empty($user)) {
+            $user = self::create($column);
+        }
+
+        return $user;
+    }
 }

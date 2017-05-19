@@ -58,4 +58,18 @@ class Controller extends BaseController
             }
         });
     }
+
+    /**
+     * 将请求数据中包含多个空白的替换为1个
+     * @param array $keys
+     */
+    protected function multiSpace(array $keys)
+    {
+        $input = \Request::all();
+        array_walk($input, function(&$value, $key) use ($keys) {
+            if (is_string($value) && in_array($key, $keys)) {
+                \Request::merge([$key => trim(preg_replace("/\s(?=\s)/", "\\1", $value))]);
+            }
+        });
+    }
 }

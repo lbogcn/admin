@@ -155,5 +155,6 @@ return [
         'cover_type'            => '封面类型',
         'cover_url'             => '封面图片',
         'keyword'               => '关键词',
+        'captcha'               => '验证码',
     ],
 ];

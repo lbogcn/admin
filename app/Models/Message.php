@@ -14,7 +14,9 @@ class Message extends \Eloquent
      *
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'user_id', 'ip', 'content'
+    ];
 
     /**
      * 关联用户

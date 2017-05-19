@@ -12,6 +12,7 @@
     <script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="{{url('jiestyle2/css/style.css')}}">
+    @yield("head-extend")
 </head>
 
 <body>
