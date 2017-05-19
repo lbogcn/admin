@@ -17,7 +17,7 @@ class TagController extends Controller
      */
     public function detail(Request $request, $tag)
     {
-        $hKey = (int)$request->input('page');
+        $hKey = md5((int)$request->input('page') . $tag);
         $redis = \RedisClient::connection();
         $key = config('cache.prefix') . ':' . CacheName::PAGE_TAG[0];
         if (!$redis->hexists($key, $hKey) || config('app.debug')) {
