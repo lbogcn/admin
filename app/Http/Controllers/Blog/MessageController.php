@@ -14,6 +14,7 @@ class MessageController extends Controller
     /**
      * 发表留言
      * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
@@ -46,6 +47,8 @@ class MessageController extends Controller
             'ip' => $request->getClientIp(),
             'content' => str_replace(["\r\n", "\r"], "\n", $request->input('content'))
         ]);
+
+        return redirect()->back();
     }
 
 }

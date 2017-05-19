@@ -29,7 +29,7 @@ class ColumnController extends Controller
             if ($column->type == ArticleColumn::TYPE_PAGE) {
                 $page = $this->detailView($column);
             } elseif ($column->type == ArticleColumn::TYPE_VIEW) {
-                $page = $this->viewView($column);
+                return $this->viewView($column);// 不能使用缓存，否则会导致页面不更新
             } else {
                 $page = $this->listView($column);
             }
