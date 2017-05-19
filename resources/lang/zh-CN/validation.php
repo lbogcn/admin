@@ -88,6 +88,8 @@ return [
     'attempt'              => ':attribute 不正确。',
     'view_exists'          => '视图 :view 不存在。',
 
+    'captcha'              => '验证码有误。',
+
     /*
     |--------------------------------------------------------------------------
     | Custom Validation Language Lines
