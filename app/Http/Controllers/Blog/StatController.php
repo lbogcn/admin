@@ -20,7 +20,7 @@ class StatController extends Controller
         $key = \Cache::getPrefix() . CacheName::STAT_PV[0];
 
         $count = (int)$redis->hincrby($key, $id, 1);
-        if ($count >= 100) {
+        if ($count >= 10) {
             try {
                 /** @var Article $article */
                 $article = Article::findOrFail($id);
