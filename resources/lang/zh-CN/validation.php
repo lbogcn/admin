@@ -159,5 +159,6 @@ return [
         'cover_url'             => '封面图片',
         'keyword'               => '关键词',
         'captcha'               => '验证码',
+        'nickname'              => '昵称',
     ],
 ];
