@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <label class="col-xs-3 control-label">关键词</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="keyword">
+                                <textarea class="form-control" name="keyword" cols="30" rows="10" placeholder="一行一个输入一个关键词，每个词不得超过16个字。空格、空行将被自动过滤。"></textarea>
                             </div>
                         </div>
 

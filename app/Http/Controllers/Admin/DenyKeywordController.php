@@ -41,10 +41,29 @@ class DenyKeywordController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, array(
-            'keyword' => ['required', 'max:16', 'unique:deny_keywords'],
+            'keyword' => ['required'],
         ));
 
-        DenyKeyword::create($request->only(['keyword']));
+        $allKeywords = explode("\n", str_replace(["\r\n", "\r"], "\n", $request->input('keyword')));
+        $keywords = [];
+        array_walk($allKeywords, function($value) use (&$keywords) {
+            $value = str_replace([' ', "\t", "\n", "\r", "\0", "\x0B"], '', $value);
+            if (!empty($value)) {
+                $keywords[] = $value;
+            }
+        });
+
+        if (!empty($keywords)) {
+            $existsKeywords = array_column(DenyKeyword::whereIn('keyword', $keywords)->get()->toArray(), 'keyword');
+            $newKeywords = [];
+            array_walk($keywords, function($keyword) use (&$newKeywords, $existsKeywords) {
+                if (!in_array($keyword, $existsKeywords)) {
+                    $newKeywords[] = array('keyword' => $keyword);
+                }
+            });
+
+            DenyKeyword::insert($newKeywords);
+        }
 
         return ApiResponse::buildFromArray();
     }
