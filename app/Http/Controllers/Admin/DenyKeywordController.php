@@ -48,7 +48,7 @@ class DenyKeywordController extends Controller
         $keywords = [];
         array_walk($allKeywords, function($value) use (&$keywords) {
             $value = str_replace([' ', "\t", "\n", "\r", "\0", "\x0B"], '', $value);
-            if (!empty($value)) {
+            if (!empty($value) && in_array($value, $keywords)) {
                 $keywords[] = $value;
             }
         });
