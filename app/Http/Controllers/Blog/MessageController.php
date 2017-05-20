@@ -33,7 +33,7 @@ class MessageController extends Controller
 
         $this->validate($request, array(
             'content' => ['required', 'max:200', 'deny_keyword'],
-            'nickname' => ['required', 'max:16'],
+            'nickname' => ['required', 'max:16', 'deny_keyword'],
             'email' => ['required', 'max:32', 'email'],
             'captcha' => ['required', 'captcha'],
         ), array(
