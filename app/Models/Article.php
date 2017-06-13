@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * @property int id
  * @property int status
+ * @property int pv
  */
 class Article extends \Eloquent
 {

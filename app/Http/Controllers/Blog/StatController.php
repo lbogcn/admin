@@ -19,22 +19,24 @@ class StatController extends Controller
         $redis = \RedisClient::connection();
         $key = \Cache::getPrefix() . CacheName::STAT_PV[0];
 
-        $count = (int)$redis->hincrby($key, $id, 1);
-        if ($count >= 10) {
+        $pv = (int)$redis->hincrby($key, $id, 1);
+        if ($pv % 10 == 0 || $pv == 1) {
             try {
                 /** @var Article $article */
                 $article = Article::findOrFail($id);
-                if ($article) {
-                    $article->pv += $count;
+                if ($article && $article->pv < $pv) {
+                    $article->pv = $pv;
                     $article->saveOrFail();
+                } else {
+                    $pv = $article->pv + 1;
+                    $redis->hset($key, $id, $pv);
                 }
-                $redis->hset($key, $id, 0);
             } catch (\Exception $e) {
             } catch (\Throwable $t) {
             }
         }
 
-        return sprintf('document.getElementById("pv").innerHTML = parseInt(document.getElementById("pv").innerHTML) + %d', $count);
+        return sprintf('document.getElementById("pv").innerHTML = %d', $pv);
     }
 
 }
