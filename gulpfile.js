@@ -21,10 +21,14 @@ elixir(function(mix) {
     mix.scripts('admin/sb-admin-2.js', 'public/js/admin');
     mix.scripts('admin/restful.js', 'public/js/admin');
     mix.scripts('admin/article.js', 'public/js/admin');
+    mix.scripts('admin/markdown.js', 'public/js/admin');
     mix.less('admin/article.less', 'public/css/admin');
 
+    mix.scripts('vue/vue-datetime-picker.js', 'public/js');
+    mix.scripts('uploader.js', 'public/js');
+
     mix.styles('sb-admin-2.css');
-    mix.styles('style.css');
+    // mix.styles('style.css');
     mix.less('blog/style.less', 'public/css/style.css');
 
     mix.scripts('ueditor.requirejs.js', 'public/plugins/ueditor/ueditor.requirejs.min.js');

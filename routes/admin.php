@@ -25,6 +25,7 @@ Route::group(['namespace' => 'Admin'], function() {
         Route::patch('article-manage/article/up/{id}', 'ArticleManage\ArticleController@up');
         Route::patch('article-manage/article/down/{id}', 'ArticleManage\ArticleController@down');
         Route::post('article-manage/article/preview', 'ArticleManage\ArticleController@preview');
+        Route::post('article-manage/markdown/preview', 'ArticleManage\MarkdownController@preview');
         Route::patch('article-manage/article/top/{id}', 'ArticleManage\ArticleController@top');
         Route::patch('article-manage/article/untop/{id}', 'ArticleManage\ArticleController@untop');
         Route::patch('article-manage/comment/restore/{id}', 'ArticleManage\CommentController@restore');
@@ -33,6 +34,7 @@ Route::group(['namespace' => 'Admin'], function() {
             'article-manage/article' => 'ArticleManage\ArticleController',
             'article-manage/comment' => 'ArticleManage\CommentController',
             'article-manage/column' => 'ArticleManage\ColumnController',
+            'article-manage/markdown' => 'ArticleManage\MarkdownController',
         ));
 
         // 留言板

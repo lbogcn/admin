@@ -1,4 +1,9 @@
 requirejs.config({
+    map: {
+        '*': {
+            'css': '/plugins/requirejs/css.min.js'
+        }
+    },
     paths: {
         'jquery': '/plugins/jquery/jquery.min',
         'bootstrap': '/plugins/bootstrap/js/bootstrap.min',
@@ -14,7 +19,12 @@ requirejs.config({
         'datetimepicker': '/plugins/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min',
         'datetimepicker-lang': '/plugins/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN',
 
-        'icheck': '/plugins/icheck/icheck.min'
+        'icheck': '/plugins/icheck/icheck.min',
+
+        'vue': '/plugins/vue/vue',
+        'hyperdown': '/plugins/hyperdown/Parser',
+        'uploader': '/js/uploader',
+        'vue-datetime-picker': '/js/vue-datetime-picker'
     },
     shim: {
         'bootstrap': {
@@ -29,6 +39,12 @@ requirejs.config({
         },
         'ueditor-lang': {
             deps: ['ueditor']
+        },
+        'datetimepicker': {
+            deps: [
+                'bootstrap',
+                'css!/plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css'
+            ]
         },
         'datetimepicker-lang': {
             deps: ['datetimepicker']

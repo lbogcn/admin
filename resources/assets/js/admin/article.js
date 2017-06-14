@@ -151,6 +151,7 @@ define(['jquery', 'ueditor', 'zeroclipboard', 'ajax', 'datetimepicker', 'datetim
             $('#btn-cover-upload').click(function() {
                 var $form = $('<form><input type="file" accept="image/*" name="file"><input type="hidden" name="token"></form>');
                 $form.find('[name=token]').val($('#uploadToken').html());
+                $form.hide();
                 $('body').append($form);
 
                 $form.find('[name=file]').on('change', function() {
