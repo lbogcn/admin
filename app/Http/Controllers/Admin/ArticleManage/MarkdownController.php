@@ -53,7 +53,7 @@ class MarkdownController extends Controller
         $tags = ArticleTag::getAllTag();
 
         $data = array(
-            'navLocation' => action('\\' . self::class . '@create'),
+            'navLocation' => action('\\' . self::class . '@index'),
             'uploadToken' => $uploadToken,
             'columns' => $columns,
             'tags' => $tags
@@ -119,7 +119,7 @@ class MarkdownController extends Controller
         /** @var ArticleMarkdown $model */
         $model = ArticleMarkdown::with('article', 'article.tags', 'article.columns', 'article.contents')->findOrFail($id);
         $data = array(
-            'navLocation' => action('\\' . self::class . '@create'),
+            'navLocation' => action('\\' . self::class . '@index'),
             'model' => $model,
             'form' => array(
                 'title' => $model->article->title,
