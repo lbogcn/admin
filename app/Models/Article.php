@@ -8,6 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int id
  * @property int status
  * @property int pv
+ * @property ArticleColumn columns
+ * @property string title
+ * @property string author
+ * @property int type
+ * @property string write_time
+ * @property int cover_type
+ * @property string cover_url
+ * @property ArticleTag tags
  */
 class Article extends \Eloquent
 {
@@ -213,9 +221,10 @@ class Article extends \Eloquent
     /**
      * 删除
      * @param $id
+     * @param \Closure|null $after
      * @return int
      */
-    public static function del($id)
+    public static function del($id, \Closure $after = null)
     {
         /** @var self $model */
         $model = self::findOrFail($id);
@@ -223,6 +232,11 @@ class Article extends \Eloquent
         \DB::beginTransaction();
         $model->delete();
         $model->contents()->delete();
+
+        if (!is_null($after)) {
+            $after($id);
+        }
+
         \DB::commit();
 
         return self::destroy($id);

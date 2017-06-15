@@ -9,11 +9,10 @@
         </div>
     </div>
 
-    <div class="row" id="container">
+    <div class="row hide" id="container">
         <div class="col-xs-12">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="{{url('/article-manage/markdown')}}" @submit.prevent="submit">
                 <div class="row">
-
                     <div class="col-xs-12">
                         <div class="form-group">
                             <div class="col-xs-8">
@@ -30,7 +29,6 @@
                             <div class="col-xs-6" v-html="preview"></div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="row">
@@ -89,7 +87,7 @@
                                         <div class="form-group">
                                             <div class="pull-left"><label class="control-label">&nbsp;</label></div>
                                             <div class="col-xs-10">
-                                                <button class="btn btn-default" id="btn-cover-choose" type="button">从正文中选择</button>
+                                                <button class="btn btn-default" @click="coverChoose" type="button">从正文中选择</button>
                                                 <button class="btn btn-default" @click="coverUpload" type="button">重新上传</button>
                                             </div>
                                         </div>
@@ -113,7 +111,7 @@
                                 <div class="col-xs-12">
                                     <div class="form-group">
                                         @foreach($columns as $column)
-                                            <div class="checkbox"><label><input type="checkbox" name="column[]" value="{{$column['id']}}">{{$column['column_name']}}</label></div>
+                                            <div class="checkbox"><label><input type="checkbox" v-model="form.column" value="{{$column['id']}}">{{$column['column_name']}}</label></div>
                                         @endforeach
                                     </div>
                                 </div>
@@ -127,10 +125,10 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <div class="col-xs-8">
-                                        <input type="text" class="form-control" id="iptTags">
+                                        <input type="text" class="form-control" v-model="iptTags">
                                     </div>
                                     <div class="col-xs-4">
-                                        <button class="btn btn-default btn-block" id="btnAddTag" type="button">添加</button>
+                                        <button class="btn btn-default btn-block" @click="addIptTags" type="button">添加</button>
                                     </div>
 
                                     <br>
@@ -139,21 +137,25 @@
                                     </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <div class="col-xs-12" id="tagBox">
+                                <div class="form-group" v-show="form.tag.length > 0">
+                                    <div class="col-xs-12">
+                                        <div v-for="(tag, index) in form.tag" class="tag pull-left" style="margin-right: 5px;">
+                                            <span class="glyphicon glyphicon-remove-sign" @click="removeTag(index)"></span>
+                                            <a href="javascript:void(0);">@{{tag}}</a>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group">
                                     <div class="col-xs-12">
-                                        <a href="javascript:void(0);" id="btnAllTagBox">从常用标签中选择</a>
+                                        <a href="javascript:void(0);" @click="isShowAllTagBox = !isShowAllTagBox">从常用标签中选择</a>
                                     </div>
                                 </div>
 
-                                <div class="form-group hide" id="allTagBox">
+                                <div class="form-group" v-show="isShowAllTagBox">
                                     <div class="col-xs-12">
                                         @foreach($tags as $tag)
-                                            <a href="javascript:void(0);"><u class="tag">{{$tag['tag']}}</u></a>
+                                            <a href="javascript:void(0);"><u class="tag" @click="addTag('{{$tag['tag']}}')">{{$tag['tag']}}</u></a>
                                         @endforeach
                                     </div>
                                 </div>
@@ -164,8 +166,8 @@
 
                 <div class="row">
                     <div class="col-xs-12">
-                        <button class="btn btn-primary" id="btnSubmit" type="button">提交</button>
-                        <button class="btn btn-default" id="btnPreview" type="button">预览</button>
+                        <button class="btn btn-primary" type="submit">提交</button>
+                        <button class="btn btn-default" @click="preview" type="button">预览</button>
                     </div>
                 </div>
             </form>
@@ -184,7 +186,9 @@
         type: '1',
         write_time: '{{date('Y-m-d')}}',
         cover_type: '1',
-        cover_url: ''
+        cover_url: '',
+        column: [],
+        tag: []
     };
 require(['markdown']);
 </script>

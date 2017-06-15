@@ -59,20 +59,24 @@ define(['jquery', 'ueditor', 'zeroclipboard', 'ajax', 'datetimepicker', 'datetim
         // 预览
         preview: function() {
             $('#btnPreview').click(function() {
-                var $form = $('<form class="hide" action="/article-manage/article/preview" target="_blank" method="post">\
-                    <input type="hidden" name="_token" value="' + $('meta[name="csrf-token"]').attr('content') + '">\
-                </form>');
+                var form = document.createElement('form');
+                var data = $.extend(this.form, {});
+                data._token = $('meta[name="csrf-token"]').attr('content');
+                form.action = '/article-manage/markdown/preview';
+                form.method = 'POST';
+                form.style.display = 'none';
+                form.target = '_blank';
 
                 $.each($('#dataForm').serializeArray(), function(i, obj) {
-                    var $input = $('<input type="text">');
-                    $input.val(obj.value);
-                    $input.attr('name', obj.name);
-                    $form.append($input);
+                    var ipt = document.createElement('textarea');
+                    ipt.name = obj.name;
+                    ipt.value = obj.value;
+                    form.appendChild(ipt);
                 });
 
-                $('body').append($form);
-                $form.submit();
-                $form.remove();
+                document.body.appendChild(form);
+                form.submit();
+                form.remove();
             });
         },
         // 封面操作
