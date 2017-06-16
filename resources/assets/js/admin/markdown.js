@@ -129,6 +129,43 @@ define(['vue', 'uploader', 'jquery', 'restful', 'bootstrap', 'hyperdown', 'vue-d
                 document.body.appendChild(form);
                 form.submit();
                 form.remove();
+            },
+
+            // 输入框按键事件
+            textareaKeyEvent: function (e) {
+                if(e.keyCode === 9){
+                    e.preventDefault();
+                    var target = e.target;
+                    var tabLength = 4;
+                    var selected = window.getSelection().toString();
+
+                    if (e.shiftKey) {
+                        var lineNum = target.value.substring(0, target.selectionEnd).replace(/\r\n/, "\n").replace(/\r/, "\n").split("\n").length - 1;
+                        var lines = target.value.replace(/\r\n/, "\n").replace(/\r/, "\n").split("\n");
+                        var start = target.selectionStart;
+                        var end = target.selectionEnd;
+                        var offset = 0;
+
+                        for (var i = 0; i < tabLength; i++) {
+                            if (lines[lineNum].substring(0, 1) === ' ') {
+                                offset++;
+                                lines[lineNum] = lines[lineNum].substring(1, lines[lineNum].length);
+                            }
+                        }
+
+                        target.value = lines.join("\r\n");
+                        target.setSelectionRange(start - offset, end - offset);
+                    } else {
+                        var indent = '';
+                        for (var i = 0; i < tabLength; i++) indent += ' ';
+
+                        var start = target.selectionStart;
+                        var end = target.selectionEnd;
+                        selected = indent + selected.replace(/\n/g, '\n' + indent);
+                        target.value = target.value.substring(0, start) + selected + target.value.substring(end);
+                        target.setSelectionRange(start + indent.length, start + selected.length);
+                    }
+                }
             }
         },
         watch: {

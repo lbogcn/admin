@@ -24,7 +24,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-xs-6">
-                                <textarea class="form-control" rows="30" v-model="form.content"></textarea>
+                                <textarea class="form-control" rows="30" v-model="form.content" @keydown="textareaKeyEvent"></textarea>
                             </div>
                             <div class="col-xs-6" v-html="preview"></div>
                         </div>
