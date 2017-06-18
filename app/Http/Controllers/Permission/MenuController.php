@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Permission;
 
-use App\Components\Base\ApiResponse;
+use Base\Components\ApiResponse;
 use App\Http\Controllers\Controller;
 use App\Models\AdminMenu;
 use App\Models\AdminNode;

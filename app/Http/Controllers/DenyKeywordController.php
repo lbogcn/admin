@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Components\Base\ApiResponse;
-use App\Http\Controllers\Controller;
-use App\Models\DenyKeyword;
+use Base\Components\ApiResponse;
+use Base\Models\DenyKeyword;
 use Illuminate\Http\Request;
 
 /**

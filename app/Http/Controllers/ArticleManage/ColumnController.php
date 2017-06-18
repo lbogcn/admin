@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\ArticleManage;
 
-use App\Components\Base\ApiResponse;
+use Base\Components\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Models\ArticleColumn;
+use Base\Models\ArticleColumn;
 use Illuminate\Http\Request;
 
 /**

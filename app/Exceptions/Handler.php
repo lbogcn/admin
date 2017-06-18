@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        if ($exception instanceof \App\Components\Base\Exception) {
+        if ($exception instanceof \Base\Components\Exception) {
             return \Response::view('admin.alert', array(
                 'error' => $exception->getMessage(),
                 'pageName' => '出错啦！'

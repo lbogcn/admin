@@ -22,7 +22,8 @@
       "database"
     ],
     "psr-4": {
-      "App\\": "app/"
+      "App\\": "app/",
+      "Base\\": "vendor/Base/"
     },
     "files": [
       "functions.php"

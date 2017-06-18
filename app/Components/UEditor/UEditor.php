@@ -2,7 +2,7 @@
 
 namespace App\Components\UEditor;
 
-use App\Components\Base\Qiniu;
+use Base\Components\Qiniu;
 
 /**
  * UE组件

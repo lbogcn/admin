@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Components\Base\ApiResponse;
-use App\Http\Controllers\Controller;
-use App\Models\Link;
+use Base\Components\ApiResponse;
+use Base\Models\Link;
 use Illuminate\Http\Request;
 
 /**

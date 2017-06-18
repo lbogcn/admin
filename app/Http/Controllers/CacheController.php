@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Components\Base\ApiResponse;
-use App\Components\Base\CacheName;
-use App\Http\Controllers\Controller;
+use Base\Components\ApiResponse;
+use Base\Components\CacheName;
 use Illuminate\Http\Request;
 
 /**

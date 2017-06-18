@@ -2,9 +2,9 @@
 
 namespace App\Http\Middleware;
 
-use App\Components\Base\ApiResponse;
-use App\Components\Base\ErrorCode;
-use App\Components\Base\Exception;
+use Base\Components\ApiResponse;
+use Base\Components\ErrorCode;
+use Base\Components\Exception;
 use App\Services\RbacService;
 use Closure;
 use View;

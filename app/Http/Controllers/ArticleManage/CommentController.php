@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\ArticleManage;
 
-use App\Components\Base\ApiResponse;
+use Base\Components\ApiResponse;
 use App\Http\Controllers\Controller;
-use App\Models\ArticleComment;
+use Base\Models\ArticleComment;
 
 /**
  * 评论管理

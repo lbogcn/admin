@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Components\Base\ApiResponse;
+use Base\Components\ApiResponse;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;

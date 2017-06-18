@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\ArticleManage;
 
-use App\Components\Base\ApiResponse;
-use App\Components\Base\Qiniu;
+use Base\Components\ApiResponse;
+use Base\Components\Qiniu;
 use App\Http\Controllers\Controller;
-use App\Models\Article;
-use App\Models\ArticleColumn;
-use App\Models\ArticleMarkdown;
-use App\Models\ArticleTag;
+use Base\Models\Article;
+use Base\Models\ArticleColumn;
+use Base\Models\ArticleMarkdown;
+use Base\Models\ArticleTag;
 use HyperDown\Parser;
 use Illuminate\Http\Request;
 
