@@ -2,9 +2,8 @@
 
 namespace App\Models;
 
-use App\Components\CacheName;
+use App\Components\Base\CacheName;
 use Cache;
-use RedisClient;
 
 /**
  * @property string option_name

@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-use App\Components\CacheName;
-use Illuminate\Pagination\LengthAwarePaginator;
-
 class ArticleTag extends \Eloquent
 {
 

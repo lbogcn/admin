@@ -35,71 +35,19 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function map()
     {
-        $this->mapAdminRoutes();
-
-        $this->mapBlogRoutes();
-
-        $this->mapCallbackRoutes();
-
-        $this->mapApiRoutes();
-        //
+        $this->mapRoutes();
     }
 
     /**
      * 管理后台路由
      */
-    public function mapAdminRoutes()
-    {
-        Route::group([
-            'middleware' => 'web',
-            'namespace' => $this->namespace,
-            'domain' => config('domain.admin'),
-        ], function ($router) {
-            require base_path('routes/admin.php');
-        });
-    }
-
-    /**
-     * 回调地址
-     */
-    public function mapCallbackRoutes()
-    {
-        Route::group([
-            'namespace' => $this->namespace,
-            'domain' => config('domain.callback'),
-        ], function ($router) {
-            require base_path('routes/callback.php');
-        });
-    }
-
-    /**
-     * 博客地址
-     */
-    protected function mapBlogRoutes()
+    public function mapRoutes()
     {
         Route::group([
             'middleware' => 'web',
             'namespace' => $this->namespace,
         ], function ($router) {
-            require base_path('routes/blog.php');
-        });
-    }
-
-    /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
-     * @return void
-     */
-    protected function mapApiRoutes()
-    {
-        Route::group([
-            'middleware' => 'api',
-            'namespace' => $this->namespace,
-            'prefix' => 'api',
-        ], function ($router) {
-            require base_path('routes/api.php');
+            require base_path('routes/web.php');
         });
     }
 

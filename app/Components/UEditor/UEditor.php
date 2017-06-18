@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Components\UEditor;
-use App\Components\Qiniu;
+
+use App\Components\Base\Qiniu;
 
 /**
  * UE组件

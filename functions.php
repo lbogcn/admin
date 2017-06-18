@@ -17,6 +17,7 @@ function get_option($optionName)
  */
 function cdn($path)
 {
+    return url($path);
     $separator = '';
 
     if (substr($path, 0, 1) != '/') {
@@ -191,7 +192,7 @@ function getBlogLinks()
 function getBlogPv($articleId, $pv)
 {
     $redis = \RedisClient::connection();
-    $key = \Cache::getPrefix() . \App\Components\CacheName::STAT_PV[0];
+    $key = \Cache::getPrefix() . \App\Components\Base\CacheName::STAT_PV[0];
 
     return $pv + (int)$redis->hget($key, $articleId) + 1;
 

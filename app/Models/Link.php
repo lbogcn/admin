@@ -2,10 +2,6 @@
 
 namespace App\Models;
 
-use App\Components\CacheName;
-use Cache;
-use RedisClient;
-
 class Link extends \Eloquent
 {
 

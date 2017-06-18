@@ -46,21 +46,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        // 博客404
-        if ($request->server('HTTP_HOST') == config('domain.blog')) {
-            if ($exception instanceof ModelNotFoundException || $exception instanceof NotFoundHttpException) {
-                return \Response::view('jiestyle2.404')->setStatusCode(404);
-            }
-        }
-
-        // 后台普通异常
-        if ($request->server('HTTP_HOST') == config('domain.admin')) {
-            if ($exception instanceof \App\Components\Exception) {
-                return \Response::view('admin.alert', array(
-                    'error' => $exception->getMessage(),
-                    'pageName' => '出错啦！'
-                ));
-            }
+        if ($exception instanceof \App\Components\Base\Exception) {
+            return \Response::view('admin.alert', array(
+                'error' => $exception->getMessage(),
+                'pageName' => '出错啦！'
+            ));
         }
 
         return parent::render($request, $exception);

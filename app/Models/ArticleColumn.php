@@ -2,8 +2,6 @@
 
 namespace App\Models;
 
-use App\Components\CacheName;
-use Cache;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
