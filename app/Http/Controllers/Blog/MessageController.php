@@ -18,7 +18,7 @@ class MessageController extends Controller
      */
     public function store(Request $request)
     {
-        $this->trimInput(['nickname', 'email', 'captcha']);
+        $this->trimInput(['nickname', 'username', 'captcha']);
         $this->multiSpace(['content']);
 
         \Validator::extend('deny_keyword', function($attribute, $value, $parameters) {
@@ -34,13 +34,13 @@ class MessageController extends Controller
         $this->validate($request, array(
             'content' => ['required', 'max:200', 'deny_keyword'],
             'nickname' => ['required', 'max:16', 'deny_keyword'],
-            'email' => ['required', 'max:32', 'email'],
+            'username' => ['required', 'max:32', 'email'],
             'captcha' => ['required', 'captcha'],
         ), array(
-            'email.email' => '请输入合法邮箱'
+            'username.email' => '请输入合法邮箱'
         ));
 
-        $user = User::findByEmailOrCreate($request->input('email'), $request->only(['email', 'nickname']));
+        $user = User::findByUsernameOrCreate($request->input('username'), $request->only(['username', 'nickname']));
 
         Message::create([
             'user_id' => $user->id,

@@ -26,7 +26,7 @@
 
                 <div class="form-group">
                     <div class="col-xs-12">
-                        <input type="text" class="form-control" name="email" placeholder="邮箱" maxlength="32" value="{{old('email')}}">
+                        <input type="text" class="form-control" name="username" placeholder="邮箱" maxlength="32" value="{{old('username')}}">
                     </div>
                 </div>
 

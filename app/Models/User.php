@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nickname', 'email', 'password',
+        'nickname', 'username', 'password',
     ];
 
     /**
@@ -28,14 +28,14 @@ class User extends Authenticatable
     ];
 
     /**
-     * 通过email查找用户，若用户不存在，则创建该用户
-     * @param $email
+     * 通过username查找用户，若用户不存在，则创建该用户
+     * @param $username
      * @param $column
      * @return User
      */
-    public static function findByEmailOrCreate($email, $column)
+    public static function findByUsernameOrCreate($username, $column)
     {
-        $user = self::where('email', $email)->first();
+        $user = self::where('username', $username)->first();
 
         if (empty($user)) {
             $user = self::create($column);

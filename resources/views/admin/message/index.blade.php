@@ -76,7 +76,7 @@ require(['jquery', 'restful'], function($, restful) {
 
         $tr.append('<td>' + obj.id + '</td>');
         $tr.append('<td>' + obj.user.nickname + '</td>');
-        $tr.append('<td>' + obj.user.email + '</td>');
+        $tr.append('<td>' + obj.user.username + '</td>');
         $tr.append('<td>' + obj.ip + '</td>');
         $tr.append('<td>' + obj.content + '</td>');
         $tr.append('<td>' + obj.created_at + '</td>');
